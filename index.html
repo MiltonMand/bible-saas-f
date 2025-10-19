@@ -1,3307 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BibleInsight - Biblical Text Analysis</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --primary-light: #818cf8;
-            --secondary: #10b981;
-            --secondary-dark: #059669;
-            --accent: #f59e0b;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --text-muted: #9ca3af;
-            --bg: #ffffff;
-            --bg-secondary: #f9fafb;
-            --card-bg: #ffffff;
-            --border: #e5e7eb;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --gradient-primary: linear-gradient(135deg, #4f46e5, #7c3aed);
-            --gradient-secondary: linear-gradient(135deg, #10b981, #059669);
-            --gradient-accent: linear-gradient(135deg, #f59e0b, #f97316);
-            --border-radius: 16px;
-            --border-radius-lg: 24px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .dark-mode {
-            --primary: #818cf8;
-            --primary-dark: #6366f1;
-            --primary-light: #a5b4fc;
-            --text: #f9fafb;
-            --text-light: #d1d5db;
-            --text-muted: #9ca3af;
-            --bg: #0f172a;
-            --bg-secondary: #1e293b;
-            --card-bg: #1e293b;
-            --border: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            transition: var(--transition);
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 600px;
-            background: radial-gradient(circle at top right, var(--primary-light) 0%, transparent 60%);
-            opacity: 0.05;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header & Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .dark-mode header {
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .logo i {
-            font-size: 28px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: var(--bg-secondary);
-            color: var(--primary);
-        }
-
-        .dark-mode .nav-link:hover, .dark-mode .nav-link.active {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary-light);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .language-selector select {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 16px;
-            color: var(--text);
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .language-selector select:hover {
-            border-color: var(--primary);
-        }
-
-        .theme-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            background: var(--bg-secondary);
-            transform: rotate(20deg);
-            border-color: var(--primary);
-        }
-
-        .auth-buttons button {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 15px;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .auth-buttons button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 280px;
-            height: 100vh;
-            background: var(--card-bg);
-            box-shadow: var(--shadow-lg);
-            z-index: 2000;
-            transition: var(--transition);
-            padding: 20px;
-            border-right: 1px solid var(--border);
-        }
-
-        .mobile-menu.active {
-            left: 0;
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 24px;
-        }
-
-        .mobile-menu-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text);
-        }
-
-        .mobile-nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .mobile-nav-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            transition: var(--transition);
-        }
-
-        .mobile-nav-link:hover, .mobile-nav-link.active {
-            background: var(--bg-secondary);
-            color: var(--primary);
-        }
-
-        .mobile-nav-controls {
-            margin-top: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 60px 0 40px;
-            min-height: calc(100vh - 160px);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, var(--text) 0%, var(--primary-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        /* Input Section */
-        .input-section {
-            background: var(--card-bg);
-            border-radius: var(--border-radius-lg);
-            padding: 48px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 60px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .input-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .input-tabs {
-            display: flex;
-            gap: 4px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 32px;
-            width: fit-content;
-        }
-
-        .input-tab {
-            padding: 12px 24px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 16px;
-        }
-
-        .input-tab.active {
-            background: var(--card-bg);
-            color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: var(--text);
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .reference-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .reference-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .reference-input-group label {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-light);
-            margin-bottom: 4px;
-        }
-
-        .reference-input {
-            padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-        }
-
-        .reference-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .verse-type-selector {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .verse-type-btn {
-            padding: 8px 16px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg);
-            color: var(--text);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .verse-type-btn.active {
-            border-color: var(--primary);
-            background: var(--bg-secondary);
-            color: var(--primary);
-        }
-
-        .verse-range-inputs {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
-        .verse-range-input {
-            flex: 1;
-        }
-
-        .input-group textarea,
-        .input-group input {
-            width: 100%;
-            padding: 18px 20px;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            resize: vertical;
-            min-height: 140px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-        }
-
-        .input-group input {
-            min-height: auto;
-        }
-
-        .input-group textarea:focus,
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        /* Analysis Type Buttons */
-        .analysis-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin: 24px 0 32px;
-        }
-
-        .analysis-btn {
-            padding: 20px;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            background: var(--bg);
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .analysis-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .analysis-btn.active {
-            border-color: var(--primary);
-            background: var(--bg-secondary);
-            color: var(--primary);
-        }
-
-        .analysis-btn i {
-            font-size: 28px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .quick-analysis {
-            border-color: var(--secondary);
-            color: var(--secondary-dark);
-        }
-
-        .quick-analysis.active {
-            border-color: var(--secondary);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--secondary-dark);
-        }
-
-        .deep-analysis {
-            border-color: var(--primary);
-            color: var(--primary-dark);
-        }
-
-        .deep-analysis.active {
-            border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-            color: var(--primary-dark);
-        }
-
-        .child-analysis {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .child-analysis.active {
-            border-color: var(--accent);
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--accent);
-        }
-
-        .analyze-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 18px 48px;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            transition: var(--transition);
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .analyze-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.25);
-        }
-
-        .analyze-btn:active {
-            transform: translateY(0);
-        }
-
-        .analyze-btn:disabled {
-            background: var(--text-muted);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-            opacity: 0.6;
-        }
-
-        .usage-info {
-            text-align: center;
-            margin-top: 16px;
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .usage-warning {
-            color: var(--warning);
-            font-weight: 600;
-        }
-
-        .usage-limit {
-            color: var(--danger);
-            font-weight: 600;
-        }
-
-        /* Results Section */
-        .results-section {
-            display: none;
-            gap: 32px;
-            margin-top: 40px;
-        }
-
-        .result-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 32px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .result-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-        }
-
-        .result-card p {
-            color: var(--text);
-            line-height: 1.8;
-            font-size: 16px;
-            font-weight: 400;
-        }
-
-        /* Quiz Section */
-        .quiz-section {
-            margin-top: 24px;
-        }
-
-        .quiz-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-        }
-
-        .progress-bar {
-            flex: 1;
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        .quiz-question {
-            margin-bottom: 20px;
-            font-weight: 700;
-            color: var(--text);
-            font-size: 18px;
-            line-height: 1.4;
-        }
-
-        .quiz-options {
-            display: grid;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .quiz-option {
-            padding: 16px 20px;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 16px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--primary);
-            background: var(--bg-secondary);
-        }
-
-        .quiz-option.selected {
-            border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-            position: relative;
-        }
-
-        .quiz-option.selected::before {
-            content: '✓';
-            position: absolute;
-            right: 16px;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .quiz-feedback {
-            margin-top: 20px;
-            padding: 16px;
-            border-radius: 12px;
-            display: none;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .feedback-correct {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 2px solid var(--success);
-        }
-
-        .feedback-wrong {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            border: 2px solid var(--danger);
-        }
-
-        .quiz-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 24px;
-        }
-
-        .quiz-btn {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 16px;
-        }
-
-        .next-btn {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .next-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .results-summary {
-            text-align: center;
-            padding: 32px;
-            background: var(--bg-secondary);
-            border-radius: var(--border-radius);
-            margin-top: 24px;
-        }
-
-        .results-score {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-
-        /* Loading */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(79, 70, 229, 0.3);
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 24px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Pages */
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* Profile Page */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-        }
-
-        .profile-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .profile-info p {
-            color: var(--text-light);
-            font-size: 18px;
-        }
-
-        .profile-edit-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 16px;
-            transition: var(--transition);
-        }
-
-        .profile-edit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .profile-form {
-            display: none;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 32px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            margin-bottom: 40px;
-        }
-
-        .profile-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .form-btn {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 16px;
-            border: none;
-        }
-
-        .save-btn {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .cancel-btn {
-            background: var(--bg-secondary);
-            color: var(--text);
-        }
-
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        /* Plans Page */
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            margin-top: 40px;
-        }
-
-        .plan-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius-lg);
-            padding: 40px 32px;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            border: 2px solid var(--border);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-card.popular {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        .plan-card.popular::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: 20px;
-            right: -30px;
-            background: var(--primary);
-            color: white;
-            padding: 4px 24px;
-            font-size: 12px;
-            font-weight: 700;
-            transform: rotate(45deg);
-        }
-
-        .plan-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-
-        .plan-price {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 24px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .plan-features {
-            text-align: left;
-            margin-bottom: 32px;
-        }
-
-        .plan-feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-
-        .plan-feature i {
-            color: var(--success);
-            font-size: 18px;
-        }
-
-        .plan-feature.locked i {
-            color: var(--text-muted);
-        }
-
-        .plan-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: var(--transition);
-        }
-
-        .plan-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .plan-btn:disabled {
-            background: var(--text-muted);
-            cursor: not-allowed;
-            transform: none;
-            opacity: 0.6;
-        }
-
-        /* History Page */
-        .history-item {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .history-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
-            background: var(--bg-secondary);
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .history-reference {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 18px;
-        }
-
-        .history-date {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .history-summary {
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        .history-ai-model {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* Upgrade Banner */
-        .upgrade-banner {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 24px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .upgrade-banner h3 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-        }
-
-        .upgrade-btn {
-            background: white;
-            color: var(--primary);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 16px;
-            transition: var(--transition);
-        }
-
-        .upgrade-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        /* Auth Modal */
-        .auth-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .auth-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .auth-modal-content {
-            background: var(--card-bg);
-            border-radius: var(--border-radius-lg);
-            padding: 48px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: var(--shadow-lg);
-            transform: scale(0.9);
-            transition: var(--transition);
-        }
-
-        .auth-modal.active .auth-modal-content {
-            transform: scale(1);
-        }
-
-        .auth-modal-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .auth-modal-header h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .auth-modal-close {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .auth-form-group {
-            margin-bottom: 24px;
-        }
-
-        .auth-form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .auth-form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-        }
-
-        .auth-form-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .auth-form-actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .auth-toggle {
-            text-align: center;
-            margin-top: 24px;
-            color: var(--text-light);
-        }
-
-        .auth-toggle a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Error Message */
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            padding: 16px;
-            border-radius: 12px;
-            margin: 16px 0;
-            border: 1px solid var(--danger);
-            display: none;
-        }
-
-        /* AI Model Info */
-        .ai-model-info {
-            background: var(--bg-secondary);
-            padding: 16px;
-            border-radius: 12px;
-            margin-top: 16px;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .input-section {
-                padding: 32px 24px;
-            }
-            
-            .input-tabs {
-                flex-direction: column;
-            }
-            
-            .input-tab {
-                width: 100%;
-                text-align: center;
-            }
-            
-            .reference-inputs {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            .verse-type-selector {
-                flex-direction: column;
-            }
-            
-            .verse-range-inputs {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .analysis-types {
-                grid-template-columns: 1fr;
-            }
-            
-            .results-section {
-                grid-template-columns: 1fr !important;
-            }
-            
-            .plans-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .plan-card.popular {
-                transform: scale(1);
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-            }
-            
-            .profile-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .auth-form-actions {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .analyze-btn {
-                padding: 16px 24px;
-                font-size: 16px;
-            }
-        }
-    </style>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo" onclick="showPage('home')">
-                    <i class="fas fa-bible"></i>
-                    <span id="logo-text">BibleInsight</span>
-                </a>
-                <div class="nav-links">
-                    <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
-                    <a href="#" class="nav-link" onclick="showPage('profile')">Profile</a>
-                    <a href="#" class="nav-link" onclick="showPage('plans')">Plans</a>
-                    <a href="#" class="nav-link" onclick="showPage('history')">History</a>
-                </div>
-                <div class="nav-controls">
-                    <div class="language-selector">
-                        <select id="language-select">
-                            <option value="en">English</option>
-                            <option value="pt">Português</option>
-                            <option value="es">Español</option>
-                            <option value="fr">Français</option>
-                        </select>
-                    </div>
-                    <div class="theme-toggle" id="theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <div class="auth-buttons">
-                        <button id="login-btn">Sign In</button>
-                    </div>
-                    <div class="mobile-menu-btn" id="mobile-menu-btn">
-                        <i class="fas fa-bars"></i>
-                    </div>
-                </div>
-            </nav>
-        </div>
+      <div class="container">
+        <nav class="navbar">
+          <a href="#" class="logo" onclick="showPage('home')">
+            <i class="fas fa-bible"></i>
+            <span id="logo-text">BibleInsight</span>
+          </a>
+          <div class="nav-links">
+            <a href="#" class="nav-link active" onclick="showPage('home')"
+              >Home</a
+            >
+            <a href="#" class="nav-link" onclick="showPage('profile')"
+              >Profile</a
+            >
+            <a href="#" class="nav-link" onclick="showPage('plans')">Plans</a>
+            <a href="#" class="nav-link" onclick="showPage('history')"
+              >History</a
+            >
+          </div>
+          <div class="nav-controls">
+            <div class="language-selector">
+              <select id="language-select">
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+              </select>
+            </div>
+            <div class="theme-toggle" id="theme-toggle">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div class="auth-buttons">
+              <button id="login-btn">Sign In</button>
+            </div>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+              <i class="fas fa-bars"></i>
+            </div>
+          </div>
+        </nav>
+      </div>
     </header>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
-        <div class="mobile-menu-header">
-            <div class="logo">
-                <i class="fas fa-bible"></i>
-                <span id="mobile-logo-text">BibleInsight</span>
-            </div>
-            <button class="mobile-menu-close" id="mobile-menu-close">
-                <i class="fas fa-times"></i>
-            </button>
+      <div class="mobile-menu-header">
+        <div class="logo">
+          <i class="fas fa-bible"></i>
+          <span id="mobile-logo-text">BibleInsight</span>
         </div>
-        <div class="mobile-nav-links">
-            <a href="#" class="mobile-nav-link active" onclick="showPage('home')">Home</a>
-            <a href="#" class="mobile-nav-link" onclick="showPage('profile')">Profile</a>
-            <a href="#" class="mobile-nav-link" onclick="showPage('plans')">Plans</a>
-            <a href="#" class="mobile-nav-link" onclick="showPage('history')">History</a>
+        <button class="mobile-menu-close" id="mobile-menu-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href="#" class="mobile-nav-link active" onclick="showPage('home')"
+          >Home</a
+        >
+        <a href="#" class="mobile-nav-link" onclick="showPage('profile')"
+          >Profile</a
+        >
+        <a href="#" class="mobile-nav-link" onclick="showPage('plans')"
+          >Plans</a
+        >
+        <a href="#" class="mobile-nav-link" onclick="showPage('history')"
+          >History</a
+        >
+      </div>
+      <div class="mobile-nav-controls">
+        <div class="language-selector">
+          <select id="mobile-language-select">
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+          </select>
         </div>
-        <div class="mobile-nav-controls">
-            <div class="language-selector">
-                <select id="mobile-language-select">
-                    <option value="en">English</option>
-                    <option value="pt">Português</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                </select>
-            </div>
-            <div class="theme-toggle" id="mobile-theme-toggle">
-                <i class="fas fa-moon"></i>
-            </div>
-            <button class="auth-buttons" id="mobile-login-btn">Sign In</button>
+        <div class="theme-toggle" id="mobile-theme-toggle">
+          <i class="fas fa-moon"></i>
         </div>
+        <div class="auth-buttons">
+          <button id="login-btn">Sign In</button>
+        </div>
+      </div>
     </div>
 
     <!-- Auth Modal -->
     <div class="auth-modal" id="auth-modal">
-        <div class="auth-modal-content">
-            <button class="auth-modal-close" id="auth-modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="auth-modal-header">
-                <h2 id="auth-modal-title">Sign In</h2>
-                <p id="auth-modal-subtitle">Access your biblical insights and analysis history</p>
-            </div>
-            <div class="error-message" id="auth-error"></div>
-            <form id="auth-form">
-                <div class="auth-form-group">
-                    <label for="auth-email">Email Address</label>
-                    <input type="email" id="auth-email" placeholder="Enter your email" required>
-                </div>
-                <div class="auth-form-group">
-                    <label for="auth-password">Password</label>
-                    <input type="password" id="auth-password" placeholder="Enter your password" required>
-                </div>
-                <div class="auth-form-group">
-                    <label for="auth-language">Language</label>
-                    <select id="auth-language">
-                        <option value="en">English</option>
-                        <option value="pt">Português</option>
-                        <option value="es">Español</option>
-                        <option value="fr">Français</option>
-                    </select>
-                </div>
-                <div class="auth-form-actions">
-                    <button type="submit" class="form-btn save-btn" id="auth-submit-btn">Sign In</button>
-                </div>
-            </form>
-            <div class="auth-toggle">
-                <p>Don't have an account? <a href="#" id="switch-to-register">Register now</a></p>
-            </div>
+      <div class="auth-modal-content">
+        <button class="auth-modal-close" id="auth-modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="auth-modal-header">
+          <h2 id="auth-modal-title">Sign In</h2>
+          <p id="auth-modal-subtitle">
+            Access your biblical insights and analysis history
+          </p>
         </div>
+        <div class="error-message" id="auth-error"></div>
+        <form id="auth-form">
+          <div class="auth-form-group">
+            <label for="auth-email">Email Address</label>
+            <input
+              type="email"
+              id="auth-email"
+              placeholder="Enter your email"
+              required />
+          </div>
+          <div class="auth-form-group">
+            <label for="auth-password">Password</label>
+            <input
+              type="password"
+              id="auth-password"
+              placeholder="Enter your password"
+              required />
+          </div>
+          <div class="auth-form-group">
+            <label for="auth-language">Language</label>
+            <select id="auth-language">
+              <option value="en">English</option>
+              <option value="pt">Português</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+            </select>
+          </div>
+          <div class="auth-form-actions">
+            <button
+              type="submit"
+              class="form-btn save-btn"
+              id="auth-submit-btn">
+              Sign In
+            </button>
+          </div>
+        </form>
+        <div class="auth-toggle">
+          <p>
+            Don't have an account?
+            <a href="#" id="switch-to-register">Register now</a>
+          </p>
+        </div>
+      </div>
     </div>
 
     <main class="main-content">
-        <div class="container">
-            <!-- Home Page -->
-            <div class="page active" id="home-page">
-                <div class="hero">
-                    <h1 id="hero-title">Deep Biblical Understanding</h1>
-                    <p id="hero-subtitle">Paste biblical text or enter a reference to receive AI-powered insights, practical applications, and personal reflections.</p>
-                </div>
+      <div class="container">
+        <!-- Home Page -->
+        <div class="page active" id="home-page">
+          <div class="hero">
+            <h1 id="hero-title">Deep Biblical Understanding</h1>
+            <p id="hero-subtitle">
+              Paste biblical text or enter a reference to receive AI-powered
+              insights, practical applications, and personal reflections.
+            </p>
+            <div class="auth-buttons">
+              <button id="login-btn">Let Start Now</button>
+            </div>
+          </div>
 
-                <div class="input-section">
-                    <div class="input-tabs">
-                        <button class="input-tab active" data-tab="text" id="text-tab">Paste Text</button>
-                        <button class="input-tab" data-tab="reference" id="reference-tab">Bible Reference</button>
-                    </div>
-                    
-                    <!-- Text Input -->
-                    <div class="input-group" id="text-input-group">
-                        <label for="bible-input" id="input-label">
-                            <i class="fas fa-paste"></i>
-                            <span id="input-label-text">Biblical Text</span>
-                        </label>
-                        <textarea id="bible-input" placeholder="Example: Paste the full biblical text here..."></textarea>
-                    </div>
-                    
-                    <!-- Reference Input -->
-                    <div class="input-group" id="reference-input-group" style="display: none;">
-                        <label for="book-input">
-                            <i class="fas fa-book"></i>
-                            <span id="reference-label">Bible Reference</span>
-                        </label>
-                        <div class="reference-inputs">
-                            <div class="reference-input-group">
-                                <label for="book-input" id="book-label">Book</label>
-                                <input type="text" id="book-input" class="reference-input" placeholder="John">
-                            </div>
-                            <div class="reference-input-group">
-                                <label for="chapter-input" id="chapter-label">Chapter</label>
-                                <input type="number" id="chapter-input" class="reference-input" placeholder="3" min="1">
-                            </div>
-                            <div class="reference-input-group">
-                                <label for="verse-input" id="verse-label">Verse(s)</label>
-                                <div class="verse-type-selector">
-                                    <button class="verse-type-btn active" data-type="single" id="single-btn">Single</button>
-                                    <button class="verse-type-btn" data-type="range" id="range-btn">Range</button>
-                                </div>
-                                <div id="verse-single-input">
-                                    <input type="number" id="verse-single" class="reference-input" placeholder="16" min="1">
-                                </div>
-                                <div id="verse-range-input" style="display: none;">
-                                    <div class="verse-range-inputs">
-                                        <div class="verse-range-input">
-                                            <input type="number" id="verse-start" class="reference-input" placeholder="1" min="1">
-                                        </div>
-                                        <div class="verse-range-input">
-                                            <input type="number" id="verse-end" class="reference-input" placeholder="10" min="1">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Analysis Type Selection -->
-                    <div class="analysis-types">
-                        <div class="analysis-btn quick-analysis active" data-type="quick" id="quick-btn">
-                            <i class="fas fa-bolt"></i>
-                            <div>Quick Analysis</div>
-                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Fast & Simple</div>
-                        </div>
-                        <div class="analysis-btn deep-analysis" data-type="deep" id="deep-btn">
-                            <i class="fas fa-search"></i>
-                            <div>Deep Analysis</div>
-                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Comprehensive</div>
-                        </div>
-                        <div class="analysis-btn child-analysis" data-type="child" id="child-btn">
-                            <i class="fas fa-child"></i>
-                            <div>Child-Friendly</div>
-                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Simple & Fun</div>
-                        </div>
-                    </div>
-                    
-                    <button class="analyze-btn" id="analyze-btn">
-                        <i class="fas fa-brain"></i> <span id="analyze-text">Analyze with AI</span>
+          <div class="input-section">
+            <div class="input-tabs">
+              <button class="input-tab active" data-tab="text" id="text-tab">
+                Paste Text
+              </button>
+              <button class="input-tab" data-tab="reference" id="reference-tab">
+                Bible Reference
+              </button>
+            </div>
+
+            <!-- Text Input -->
+            <div class="input-group" id="text-input-group">
+              <label for="bible-input" id="input-label">
+                <i class="fas fa-paste"></i>
+                <span id="input-label-text">Biblical Text</span>
+              </label>
+              <textarea
+                id="bible-input"
+                placeholder="Example: Paste the full biblical text here..."></textarea>
+            </div>
+
+            <!-- Reference Input -->
+            <div
+              class="input-group"
+              id="reference-input-group"
+              style="display: none">
+              <label for="book-input">
+                <i class="fas fa-book"></i>
+                <span id="reference-label">Bible Reference</span>
+              </label>
+              <div class="reference-inputs">
+                <div class="reference-input-group">
+                  <label for="book-input" id="book-label">Book</label>
+                  <input
+                    type="text"
+                    id="book-input"
+                    class="reference-input"
+                    placeholder="John" />
+                </div>
+                <div class="reference-input-group">
+                  <label for="chapter-input" id="chapter-label">Chapter</label>
+                  <input
+                    type="number"
+                    id="chapter-input"
+                    class="reference-input"
+                    placeholder="3"
+                    min="1" />
+                </div>
+                <div class="reference-input-group">
+                  <label for="verse-input" id="verse-label">Verse(s)</label>
+                  <div class="verse-type-selector">
+                    <button
+                      class="verse-type-btn active"
+                      data-type="single"
+                      id="single-btn">
+                      Single
                     </button>
-                    
-                    <div class="usage-info" id="usage-info">
-                        Please sign in to access analysis features
+                    <button
+                      class="verse-type-btn"
+                      data-type="range"
+                      id="range-btn">
+                      Range
+                    </button>
+                  </div>
+                  <div id="verse-single-input">
+                    <input
+                      type="number"
+                      id="verse-single"
+                      class="reference-input"
+                      placeholder="16"
+                      min="1" />
+                  </div>
+                  <div id="verse-range-input" style="display: none">
+                    <div class="verse-range-inputs">
+                      <div class="verse-range-input">
+                        <input
+                          type="number"
+                          id="verse-start"
+                          class="reference-input"
+                          placeholder="1"
+                          min="1" />
+                      </div>
+                      <div class="verse-range-input">
+                        <input
+                          type="number"
+                          id="verse-end"
+                          class="reference-input"
+                          placeholder="10"
+                          min="1" />
+                      </div>
                     </div>
-                    <div class="error-message" id="analysis-error"></div>
-                    
-                    <div class="ai-model-info" id="ai-model-info">
-                        <!-- AI model info will be populated based on user's plan -->
-                    </div>
+                  </div>
                 </div>
-
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p id="loading-text">Analyzing biblical text with AI...</p>
-                </div>
-
-                <div class="results-section" id="results-section">
-                    <div class="result-card">
-                        <h3><i class="fas fa-file-alt"></i> <span id="summary-title">Summary</span></h3>
-                        <p id="summary-content"></p>
-                    </div>
-                    <div class="result-card">
-                        <h3><i class="fas fa-history"></i> <span id="context-title">Historical Context</span></h3>
-                        <p id="context-content"></p>
-                    </div>
-                    <div class="result-card">
-                        <h3><i class="fas fa-lightbulb"></i> <span id="practical-title">Practical Application</span></h3>
-                        <p id="practical-content"></p>
-                    </div>
-                    <div class="result-card">
-                        <h3><i class="fas fa-heart"></i> <span id="reflection-title">Personal Reflection</span></h3>
-                        <p id="reflection-content"></p>
-                    </div>
-                    <div class="result-card">
-                        <h3><i class="fas fa-question-circle"></i> <span id="quiz-title">Knowledge Check</span></h3>
-                        <div class="quiz-section" id="quiz-section"></div>
-                    </div>
-                </div>
+              </div>
             </div>
 
-            <!-- Profile Page -->
-            <div class="page" id="profile-page">
-                <div class="profile-header">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="profile-info">
-                        <h2 id="profile-name">Loading...</h2>
-                        <p id="profile-email">Loading...</p>
-                        <button class="profile-edit-btn" id="edit-profile-btn">
-                            <i class="fas fa-edit"></i> Edit Profile
-                        </button>
-                    </div>
+            <!-- Analysis Type Selection -->
+            <div class="analysis-types">
+              <div
+                class="analysis-btn quick-analysis active"
+                data-type="quick"
+                id="quick-btn">
+                <i class="fas fa-bolt"></i>
+                <div>Quick Analysis</div>
+                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
+                  Fast & Simple
                 </div>
-                
-                <!-- Profile Form -->
-                <div class="profile-form" id="profile-form">
-                    <div class="error-message" id="profile-error"></div>
-                    <div class="form-group">
-                        <label for="full-name">Full Name</label>
-                        <input type="text" id="full-name" placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
-                    </div>
-                    <div class="form-group">
-                        <label for="timezone">Time Zone</label>
-                        <select id="timezone">
-                            <option value="UTC-5">Eastern Time (UTC-5)</option>
-                            <option value="UTC-6">Central Time (UTC-6)</option>
-                            <option value="UTC-7">Mountain Time (UTC-7)</option>
-                            <option value="UTC-8">Pacific Time (UTC-8)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="language">Language</label>
-                        <select id="language">
-                            <option value="en">English</option>
-                            <option value="pt">Português</option>
-                            <option value="es">Español</option>
-                            <option value="fr">Français</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea id="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button class="form-btn save-btn" id="save-profile-btn">Save Changes</button>
-                        <button class="form-btn cancel-btn" id="cancel-profile-btn">Cancel</button>
-                    </div>
+              </div>
+              <div
+                class="analysis-btn deep-analysis"
+                data-type="deep"
+                id="deep-btn">
+                <i class="fas fa-search"></i>
+                <div>Deep Analysis</div>
+                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
+                  Comprehensive
                 </div>
-                
-                <div class="profile-stats">
-                    <div class="stat-card">
-                        <div class="stat-value" id="analyses-count">0</div>
-                        <div class="stat-label" id="analyses-label">Analyses This Month</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="plan-type">Free</div>
-                        <div class="stat-label" id="plan-label">Current Plan</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="monthly-limit">0/5</div>
-                        <div class="stat-label" id="limit-label">Monthly Limit</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="member-since">-</div>
-                        <div class="stat-label" id="member-label">Member Since</div>
-                    </div>
+              </div>
+              <div
+                class="analysis-btn child-analysis"
+                data-type="child"
+                id="child-btn">
+                <i class="fas fa-child"></i>
+                <div>Child-Friendly</div>
+                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
+                  Simple & Fun
                 </div>
+              </div>
             </div>
 
-            <!-- Plans Page -->
-            <div class="page" id="plans-page">
-                <div class="hero">
-                    <h1 id="plans-title">Choose Your Plan</h1>
-                    <p id="plans-subtitle">Unlock powerful biblical insights with our flexible pricing plans.</p>
-                </div>
-                <div class="error-message" id="plans-error"></div>
-                <div class="plans-grid" id="plans-grid">
-                    <!-- Plans will be loaded from API -->
-                </div>
-            </div>
+            <button class="analyze-btn" id="analyze-btn">
+              <i class="fas fa-brain"></i>
+              <span id="analyze-text">Analyze with AI</span>
+            </button>
 
-            <!-- History Page -->
-            <div class="page" id="history-page">
-                <div class="hero">
-                    <h1 id="history-title">Your Analysis History</h1>
-                    <p id="history-subtitle">Review your previous biblical text analyses and insights.</p>
-                </div>
-                <div class="error-message" id="history-error"></div>
-                <div class="history-list" id="history-list">
-                    <!-- History items will be loaded from API -->
-                </div>
+            <div class="usage-info" id="usage-info">
+              Please sign in to access analysis features
             </div>
+            <div class="error-message" id="analysis-error"></div>
+
+            <div class="ai-model-info" id="ai-model-info">
+              <!-- AI model info will be populated based on user's plan -->
+            </div>
+          </div>
+
+          <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p id="loading-text">Analyzing biblical text with AI...</p>
+          </div>
+
+          <div class="results-section" id="results-section">
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-file-alt"></i>
+                <span id="summary-title">Summary</span>
+              </h3>
+              <p id="summary-content"></p>
+            </div>
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-history"></i>
+                <span id="context-title">Historical Context</span>
+              </h3>
+              <p id="context-content"></p>
+            </div>
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-lightbulb"></i>
+                <span id="practical-title">Practical Application</span>
+              </h3>
+              <p id="practical-content"></p>
+            </div>
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-heart"></i>
+                <span id="reflection-title">Personal Reflection</span>
+              </h3>
+              <p id="reflection-content"></p>
+            </div>
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-question-circle"></i>
+                <span id="quiz-title">Knowledge Check</span>
+              </h3>
+              <div class="quiz-section" id="quiz-section"></div>
+            </div>
+          </div>
         </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profile-page">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-info">
+              <h2 id="profile-name">Loading...</h2>
+              <p id="profile-email">Loading...</p>
+              <button class="profile-edit-btn" id="edit-profile-btn">
+                <i class="fas fa-edit"></i> Edit Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- Profile Form -->
+          <div class="profile-form" id="profile-form">
+            <div class="error-message" id="profile-error"></div>
+            <div class="form-group">
+              <label for="full-name">Full Name</label>
+              <input
+                type="text"
+                id="full-name"
+                placeholder="Enter your full name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="Enter your email" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+1 (555) 123-4567" />
+            </div>
+            <div class="form-group">
+              <label for="timezone">Time Zone</label>
+              <select id="timezone">
+                <option value="UTC-5">Eastern Time (UTC-5)</option>
+                <option value="UTC-6">Central Time (UTC-6)</option>
+                <option value="UTC-7">Mountain Time (UTC-7)</option>
+                <option value="UTC-8">Pacific Time (UTC-8)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="language">Language</label>
+              <select id="language">
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              <textarea
+                id="bio"
+                rows="4"
+                placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="form-btn save-btn" id="save-profile-btn">
+                Save Changes
+              </button>
+              <button class="form-btn cancel-btn" id="cancel-profile-btn">
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          <div class="profile-stats">
+            <div class="stat-card">
+              <div class="stat-value" id="analyses-count">0</div>
+              <div class="stat-label" id="analyses-label">
+                Analyses This Month
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="plan-type">Free</div>
+              <div class="stat-label" id="plan-label">Current Plan</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="daily-limit">0/2</div>
+              <div class="stat-label" id="limit-label">Daily Limit</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="member-since">-</div>
+              <div class="stat-label" id="member-label">Member Since</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plans Page -->
+        <div class="page" id="plans-page">
+          <div class="hero">
+            <h1 id="plans-title">Choose Your Plan</h1>
+            <p id="plans-subtitle">
+              Unlock powerful biblical insights with our flexible pricing plans.
+            </p>
+          </div>
+          <div class="error-message" id="plans-error"></div>
+          <div class="plans-grid" id="plans-grid">
+            <!-- Plans will be loaded from API -->
+          </div>
+        </div>
+
+        <!-- History Page -->
+        <div class="page" id="history-page">
+          <div class="hero">
+            <h1 id="history-title">Your Analysis History</h1>
+            <p id="history-subtitle">
+              Review your previous biblical text analyses and insights.
+            </p>
+          </div>
+          <div class="error-message" id="history-error"></div>
+          <div class="history-list" id="history-list">
+            <!-- History items will be loaded from API -->
+          </div>
+        </div>
+      </div>
     </main>
 
-    <script>
-        // Complete multilingual translation data with monthly limits
-        const translations = {
-            en: {
-                nav: {
-                    home: 'Home',
-                    profile: 'Profile',
-                    plans: 'Plans',
-                    history: 'History',
-                    signIn: 'Sign In',
-                    signOut: 'Sign Out'
-                },
-                common: {
-                    loading: 'Loading...',
-                    analyzing: 'Analyzing biblical text with AI...',
-                    error: 'An error occurred. Please try again.',
-                    success: 'Success!',
-                    cancel: 'Cancel',
-                    save: 'Save Changes',
-                    edit: 'Edit Profile',
-                    delete: 'Delete',
-                    upgrade: 'Upgrade Now'
-                },
-                auth: {
-                    signIn: 'Sign In',
-                    register: 'Create Account',
-                    email: 'Email Address',
-                    password: 'Password',
-                    name: 'Full Name',
-                    language: 'Language',
-                    signInSubtitle: 'Access your biblical insights and analysis history',
-                    registerSubtitle: 'Join BibleInsight to save your analyses and access premium features',
-                    signInButton: 'Sign In',
-                    registerButton: 'Register',
-                    noAccount: 'Don\'t have an account?',
-                    haveAccount: 'Already have an account?',
-                    registerNow: 'Register now',
-                    signInNow: 'Sign in now'
-                },
-                home: {
-                    title: 'Deep Biblical Understanding',
-                    subtitle: 'Paste biblical text or enter a reference to receive AI-powered insights, practical applications, and personal reflections.',
-                    pasteText: 'Paste Text',
-                    bibleReference: 'Bible Reference',
-                    biblicalText: 'Biblical Text',
-                    book: 'Book',
-                    chapter: 'Chapter',
-                    verses: 'Verse(s)',
-                    single: 'Single',
-                    range: 'Range',
-                    quickAnalysis: 'Quick Analysis',
-                    quickDesc: 'Fast & Simple',
-                    deepAnalysis: 'Deep Analysis',
-                    deepDesc: 'Comprehensive',
-                    childAnalysis: 'Child-Friendly',
-                    childDesc: 'Simple & Fun',
-                    analyze: 'Analyze with AI',
-                    usageInfo: {
-                        free: 'Free Plan: {{used}}/{{total}} analyses used this month',
-                        premium: 'Premium Plan: {{used}}/{{total}} analyses used this month',
-                        pro: 'Pro Plan: Unlimited analyses',
-                        warning: 'You\'ve reached your monthly limit! Upgrade to continue.',
-                        upgrade: 'Upgrade your plan to unlock more analyses this month!'
-                    }
-                },
-                results: {
-                    summary: 'Summary',
-                    context: 'Historical Context',
-                    practical: 'Practical Application',
-                    reflection: 'Personal Reflection',
-                    quiz: 'Knowledge Check',
-                    quizResults: 'Quiz Results',
-                    score: 'You scored {{score}}%!',
-                    excellent: 'Excellent work! You have a deep understanding of this passage.',
-                    good: 'Good job! You have a solid understanding of this passage.',
-                    keepStudying: 'Keep studying! Review the passage and try again.'
-                },
-                profile: {
-                    profile: 'Profile',
-                    email: 'Email Address',
-                    phone: 'Phone Number',
-                    timezone: 'Time Zone',
-                    language: 'Language',
-                    bio: 'Bio',
-                    analysesThisMonth: 'Analyses This Month',
-                    currentPlan: 'Current Plan',
-                    monthlyLimit: 'Monthly Limit',
-                    memberSince: 'Member Since',
-                    profileUpdateSuccess: 'Profile updated successfully!',
-                    accountDeleted: 'Account deleted successfully!'
-                },
-                plans: {
-                    plans: 'Plans',
-                    choosePlan: 'Choose Your Plan',
-                    subtitle: 'Unlock powerful biblical insights with our flexible pricing plans.',
-                    free: 'Free',
-                    premium: 'Premium',
-                    pro: 'Pro',
-                    freeDesc: 'Basic insights with limited features',
-                    premiumDesc: 'Advanced insights with full features',
-                    proDesc: 'Unlimited analyses with priority processing',
-                    perMonth: '/month',
-                    analysesPerMonth: 'analyses per month',
-                    unlimited: 'Unlimited',
-                    basicInsights: 'Basic insights',
-                    advancedInsights: 'Advanced insights',
-                    fullHistory: 'Full history access',
-                    export: 'Export capabilities',
-                    currentPlan: 'Current Plan',
-                    choosePlanBtn: 'Choose {{plan}}'
-                },
-                history: {
-                    history: 'History',
-                    yourHistory: 'Your Analysis History',
-                    subtitle: 'Review your previous biblical text analyses and insights.',
-                    noHistory: 'No analyses found. Start your first biblical text analysis!',
-                    signInToView: 'Please sign in to view your analysis history.',
-                    aiModel: 'AI Model: {{model}}'
-                },
-                aiModels: {
-                    'meta-llama/llama-3.2-3b-instruct:free': 'Llama 3.2 3B (Free)',
-                    'google/gemini-pro-1.5': 'Gemini Pro 1.5 (Premium)',
-                    'anthropic/claude-3.5-sonnet': 'Claude 3.5 Sonnet (Pro)'
-                }
-            },
-            pt: {
-                nav: {
-                    home: 'Início',
-                    profile: 'Perfil',
-                    plans: 'Planos',
-                    history: 'Histórico',
-                    signIn: 'Entrar',
-                    signOut: 'Sair'
-                },
-                common: {
-                    loading: 'Carregando...',
-                    analyzing: 'Analisando texto bíblico com IA...',
-                    error: 'Ocorreu um erro. Por favor, tente novamente.',
-                    success: 'Sucesso!',
-                    cancel: 'Cancelar',
-                    save: 'Salvar Alterações',
-                    edit: 'Editar Perfil',
-                    delete: 'Excluir',
-                    upgrade: 'Atualizar Agora'
-                },
-                auth: {
-                    signIn: 'Entrar',
-                    register: 'Criar Conta',
-                    email: 'Endereço de Email',
-                    password: 'Senha',
-                    name: 'Nome Completo',
-                    language: 'Idioma',
-                    signInSubtitle: 'Acesse suas análises bíblicas e histórico',
-                    registerSubtitle: 'Junte-se ao BibleInsight para salvar suas análises e acessar recursos premium',
-                    signInButton: 'Entrar',
-                    registerButton: 'Registrar',
-                    noAccount: 'Não tem uma conta?',
-                    haveAccount: 'Já tem uma conta?',
-                    registerNow: 'Registre-se agora',
-                    signInNow: 'Entre agora'
-                },
-                home: {
-                    title: 'Compreensão Bíblica Profunda',
-                    subtitle: 'Cole texto bíblico ou insira uma referência para receber insights com IA, aplicações práticas e reflexões pessoais.',
-                    pasteText: 'Colar Texto',
-                    bibleReference: 'Referência Bíblica',
-                    biblicalText: 'Texto Bíblico',
-                    book: 'Livro',
-                    chapter: 'Capítulo',
-                    verses: 'Versículo(s)',
-                    single: 'Único',
-                    range: 'Intervalo',
-                    quickAnalysis: 'Análise Rápida',
-                    quickDesc: 'Rápida & Simples',
-                    deepAnalysis: 'Análise Profunda',
-                    deepDesc: 'Abrangente',
-                    childAnalysis: 'Amigável para Crianças',
-                    childDesc: 'Simples & Divertido',
-                    analyze: 'Analisar com IA',
-                    usageInfo: {
-                        free: 'Plano Gratuito: {{used}}/{{total}} análises usadas este mês',
-                        premium: 'Plano Premium: {{used}}/{{total}} análises usadas este mês',
-                        pro: 'Plano Pro: Análises ilimitadas',
-                        warning: 'Você atingiu seu limite mensal! Atualize para continuar.',
-                        upgrade: 'Atualize seu plano para desbloquear mais análises este mês!'
-                    }
-                },
-                results: {
-                    summary: 'Resumo',
-                    context: 'Contexto Histórico',
-                    practical: 'Aplicação Prática',
-                    reflection: 'Reflexão Pessoal',
-                    quiz: 'Verificação de Conhecimento',
-                    quizResults: 'Resultados do Quiz',
-                    score: 'Você pontuou {{score}}%!',
-                    excellent: 'Excelente trabalho! Você tem uma compreensão profunda desta passagem.',
-                    good: 'Bom trabalho! Você tem uma compreensão sólida desta passagem.',
-                    keepStudying: 'Continue estudando! Revise a passagem e tente novamente.'
-                },
-                profile: {
-                    profile: 'Perfil',
-                    email: 'Endereço de Email',
-                    phone: 'Número de Telefone',
-                    timezone: 'Fuso Horário',
-                    language: 'Idioma',
-                    bio: 'Biografia',
-                    analysesThisMonth: 'Análises Este Mês',
-                    currentPlan: 'Plano Atual',
-                    monthlyLimit: 'Limite Mensal',
-                    memberSince: 'Membro Desde',
-                    profileUpdateSuccess: 'Perfil atualizado com sucesso!',
-                    accountDeleted: 'Conta excluída com sucesso!'
-                },
-                plans: {
-                    plans: 'Planos',
-                    choosePlan: 'Escolha Seu Plano',
-                    subtitle: 'Desbloqueie insights bíblicos poderosos com nossos planos flexíveis.',
-                    free: 'Gratuito',
-                    premium: 'Premium',
-                    pro: 'Pro',
-                    freeDesc: 'Insights básicos com recursos limitados',
-                    premiumDesc: 'Insights avançados com recursos completos',
-                    proDesc: 'Análises ilimitadas com processamento prioritário',
-                    perMonth: '/mês',
-                    analysesPerMonth: 'análises por mês',
-                    unlimited: 'Ilimitado',
-                    basicInsights: 'Insights básicos',
-                    advancedInsights: 'Insights avançados',
-                    fullHistory: 'Acesso completo ao histórico',
-                    export: 'Recursos de exportação',
-                    currentPlan: 'Plano Atual',
-                    choosePlanBtn: 'Escolher {{plan}}'
-                },
-                history: {
-                    history: 'Histórico',
-                    yourHistory: 'Seu Histórico de Análises',
-                    subtitle: 'Revise suas análises anteriores de textos bíblicos e insights.',
-                    noHistory: 'Nenhuma análise encontrada. Comece sua primeira análise de texto bíblico!',
-                    signInToView: 'Por favor, entre para visualizar seu histórico de análises.',
-                    aiModel: 'Modelo de IA: {{model}}'
-                },
-                aiModels: {
-                    'meta-llama/llama-3.2-3b-instruct:free': 'Llama 3.2 3B (Gratuito)',
-                    'google/gemini-pro-1.5': 'Gemini Pro 1.5 (Premium)',
-                    'anthropic/claude-3.5-sonnet': 'Claude 3.5 Sonnet (Pro)'
-                }
-            },
-            es: {
-                nav: {
-                    home: 'Inicio',
-                    profile: 'Perfil',
-                    plans: 'Planes',
-                    history: 'Historial',
-                    signIn: 'Iniciar Sesión',
-                    signOut: 'Cerrar Sesión'
-                },
-                common: {
-                    loading: 'Cargando...',
-                    analyzing: 'Analizando texto bíblico con IA...',
-                    error: 'Ocurrió un error. Por favor, inténtelo de nuevo.',
-                    success: '¡Éxito!',
-                    cancel: 'Cancelar',
-                    save: 'Guardar Cambios',
-                    edit: 'Editar Perfil',
-                    delete: 'Eliminar',
-                    upgrade: 'Actualizar Ahora'
-                },
-                auth: {
-                    signIn: 'Iniciar Sesión',
-                    register: 'Crear Cuenta',
-                    email: 'Dirección de Email',
-                    password: 'Contraseña',
-                    name: 'Nombre Completo',
-                    language: 'Idioma',
-                    signInSubtitle: 'Acceda a sus análisis bíblicos e historial',
-                    registerSubtitle: 'Únase a BibleInsight para guardar sus análisis y acceder a funciones premium',
-                    signInButton: 'Iniciar Sesión',
-                    registerButton: 'Registrarse',
-                    noAccount: '¿No tiene una cuenta?',
-                    haveAccount: '¿Ya tiene una cuenta?',
-                    registerNow: 'Regístrese ahora',
-                    signInNow: 'Inicie sesión ahora'
-                },
-                home: {
-                    title: 'Comprensión Bíblica Profunda',
-                    subtitle: 'Pegue texto bíblico o ingrese una referencia para recibir información impulsada por IA, aplicaciones prácticas y reflexiones personales.',
-                    pasteText: 'Pegar Texto',
-                    bibleReference: 'Referencia Bíblica',
-                    biblicalText: 'Texto Bíblico',
-                    book: 'Libro',
-                    chapter: 'Capítulo',
-                    verses: 'Versículo(s)',
-                    single: 'Individual',
-                    range: 'Rango',
-                    quickAnalysis: 'Análisis Rápido',
-                    quickDesc: 'Rápido y Simple',
-                    deepAnalysis: 'Análisis Profundo',
-                    deepDesc: 'Integral',
-                    childAnalysis: 'Amigable para Niños',
-                    childDesc: 'Simple y Divertido',
-                    analyze: 'Analizar con IA',
-                    usageInfo: {
-                        free: 'Plan Gratis: {{used}}/{{total}} análisis usados este mes',
-                        premium: 'Plan Premium: {{used}}/{{total}} análisis usados este mes',
-                        pro: 'Plan Pro: Análisis ilimitados',
-                        warning: '¡Ha alcanzado su límite mensual! Actualice para continuar.',
-                        upgrade: '¡Actualice su plan para desbloquear más análisis este mes!'
-                    }
-                },
-                results: {
-                    summary: 'Resumen',
-                    context: 'Contexto Histórico',
-                    practical: 'Aplicación Práctica',
-                    reflection: 'Reflexión Personal',
-                    quiz: 'Verificación de Conocimiento',
-                    quizResults: 'Resultados del Cuestionario',
-                    score: '¡Obtuvo {{score}}%!',
-                    excellent: '¡Excelente trabajo! Tiene una comprensión profunda de este pasaje.',
-                    good: '¡Buen trabajo! Tiene una comprensión sólida de este pasaje.',
-                    keepStudying: '¡Siga estudiando! Revise el pasaje e inténtelo de nuevo.'
-                },
-                profile: {
-                    profile: 'Perfil',
-                    email: 'Dirección de Email',
-                    phone: 'Número de Teléfono',
-                    timezone: 'Zona Horaria',
-                    language: 'Idioma',
-                    bio: 'Biografía',
-                    analysesThisMonth: 'Análisis Este Mes',
-                    currentPlan: 'Plan Actual',
-                    monthlyLimit: 'Límite Mensual',
-                    memberSince: 'Miembro Desde',
-                    profileUpdateSuccess: '¡Perfil actualizado con éxito!',
-                    accountDeleted: '¡Cuenta eliminada con éxito!'
-                },
-                plans: {
-                    plans: 'Planes',
-                    choosePlan: 'Elija Su Plan',
-                    subtitle: 'Desbloquee conocimientos bíblicos poderosos con nuestros planes flexibles.',
-                    free: 'Gratis',
-                    premium: 'Premium',
-                    pro: 'Pro',
-                    freeDesc: 'Ideas básicas con funciones limitadas',
-                    premiumDesc: 'Ideas avanzadas con funciones completas',
-                    proDesc: 'Análisis ilimitados con procesamiento prioritario',
-                    perMonth: '/mes',
-                    analysesPerMonth: 'análisis por mes',
-                    unlimited: 'Ilimitado',
-                    basicInsights: 'Ideas básicas',
-                    advancedInsights: 'Ideas avanzadas',
-                    fullHistory: 'Acceso completo al historial',
-                    export: 'Capacidades de exportación',
-                    currentPlan: 'Plan Actual',
-                    choosePlanBtn: 'Elegir {{plan}}'
-                },
-                history: {
-                    history: 'Historial',
-                    yourHistory: 'Su Historial de Análisis',
-                    subtitle: 'Revise sus análisis anteriores de textos bíblicos e ideas.',
-                    noHistory: 'No se encontraron análisis. ¡Comience su primer análisis de texto bíblico!',
-                    signInToView: 'Por favor, inicie sesión para ver su historial de análisis.',
-                    aiModel: 'Modelo de IA: {{model}}'
-                },
-                aiModels: {
-                    'meta-llama/llama-3.2-3b-instruct:free': 'Llama 3.2 3B (Gratis)',
-                    'google/gemini-pro-1.5': 'Gemini Pro 1.5 (Premium)',
-                    'anthropic/claude-3.5-sonnet': 'Claude 3.5 Sonnet (Pro)'
-                }
-            },
-            fr: {
-                nav: {
-                    home: 'Accueil',
-                    profile: 'Profil',
-                    plans: 'Forfaits',
-                    history: 'Historique',
-                    signIn: 'Se Connecter',
-                    signOut: 'Se Déconnecter'
-                },
-                common: {
-                    loading: 'Chargement...',
-                    analyzing: 'Analyse du texte biblique avec l\'IA...',
-                    error: 'Une erreur s\'est produite. Veuillez réessayer.',
-                    success: 'Succès !',
-                    cancel: 'Annuler',
-                    save: 'Enregistrer les modifications',
-                    edit: 'Modifier le profil',
-                    delete: 'Supprimer',
-                    upgrade: 'Mettre à niveau maintenant'
-                },
-                auth: {
-                    signIn: 'Se Connecter',
-                    register: 'Créer un compte',
-                    email: 'Adresse email',
-                    password: 'Mot de passe',
-                    name: 'Nom complet',
-                    language: 'Langue',
-                    signInSubtitle: 'Accédez à vos analyses bibliques et à votre historique',
-                    registerSubtitle: 'Rejoignez BibleInsight pour enregistrer vos analyses et accéder aux fonctionnalités premium',
-                    signInButton: 'Se Connecter',
-                    registerButton: 'S\'inscrire',
-                    noAccount: 'Vous n\'avez pas de compte ?',
-                    haveAccount: 'Vous avez déjà un compte ?',
-                    registerNow: 'Inscrivez-vous maintenant',
-                    signInNow: 'Connectez-vous maintenant'
-                },
-                home: {
-                    title: 'Compréhension Biblique Approfondie',
-                    subtitle: 'Collez du texte biblique ou entrez une référence pour recevoir des insights alimentés par l\'IA, des applications pratiques et des réflexions personnelles.',
-                    pasteText: 'Coller le texte',
-                    bibleReference: 'Référence Biblique',
-                    biblicalText: 'Texte Biblique',
-                    book: 'Livre',
-                    chapter: 'Chapitre',
-                    verses: 'Verset(s)',
-                    single: 'Unique',
-                    range: 'Intervalle',
-                    quickAnalysis: 'Analyse Rapide',
-                    quickDesc: 'Rapide et Simple',
-                    deepAnalysis: 'Analyse Approfondie',
-                    deepDesc: 'Complète',
-                    childAnalysis: 'Adapté aux Enfants',
-                    childDesc: 'Simple et Amusant',
-                    analyze: 'Analyser avec l\'IA',
-                    usageInfo: {
-                        free: 'Forfait Gratuit: {{used}}/{{total}} analyses utilisées ce mois-ci',
-                        premium: 'Forfait Premium: {{used}}/{{total}} analyses utilisées ce mois-ci',
-                        pro: 'Forfait Pro: Analyses illimitées',
-                        warning: 'Vous avez atteint votre limite mensuelle! Mettez à niveau pour continuer.',
-                        upgrade: 'Mettez à niveau votre forfait pour débloquer plus d\'analyses ce mois-ci!'
-                    }
-                },
-                results: {
-                    summary: 'Résumé',
-                    context: 'Contexte Historique',
-                    practical: 'Application Pratique',
-                    reflection: 'Réflexion Personnelle',
-                    quiz: 'Vérification des Connaissances',
-                    quizResults: 'Résultats du Quiz',
-                    score: 'Vous avez obtenu {{score}}%!',
-                    excellent: 'Excellent travail! Vous avez une compréhension approfondie de ce passage.',
-                    good: 'Bon travail! Vous avez une compréhension solide de ce passage.',
-                    keepStudying: 'Continuez à étudier! Révisez le passage et réessayez.'
-                },
-                profile: {
-                    profile: 'Profil',
-                    email: 'Adresse email',
-                    phone: 'Numéro de téléphone',
-                    timezone: 'Fuseau horaire',
-                    language: 'Langue',
-                    bio: 'Biographie',
-                    analysesThisMonth: 'Analyses Ce Mois-ci',
-                    currentPlan: 'Forfait Actuel',
-                    monthlyLimit: 'Limite Mensuelle',
-                    memberSince: 'Membre Depuis',
-                    profileUpdateSuccess: 'Profil mis à jour avec succès!',
-                    accountDeleted: 'Compte supprimé avec succès!'
-                },
-                plans: {
-                    plans: 'Forfaits',
-                    choosePlan: 'Choisissez Votre Forfait',
-                    subtitle: 'Débloquez des insights bibliques puissants avec nos forfaits flexibles.',
-                    free: 'Gratuit',
-                    premium: 'Premium',
-                    pro: 'Pro',
-                    freeDesc: 'Insights de base avec fonctionnalités limitées',
-                    premiumDesc: 'Insights avancés avec fonctionnalités complètes',
-                    proDesc: 'Analyses illimitées avec traitement prioritaire',
-                    perMonth: '/mois',
-                    analysesPerMonth: 'analyses par mois',
-                    unlimited: 'Illimité',
-                    basicInsights: 'Insights de base',
-                    advancedInsights: 'Insights avancés',
-                    fullHistory: 'Accès complet à l\'historique',
-                    export: 'Capacités d\'exportation',
-                    currentPlan: 'Forfait Actuel',
-                    choosePlanBtn: 'Choisir {{plan}}'
-                },
-                history: {
-                    history: 'Historique',
-                    yourHistory: 'Votre Historique d\'Analyse',
-                    subtitle: 'Consultez vos analyses précédentes de textes bibliques et vos insights.',
-                    noHistory: 'Aucune analyse trouvée. Commencez votre première analyse de texte biblique!',
-                    signInToView: 'Veuillez vous connecter pour consulter votre historique d\'analyse.',
-                    aiModel: 'Modèle d\'IA: {{model}}'
-                },
-                aiModels: {
-                    'meta-llama/llama-3.2-3b-instruct:free': 'Llama 3.2 3B (Gratuit)',
-                    'google/gemini-pro-1.5': 'Gemini Pro 1.5 (Premium)',
-                    'anthropic/claude-3.5-sonnet': 'Claude 3.5 Sonnet (Pro)'
-                }
-            }
-        };
-
-        // API Configuration
-        const API_BASE_URL = 'http://localhost:5000/api';
-        
-        // State management
-        let currentUser = null;
-        let currentAnalysisType = 'quick';
-        let currentToken = localStorage.getItem('token');
-        let currentLanguage = localStorage.getItem('language') || 'en';
-
-        // DOM Elements (same as before)
-        const themeToggle = document.getElementById('theme-toggle');
-        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-        const languageSelect = document.getElementById('language-select');
-        const mobileLanguageSelect = document.getElementById('mobile-language-select');
-        const analyzeBtn = document.getElementById('analyze-btn');
-        const bibleInput = document.getElementById('bible-input');
-        const loading = document.getElementById('loading');
-        const resultsSection = document.getElementById('results-section');
-        const textTab = document.getElementById('text-tab');
-        const referenceTab = document.getElementById('reference-tab');
-        const textInputGroup = document.getElementById('text-input-group');
-        const referenceInputGroup = document.getElementById('reference-input-group');
-        const singleBtn = document.getElementById('single-btn');
-        const rangeBtn = document.getElementById('range-btn');
-        const verseSingleInput = document.getElementById('verse-single-input');
-        const verseRangeInput = document.getElementById('verse-range-input');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const editProfileBtn = document.getElementById('edit-profile-btn');
-        const profileForm = document.getElementById('profile-form');
-        const saveProfileBtn = document.getElementById('save-profile-btn');
-        const cancelProfileBtn = document.getElementById('cancel-profile-btn');
-        const historyList = document.getElementById('history-list');
-        const usageInfo = document.getElementById('usage-info');
-        const quickBtn = document.getElementById('quick-btn');
-        const deepBtn = document.getElementById('deep-btn');
-        const childBtn = document.getElementById('child-btn');
-        const loginBtn = document.getElementById('login-btn');
-        const mobileLoginBtn = document.getElementById('mobile-login-btn');
-        const authModal = document.getElementById('auth-modal');
-        const authModalClose = document.getElementById('auth-modal-close');
-        const authForm = document.getElementById('auth-form');
-        const authEmail = document.getElementById('auth-email');
-        const authPassword = document.getElementById('auth-password');
-        const authLanguage = document.getElementById('auth-language');
-        const authSubmitBtn = document.getElementById('auth-submit-btn');
-        const switchToRegister = document.getElementById('switch-to-register');
-        const authModalTitle = document.getElementById('auth-modal-title');
-        const authModalSubtitle = document.getElementById('auth-modal-subtitle');
-        const authError = document.getElementById('auth-error');
-        const analysisError = document.getElementById('analysis-error');
-        const profileError = document.getElementById('profile-error');
-        const plansError = document.getElementById('plans-error');
-        const historyError = document.getElementById('history-error');
-        const plansGrid = document.getElementById('plans-grid');
-        const aiModelInfo = document.getElementById('ai-model-info');
-
-        // Get translation function
-        function t(key, params = {}) {
-            const keys = key.split('.');
-            let value = translations[currentLanguage];
-            
-            for (let k of keys) {
-                if (value && value[k] !== undefined) {
-                    value = value[k];
-                } else {
-                    // Fallback to English
-                    value = translations.en;
-                    for (let k2 of keys) {
-                        if (value && value[k2] !== undefined) {
-                            value = value[k2];
-                        } else {
-                            return key;
-                        }
-                    }
-                    break;
-                }
-            }
-            
-            if (typeof value == 'string') {
-                Object.keys(params).forEach(param => {
-                    value = value.replace(new RegExp(`{{${param}}}`, 'g'), params[param]);
-                });
-            }
-            
-            return value;
-        }
-
-        // Update all text content
-        function updateTextContent() {
-            // Navigation
-            document.querySelectorAll('.nav-link').forEach((link, index) => {
-                const pages = ['home', 'profile', 'plans', 'history'];
-                link.textContent = t(`nav.${pages[index]}`);
-            });
-            
-            document.querySelectorAll('.mobile-nav-link').forEach((link, index) => {
-                const pages = ['home', 'profile', 'plans', 'history'];
-                link.textContent = t(`nav.${pages[index]}`);
-            });
-            
-            loginBtn.textContent = currentUser ? t('nav.signOut') : t('nav.signIn');
-            mobileLoginBtn.textContent = currentUser ? t('nav.signOut') : t('nav.signIn');
-            
-            // Home page
-            document.getElementById('hero-title').textContent = t('home.title');
-            document.getElementById('hero-subtitle').textContent = t('home.subtitle');
-            document.getElementById('text-tab').textContent = t('home.pasteText');
-            document.getElementById('reference-tab').textContent = t('home.bibleReference');
-            document.getElementById('input-label-text').textContent = t('home.biblicalText');
-            document.getElementById('reference-label').textContent = t('home.bibleReference');
-            document.getElementById('book-label').textContent = t('home.book');
-            document.getElementById('chapter-label').textContent = t('home.chapter');
-            document.getElementById('verse-label').textContent = t('home.verses');
-            document.getElementById('single-btn').textContent = t('home.single');
-            document.getElementById('range-btn').textContent = t('home.range');
-            document.getElementById('quick-btn').querySelector('div').textContent = t('home.quickAnalysis');
-            document.getElementById('quick-btn').querySelector('div:last-child').textContent = t('home.quickDesc');
-            document.getElementById('deep-btn').querySelector('div').textContent = t('home.deepAnalysis');
-            document.getElementById('deep-btn').querySelector('div:last-child').textContent = t('home.deepDesc');
-            document.getElementById('child-btn').querySelector('div').textContent = t('home.childAnalysis');
-            document.getElementById('child-btn').querySelector('div:last-child').textContent = t('home.childDesc');
-            document.getElementById('analyze-text').textContent = t('home.analyze');
-            
-            // Results
-            document.getElementById('summary-title').textContent = t('results.summary');
-            document.getElementById('context-title').textContent = t('results.context');
-            document.getElementById('practical-title').textContent = t('results.practical');
-            document.getElementById('reflection-title').textContent = t('results.reflection');
-            document.getElementById('quiz-title').textContent = t('results.quiz');
-            
-            // Profile
-            document.getElementById('analyses-label').textContent = t('profile.analysesThisMonth');
-            document.getElementById('plan-label').textContent = t('profile.currentPlan');
-            document.getElementById('limit-label').textContent = t('profile.monthlyLimit');
-            document.getElementById('member-label').textContent = t('profile.memberSince');
-            document.getElementById('edit-profile-btn').innerHTML = `<i class="fas fa-edit"></i> ${t('common.edit')}`;
-            
-            // Plans
-            document.getElementById('plans-title').textContent = t('plans.choosePlan');
-            document.getElementById('plans-subtitle').textContent = t('plans.subtitle');
-            document.getElementById('free-plan').textContent = t('plans.free');
-            document.getElementById('premium-plan').textContent = t('plans.premium');
-            document.getElementById('pro-plan').textContent = t('plans.pro');
-            
-            // History
-            document.getElementById('history-title').textContent = t('history.yourHistory');
-            document.getElementById('history-subtitle').textContent = t('history.subtitle');
-            
-            // Update usage info
-            updateUsageInfo();
-        }
-
-        // API Helper Functions
-        async function apiRequest(url, options = {}) {
-            const config = {
-                ...options,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept-Language': currentLanguage,
-                    ...options.headers
-                }
-            };
-            
-            if (currentToken) {
-                config.headers.Authorization = `Bearer ${currentToken}`;
-            }
-            
-            try {
-                const response = await fetch(`${API_BASE_URL}${url}`, config);
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.message || 'API request failed');
-                }
-                
-                return data;
-            } catch (error) {
-                console.error('API Error:', error);
-                throw error;
-            }
-        }
-
-        // Authentication Functions
-        async function login(email, password, language) {
-            try {
-                const data = await apiRequest('/auth/login', {
-                    method: 'POST',
-                    body: JSON.stringify({ email, password, language })
-                });
-                
-                currentToken = data.token;
-                currentUser = data.user;
-                currentLanguage = data.user.language;
-                localStorage.setItem('token', currentToken);
-                localStorage.setItem('language', currentLanguage);
-                languageSelect.value = currentLanguage;
-                mobileLanguageSelect.value = currentLanguage;
-                
-                return { success: true, user: data.user };
-            } catch (error) {
-                return { success: false, message: error.message };
-            }
-        }
-
-        async function register(name, email, password, language) {
-            try {
-                const data = await apiRequest('/auth/register', {
-                    method: 'POST',
-                    body: JSON.stringify({ name, email, password, language })
-                });
-                
-                currentToken = data.token;
-                currentUser = data.user;
-                currentLanguage = data.user.language;
-                localStorage.setItem('token', currentToken);
-                localStorage.setItem('language', currentLanguage);
-                languageSelect.value = currentLanguage;
-                mobileLanguageSelect.value = currentLanguage;
-                
-                return { success: true, user: data.user };
-            } catch (error) {
-                return { success: false, message: error.message };
-            }
-        }
-
-        function logout() {
-            currentToken = null;
-            currentUser = null;
-            localStorage.removeItem('token');
-        }
-
-        // User Functions
-        async function getCurrentUser() {
-            try {
-                const data = await apiRequest('/users/me');
-                currentUser = data.data;
-                currentLanguage = data.data.language;
-                localStorage.setItem('language', currentLanguage);
-                languageSelect.value = currentLanguage;
-                mobileLanguageSelect.value = currentLanguage;
-                return data.data;
-            } catch (error) {
-                logout();
-                throw error;
-            }
-        }
-
-        async function updateUser(userData) {
-            try {
-                const data = await apiRequest('/users/me', {
-                    method: 'PUT',
-                    body: JSON.stringify(userData)
-                });
-                currentUser = data.data;
-                if (userData.language) {
-                    currentLanguage = userData.language;
-                    localStorage.setItem('language', currentLanguage);
-                    languageSelect.value = currentLanguage;
-                    mobileLanguageSelect.value = currentLanguage;
-                    updateTextContent();
-                }
-                return data.data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        async function updatePlan(planKey) {
-            try {
-                const data = await apiRequest('/users/me/plan', {
-                    method: 'PUT',
-                    body: JSON.stringify({ planKey })
-                });
-                currentUser = data.data;
-                return data.data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        // Analysis Functions
-        async function createAnalysis(inputData) {
-            try {
-                const data = await apiRequest('/analyses', {
-                    method: 'POST',
-                    body: JSON.stringify(inputData)
-                });
-                return data.data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        async function getUserAnalyses(page = 1, limit = 10) {
-            try {
-                const data = await apiRequest(`/analyses?page=${page}&limit=${limit}`);
-                return data.data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        // Plan Functions
-        async function getPlans() {
-            try {
-                const data = await apiRequest('/plans');
-                return data.data;
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        // Initialize Application
-        async function initApp() {
-            initTheme();
-            initLanguage();
-            updateTextContent();
-            
-            if (currentToken) {
-                try {
-                    await getCurrentUser();
-                    updateUIWithUserData();
-                    updateUsageInfo();
-                    updateAIModelInfo();
-                } catch (error) {
-                    console.error('Auto-login failed:', error.message);
-                    logout();
-                    updateUIWithUserData();
-                    updateUsageInfo();
-                }
-            } else {
-                updateUIWithUserData();
-                updateUsageInfo();
-            }
-            
-            loadPlans();
-        }
-
-        // UI Update Functions
-        function updateUIWithUserData() {
-            if (currentUser) {
-                document.getElementById('profile-name').textContent = currentUser.name;
-                document.getElementById('profile-email').textContent = currentUser.email;
-                document.getElementById('plan-type').textContent = currentUser.plan.charAt(0).toUpperCase() + currentUser.plan.slice(1);
-                document.getElementById('monthly-limit').textContent = 
-                    currentUser.plan === 'pro' ? 
-                    t('plans.unlimited') : 
-                    `${currentUser.analysesThisMonth}/${getPlanMonthlyLimit(currentUser.plan)}`;
-                document.getElementById('analyses-count').textContent = currentUser.analysesThisMonth;
-                document.getElementById('member-since').textContent = currentUser.createdAt ? 
-                    new Date(currentUser.createdAt).toLocaleDateString(currentLanguage) : t('common.loading');
-                
-                document.getElementById('language').value = currentUser.language;
-                
-                loginBtn.textContent = t('nav.signOut');
-                mobileLoginBtn.textContent = t('nav.signOut');
-                loginBtn.onclick = handleSignOut;
-                mobileLoginBtn.onclick = handleSignOut;
-            } else {
-                document.getElementById('profile-name').textContent = t('common.loading');
-                document.getElementById('profile-email').textContent = t('common.loading');
-                document.getElementById('plan-type').textContent = t('plans.free');
-                document.getElementById('monthly-limit').textContent = '0/5';
-                document.getElementById('analyses-count').textContent = '0';
-                document.getElementById('member-since').textContent = '-';
-                
-                loginBtn.textContent = t('nav.signIn');
-                mobileLoginBtn.textContent = t('nav.signIn');
-                loginBtn.onclick = () => authModal.classList.add('active');
-                mobileLoginBtn.onclick = () => authModal.classList.add('active');
-            }
-        }
-
-        function getPlanMonthlyLimit(plan) {
-            const limits = { free: 5, premium: 400, pro: Infinity };
-            return limits[plan] || 5;
-        }
-
-        function updateUsageInfo() {
-            if (!currentUser) {
-                usageInfo.innerHTML = t('home.usageInfo.free').replace('{{used}}', '0').replace('{{total}}', '5');
-                analyzeBtn.disabled = true;
-                return;
-            }
-            
-            if (currentUser.plan === 'pro') {
-                usageInfo.innerHTML = t('home.usageInfo.pro');
-                analyzeBtn.disabled = false;
-            } else {
-                const used = currentUser.analysesThisMonth;
-                const total = getPlanMonthlyLimit(currentUser.plan);
-                const percentage = (used / total) * 100;
-                
-                if (used >= total) {
-                    usageInfo.innerHTML = `<span style="color: var(--danger); font-weight: 600;">${t('home.usageInfo.warning')}</span><br><button class="upgrade-btn" onclick="showPage('plans')">${t('common.upgrade')}</button>`;
-                    analyzeBtn.disabled = true;
-                } else if (percentage >= 80) {
-                    usageInfo.innerHTML = `<span style="color: var(--warning); font-weight: 600;">${t('home.usageInfo.' + currentUser.plan).replace('{{used}}', used).replace('{{total}}', total)}</span><br><span style="color: var(--text-light);">${t('home.usageInfo.upgrade')}</span>`;
-                    analyzeBtn.disabled = false;
-                } else {
-                    usageInfo.innerHTML = t('home.usageInfo.' + currentUser.plan).replace('{{used}}', used).replace('{{total}}', total);
-                    analyzeBtn.disabled = false;
-                }
-            }
-        }
-
-        function updateAIModelInfo() {
-            if (!currentUser) {
-                aiModelInfo.style.display = 'none';
-                return;
-            }
-            
-            aiModelInfo.style.display = 'block';
-            const planModels = {
-                free: 'meta-llama/llama-3.2-3b-instruct:free',
-                premium: 'google/gemini-pro-1.5',
-                pro: 'anthropic/claude-3.5-sonnet'
-            };
-            
-            const modelName = planModels[currentUser.plan] || planModels.free;
-            const modelDisplayName = t(`aiModels.${modelName}`) || modelName;
-            aiModelInfo.innerHTML = `<strong>AI Model:</strong> ${modelDisplayName}`;
-        }
-
-        // Load Plans from API
-        async function loadPlans() {
-            try {
-                const plans = await getPlans();
-                renderPlans(plans);
-            } catch (error) {
-                plansError.style.display = 'block';
-                plansError.textContent = t('common.error');
-                console.error('Load plans error:', error);
-            }
-        }
-
-        function renderPlans(plans) {
-            plansGrid.innerHTML = '';
-            
-            plans.forEach(plan => {
-                const planCard = document.createElement('div');
-                planCard.className = `plan-card ${plan.key === 'premium' ? 'popular' : ''}`;
-                const modelDisplayName = t(`aiModels.${plan.aiModel}`) || plan.aiModel;
-                const analysesText = plan.monthlyLimit === Infinity ? 
-                    t('plans.unlimited') : 
-                    `${plan.monthlyLimit} ${t('plans.analysesPerMonth')}`;
-                
-                planCard.innerHTML = `
-                    <div class="plan-name">${t(`plans.${plan.key}`)}</div>
-                    <div class="plan-price">$${plan.price}<span>${t('plans.perMonth')}</span></div>
-                    <div class="plan-features">
-                        <div class="plan-feature">
-                            <i class="fas fa-check"></i>
-                            <span>${analysesText}</span>
-                        </div>
-                        <div class="plan-feature">
-                            <i class="fas fa-check"></i>
-                            <span>${plan.features.advancedInsights ? t('plans.advancedInsights') : t('plans.basicInsights')}</span>
-                        </div>
-                        <div class="plan-feature ${plan.features.fullHistory ? '' : 'locked'}">
-                            <i class="fas ${plan.features.fullHistory ? 'fa-check' : 'fa-lock'}"></i>
-                            <span>${t('plans.fullHistory')}</span>
-                        </div>
-                        <div class="plan-feature ${plan.features.export ? '' : 'locked'}">
-                            <i class="fas ${plan.features.export ? 'fa-check' : 'fa-lock'}"></i>
-                            <span>${t('plans.export')}</span>
-                        </div>
-                        <div class="plan-feature">
-                            <i class="fas fa-brain"></i>
-                            <span>${modelDisplayName}</span>
-                        </div>
-                    </div>
-                    <button class="plan-btn" data-plan="${plan.key}">${currentUser && currentUser.plan === plan.key ? t('plans.currentPlan') : t('plans.choosePlanBtn').replace('{{plan}}', t(`plans.${plan.key}`))}</button>
-                `;
-                
-                const planBtn = planCard.querySelector('.plan-btn');
-                if (currentUser && currentUser.plan === plan.key) {
-                    planBtn.disabled = true;
-                } else {
-                    planBtn.addEventListener('click', () => handlePlanSelection(plan.key));
-                }
-                
-                plansGrid.appendChild(planCard);
-            });
-        }
-
-        // Load History from API
-        async function loadHistory() {
-            if (!currentUser) {
-                historyList.innerHTML = `<div class="result-card" style="text-align: center;"><p>${t('history.signInToView')}</p></div>`;
-                return;
-            }
-            
-            try {
-                const data = await getUserAnalyses(1, 10);
-                renderHistory(data.analyses);
-            } catch (error) {
-                historyError.style.display = 'block';
-                historyError.textContent = t('common.error');
-                console.error('Load history error:', error);
-            }
-        }
-
-        function renderHistory(analyses) {
-            historyList.innerHTML = '';
-            
-            if (analyses.length === 0) {
-                historyList.innerHTML = `<div class="result-card" style="text-align: center;"><p>${t('history.noHistory')}</p></div>`;
-                return;
-            }
-            
-            analyses.forEach(item => {
-                const date = new Date(item.createdAt);
-                const formattedDate = date.toLocaleDateString(currentLanguage, { 
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric' 
-                });
-                
-                const reference = item.inputType === 'reference' ? 
-                    (item.verseEnd ? 
-                        `${item.book} ${item.chapter}:${item.verseStart}-${item.verseEnd}` : 
-                        `${item.book} ${item.chapter}:${item.verseStart}`) : 
-                    t('home.pasteText');
-                
-                const modelDisplayName = t(`aiModels.${item.aiModel}`) || item.aiModel;
-                
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.innerHTML = `
-                    <div class="history-header">
-                        <div class="history-reference">${reference}</div>
-                        <div class="history-date">${formattedDate}</div>
-                    </div>
-                    <div class="history-summary">${item.result.summary.substring(0, 100)}...</div>
-                    <div class="history-ai-model">${t('history.aiModel').replace('{{model}}', modelDisplayName)}</div>
-                `;
-                historyItem.addEventListener('click', () => showHistoryAnalysis(item));
-                historyList.appendChild(historyItem);
-            });
-        }
-
-        // Event Handlers
-        function handleSignOut() {
-            logout();
-            updateUIWithUserData();
-            updateUsageInfo();
-            updateAIModelInfo();
-            showPage('home');
-        }
-
-        async function handlePlanSelection(planKey) {
-            if (!currentUser) {
-                authModal.classList.add('active');
-                return;
-            }
-            
-            try {
-                const updatedUser = await updatePlan(planKey);
-                currentUser = updatedUser;
-                updateUIWithUserData();
-                updateUsageInfo();
-                updateAIModelInfo();
-                showPage('home');
-                alert(t('common.success'));
-            } catch (error) {
-                alert(t('common.error'));
-            }
-        }
-
-        // Analysis Functions with Monthly Limits
-        async function performAnalysis() {
-            if (!currentUser) {
-                authModal.classList.add('active');
-                return;
-            }
-            
-            if (!canAnalyze()) {
-                alert(t('home.usageInfo.warning'));
-                showPage('plans');
-                return;
-            }
-            
-            let inputData = {
-                analysisType: currentAnalysisType
-            };
-            
-            if (textTab.classList.contains('active')) {
-                const text = bibleInput.value.trim();
-                if (!text) {
-                    analysisError.style.display = 'block';
-                    analysisError.textContent = t('home.biblicalText') + ' ' + t('common.error').toLowerCase();
-                    return;
-                }
-                inputData.inputType = 'text';
-                inputData.inputText = text;
-            } else {
-                const book = document.getElementById('book-input').value.trim();
-                const chapter = document.getElementById('chapter-input').value.trim();
-                if (singleBtn.classList.contains('active')) {
-                    const verse = document.getElementById('verse-single').value.trim();
-                    if (!book || !chapter || !verse) {
-                        analysisError.style.display = 'block';
-                        analysisError.textContent = t('home.reference') + ' ' + t('common.error').toLowerCase();
-                        return;
-                    }
-                    inputData.inputType = 'reference';
-                    inputData.book = book;
-                    inputData.chapter = parseInt(chapter);
-                    inputData.verseStart = parseInt(verse);
-                } else {
-                    const verseStart = document.getElementById('verse-start').value.trim();
-                    const verseEnd = document.getElementById('verse-end').value.trim();
-                    if (!book || !chapter || !verseStart || !verseEnd) {
-                        analysisError.style.display = 'block';
-                        analysisError.textContent = t('home.reference') + ' ' + t('common.error').toLowerCase();
-                        return;
-                    }
-                    inputData.inputType = 'reference';
-                    inputData.book = book;
-                    inputData.chapter = parseInt(chapter);
-                    inputData.verseStart = parseInt(verseStart);
-                    inputData.verseEnd = parseInt(verseEnd);
-                }
-            }
-            
-            analysisError.style.display = 'none';
-            loading.style.display = 'block';
-            resultsSection.style.display = 'none';
-            document.getElementById('loading-text').textContent = t('common.analyzing');
-
-            try {
-                const analysis = await createAnalysis(inputData);
-                loading.style.display = 'none';
-                displayResults(analysis.result);
-                resultsSection.style.display = 'grid';
-                resultsSection.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
-                
-                await getCurrentUser();
-                updateUIWithUserData();
-                updateUsageInfo();
-                updateAIModelInfo();
-                
-            } catch (error) {
-                loading.style.display = 'none';
-                analysisError.style.display = 'block';
-                analysisError.textContent = error.message;
-                if (error.message.includes('Monthly limit exceeded')) {
-                    showPage('plans');
-                }
-            }
-        }
-
-        function canAnalyze() {
-            if (!currentUser) return false;
-            
-            const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-            const lastAnalysisMonth = currentUser.currentMonth;
-            const lastAnalysisYear = currentUser.currentYear;
-            
-            // Reset monthly count if it's a new month/year
-            if (lastAnalysisMonth !== currentMonth || lastAnalysisYear !== currentYear) {
-                currentUser.analysesThisMonth = 0;
-            }
-            
-            const planLimit = getPlanMonthlyLimit(currentUser.plan);
-            if (planLimit !== Infinity && currentUser.analysesThisMonth >= planLimit) {
-                return false;
-            }
-            
-            return true;
-        }
-
-        // Display Results (same as before)
-        function displayResults(data) {
-            document.getElementById('summary-content').textContent = data.summary;
-            document.getElementById('context-content').textContent = data.context;
-            document.getElementById('practical-content').textContent = data.practicalExample;
-            document.getElementById('reflection-content').textContent = data.personalReflection;
-
-            const quizSection = document.getElementById('quiz-section');
-            quizSection.innerHTML = '';
-            
-            let currentQuestion = 0;
-            let userAnswers = [];
-            let score = 0;
-
-            function showQuestion(questionIndex) {
-                quizSection.innerHTML = '';
-                
-                const progressDiv = document.createElement('div');
-                progressDiv.className = 'quiz-progress';
-                const progressText = document.createElement('span');
-                progressText.textContent = `${questionIndex + 1} of ${data.test.length}`;
-                const progressBar = document.createElement('div');
-                progressBar.className = 'progress-bar';
-                const progressFill = document.createElement('div');
-                progressFill.className = 'progress-fill';
-                progressFill.style.width = `${((questionIndex + 1) / data.test.length) * 100}%`;
-                progressBar.appendChild(progressFill);
-                progressDiv.appendChild(progressText);
-                progressDiv.appendChild(progressBar);
-                quizSection.appendChild(progressDiv);
-                
-                const question = data.test[questionIndex];
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'quiz-container';
-                questionDiv.innerHTML = `
-                    <div class="quiz-question">${question.question}</div>
-                    <div class="quiz-options" id="quiz-options"></div>
-                `;
-                quizSection.appendChild(questionDiv);
-                
-                const optionsContainer = document.getElementById('quiz-options');
-                question.options.forEach((option, optionIndex) => {
-                    const optionLetter = String.fromCharCode(97 + optionIndex);
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'quiz-option';
-                    optionDiv.dataset.answer = optionLetter;
-                    optionDiv.textContent = `${optionLetter.toUpperCase()}. ${option}`;
-                    optionDiv.addEventListener('click', function() {
-                        userAnswers[questionIndex] = this.dataset.answer;
-                        const isCorrect = this.dataset.answer === question.correctAnswer;
-                        if (isCorrect) score++;
-                        
-                        const feedback = document.createElement('div');
-                        feedback.className = 'quiz-feedback ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
-                        feedback.textContent = isCorrect ? 
-                            t('common.success') : 
-                            `Not quite. The correct answer is ${question.correctAnswer.toUpperCase()}.`;
-                        feedback.style.display = 'block';
-                        quizSection.appendChild(feedback);
-                        
-                        document.querySelectorAll('.quiz-option').forEach(opt => {
-                            opt.style.pointerEvents = 'none';
-                            if (opt.dataset.answer === question.correctAnswer) {
-                                opt.classList.add('selected');
-                            }
-                        });
-                        
-                        setTimeout(() => {
-                            if (questionIndex < data.test.length - 1) {
-                                showQuestion(questionIndex + 1);
-                            } else {
-                                showResults();
-                            }
-                        }, 1500);
-                    });
-                    optionsContainer.appendChild(optionDiv);
-                });
-            }
-
-            function showResults() {
-                quizSection.innerHTML = '';
-                const resultsDiv = document.createElement('div');
-                resultsDiv.className = 'results-summary';
-                const scorePercentage = Math.round((score / data.test.length) * 100);
-                let message;
-                if (score === data.test.length) {
-                    message = t('results.excellent');
-                } else if (score >= data.test.length / 2) {
-                    message = t('results.good');
-                } else {
-                    message = t('results.keepStudying');
-                }
-                
-                resultsDiv.innerHTML = `
-                    <h3>${t('results.quizResults')}</h3>
-                    <div class="results-score">${score}/${data.test.length}</div>
-                    <p>${t('results.score').replace('{{score}}', scorePercentage)}</p>
-                    <p style="margin-top: 16px; color: var(--text-light);">
-                        ${message}
-                    </p>
-                `;
-                quizSection.appendChild(resultsDiv);
-            }
-
-            showQuestion(currentQuestion);
-        }
-
-        function showHistoryAnalysis(analysis) {
-            showPage('home');
-            displayResults(analysis.result);
-            resultsSection.style.display = 'grid';
-            resultsSection.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
-        }
-
-        // Initialize theme and language
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            themeToggle.innerHTML = isDark ? 
-                '<i class="fas fa-sun"></i>' : 
-                '<i class="fas fa-moon"></i>';
-            mobileThemeToggle.innerHTML = isDark ? 
-                '<i class="fas fa-sun"></i>' : 
-                '<i class="fas fa-moon"></i>';
-        }
-
-        function initLanguage() {
-            const savedLang = localStorage.getItem('language');
-            if (savedLang && translations[savedLang]) {
-                currentLanguage = savedLang;
-            } else {
-                const browserLang = navigator.language.split('-')[0];
-                const supportedLangs = ['pt', 'en', 'es', 'fr'];
-                currentLanguage = supportedLangs.includes(browserLang) ? browserLang : 'en';
-                localStorage.setItem('language', currentLanguage);
-            }
-            languageSelect.value = currentLanguage;
-            mobileLanguageSelect.value = currentLanguage;
-        }
-
-        // Event Listeners (same as before)
-        themeToggle.addEventListener('click', toggleTheme);
-        mobileThemeToggle.addEventListener('click', toggleTheme);
-
-        languageSelect.addEventListener('change', (e) => {
-            currentLanguage = e.target.value;
-            localStorage.setItem('language', currentLanguage);
-            mobileLanguageSelect.value = currentLanguage;
-            updateTextContent();
-            if (currentUser) {
-                updateUser({ language: currentLanguage });
-            }
-        });
-
-        mobileLanguageSelect.addEventListener('change', (e) => {
-            currentLanguage = e.target.value;
-            localStorage.setItem('language', currentLanguage);
-            languageSelect.value = currentLanguage;
-            updateTextContent();
-            if (currentUser) {
-                updateUser({ language: currentLanguage });
-            }
-        });
-
-        textTab.addEventListener('click', () => {
-            textTab.classList.add('active');
-            referenceTab.classList.remove('active');
-            textInputGroup.style.display = 'block';
-            referenceInputGroup.style.display = 'none';
-        });
-
-        referenceTab.addEventListener('click', () => {
-            referenceTab.classList.add('active');
-            textTab.classList.remove('active');
-            textInputGroup.style.display = 'none';
-            referenceInputGroup.style.display = 'block';
-        });
-
-        singleBtn.addEventListener('click', () => {
-            singleBtn.classList.add('active');
-            rangeBtn.classList.remove('active');
-            verseSingleInput.style.display = 'block';
-            verseRangeInput.style.display = 'none';
-        });
-
-        rangeBtn.addEventListener('click', () => {
-            rangeBtn.classList.add('active');
-            singleBtn.classList.remove('active');
-            verseSingleInput.style.display = 'none';
-            verseRangeInput.style.display = 'block';
-        });
-
-        quickBtn.addEventListener('click', () => {
-            quickBtn.classList.add('active');
-            deepBtn.classList.remove('active');
-            childBtn.classList.remove('active');
-            currentAnalysisType = 'quick';
-        });
-
-        deepBtn.addEventListener('click', () => {
-            deepBtn.classList.add('active');
-            quickBtn.classList.remove('active');
-            childBtn.classList.remove('active');
-            currentAnalysisType = 'deep';
-        });
-
-        childBtn.addEventListener('click', () => {
-            childBtn.classList.add('active');
-            quickBtn.classList.remove('active');
-            deepBtn.classList.remove('active');
-            currentAnalysisType = 'child';
-        });
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-        });
-
-        mobileMenuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (mobileMenu.classList.contains('active') && 
-                !mobileMenu.contains(e.target) && 
-                !mobileMenuBtn.contains(e.target)) {
-                mobileMenu.classList.remove('active');
-            }
-        });
-
-        loginBtn.addEventListener('click', () => {
-            if (currentUser) {
-                handleSignOut();
-            } else {
-                authModal.classList.add('active');
-            }
-        });
-
-        mobileLoginBtn.addEventListener('click', () => {
-            if (currentUser) {
-                handleSignOut();
-            } else {
-                authModal.classList.add('active');
-            }
-        });
-
-        authModalClose.addEventListener('click', () => {
-            authModal.classList.remove('active');
-            authError.style.display = 'none';
-        });
-
-        authModal.addEventListener('click', (e) => {
-            if (e.target === authModal) {
-                authModal.classList.remove('active');
-                authError.style.display = 'none';
-            }
-        });
-
-        switchToRegister.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isRegister = authModalTitle.textContent === t('auth.register');
-            if (isRegister) {
-                authModalTitle.textContent = t('auth.signIn');
-                authModalSubtitle.textContent = t('auth.signInSubtitle');
-                authSubmitBtn.textContent = t('auth.signInButton');
-            } else {
-                authModalTitle.textContent = t('auth.register');
-                authModalSubtitle.textContent = t('auth.registerSubtitle');
-                authSubmitBtn.textContent = t('auth.registerButton');
-            }
-            authError.style.display = 'none';
-            authEmail.value = '';
-            authPassword.value = '';
-            authLanguage.value = currentLanguage;
-        });
-
-        authForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = authEmail.value.trim();
-            const password = authPassword.value.trim();
-            const language = authLanguage.value;
-            
-            if (!email || !password) {
-                authError.style.display = 'block';
-                authError.textContent = t('auth.email') + ' ' + t('auth.password') + ' ' + t('common.error').toLowerCase();
-                return;
-            }
-            
-            authError.style.display = 'none';
-            authSubmitBtn.disabled = true;
-            authSubmitBtn.textContent = t('common.loading');
-            
-            let result;
-            const isRegister = authModalTitle.textContent === t('auth.register');
-            
-            if (isRegister) {
-                result = await register('New User', email, password, language);
-            } else {
-                result = await login(email, password, language);
-            }
-            
-            authSubmitBtn.disabled = false;
-            authSubmitBtn.textContent = isRegister ? t('auth.registerButton') : t('auth.signInButton');
-            
-            if (result.success) {
-                authModal.classList.remove('active');
-                updateUIWithUserData();
-                updateUsageInfo();
-                updateAIModelInfo();
-                updateTextContent();
-                alert(isRegister ? t('auth.register') + ' ' + t('common.success').toLowerCase() : t('auth.signIn') + ' ' + t('common.success').toLowerCase());
-            } else {
-                authError.style.display = 'block';
-                authError.textContent = result.message;
-            }
-        });
-
-        analyzeBtn.addEventListener('click', performAnalysis);
-
-        editProfileBtn.addEventListener('click', () => {
-            if (!currentUser) {
-                authModal.classList.add('active');
-                return;
-            }
-            
-            document.getElementById('full-name').value = currentUser.name || '';
-            document.getElementById('email').value = currentUser.email || '';
-            document.getElementById('phone').value = currentUser.phone || '';
-            document.getElementById('timezone').value = currentUser.timezone || 'UTC-5';
-            document.getElementById('language').value = currentUser.language || 'en';
-            document.getElementById('bio').value = currentUser.bio || '';
-            
-            profileForm.classList.add('active');
-            profileError.style.display = 'none';
-        });
-
-        cancelProfileBtn.addEventListener('click', () => {
-            profileForm.classList.remove('active');
-        });
-
-        saveProfileBtn.addEventListener('click', async () => {
-            if (!currentUser) {
-                authModal.classList.add('active');
-                return;
-            }
-            
-            const userData = {
-                name: document.getElementById('full-name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                timezone: document.getElementById('timezone').value,
-                language: document.getElementById('language').value,
-                bio: document.getElementById('bio').value
-            };
-            
-            profileError.style.display = 'none';
-            saveProfileBtn.disabled = true;
-            saveProfileBtn.textContent = t('common.loading');
-            
-            try {
-                const updatedUser = await updateUser(userData);
-                currentUser = updatedUser;
-                updateUIWithUserData();
-                profileForm.classList.remove('active');
-                alert(t('profile.profileUpdateSuccess'));
-            } catch (error) {
-                profileError.style.display = 'block';
-                profileError.textContent = error.message;
-            } finally {
-                saveProfileBtn.disabled = false;
-                saveProfileBtn.textContent = t('common.save');
-            }
-        });
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(`${pageId}-page`).classList.add('active');
-            
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            const activeLinks = document.querySelectorAll(`[onclick="showPage('${pageId}')"]`);
-            activeLinks.forEach(link => link.classList.add('active'));
-            
-            mobileMenu.classList.remove('active');
-            
-            if (pageId === 'history') {
-                loadHistory();
-            }
-        }
-
-        document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageText = this.textContent.toLowerCase();
-                let pageId;
-                if (pageText.includes(t('nav.home').toLowerCase())) pageId = 'home';
-                else if (pageText.includes(t('nav.profile').toLowerCase())) pageId = 'profile';
-                else if (pageText.includes(t('nav.plans').toLowerCase())) pageId = 'plans';
-                else if (pageText.includes(t('nav.history').toLowerCase())) pageId = 'history';
-                else pageId = 'home';
-                showPage(pageId);
-            });
-        });
-
-        initApp();
-    </script>
-</body>
+    <script src="script/script.js"></script>
+  </body>
 </html>

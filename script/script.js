@@ -38,6 +38,7 @@ const PlanConfig = {
   },
 };
 
+
 // Mock AI responses for different analysis types
 const MockAIResponses = {
   quick: {
@@ -727,7 +728,7 @@ function showPage(pageId) {
   mobileMenu.classList.remove("active");
 
   // Populate history if needed
-  if (pageId === "history") {
+  if (pageId == "history") {
     populateHistory();
   }
 }
@@ -739,7 +740,7 @@ function populateHistory() {
 
   // Limit history for free plan
   let historyToShow = AppData.history;
-  if (!planConfig.features.fullHistory && AppData.userData.plan === "free") {
+  if (!planConfig.features.fullHistory && AppData.userData.plan == "free") {
     historyToShow = AppData.history.slice(0, 2); // Only show last 2 for free plan
   }
 
@@ -927,7 +928,7 @@ function displayResults(data) {
         userAnswers[questionIndex] = this.dataset.answer;
 
         // Check if correct
-        const isCorrect = this.dataset.answer === question.correctAnswer;
+        const isCorrect = this.dataset.answer == question.correctAnswer;
         if (isCorrect) score++;
 
         // Show feedback
@@ -944,7 +945,7 @@ function displayResults(data) {
         // Disable options
         document.querySelectorAll(".quiz-option").forEach((opt) => {
           opt.style.pointerEvents = "none";
-          if (opt.dataset.answer === question.correctAnswer) {
+          if (opt.dataset.answer == question.correctAnswer) {
             opt.classList.add("selected");
           }
         });
@@ -976,7 +977,7 @@ function displayResults(data) {
                     )}%!</p>
                     <p style="margin-top: 16px; color: var(--text-light);">
                         ${
-                          score === data.test.length
+                          score == data.test.length
                             ? "Excellent work! You have a deep understanding of this passage."
                             : score >= data.test.length / 2
                             ? "Good job! You have a solid understanding of this passage."
@@ -1037,7 +1038,7 @@ document.querySelectorAll(".plan-btn").forEach((btn) => {
     // Update UI
     document.getElementById("plan-type").textContent = PlanConfig[newPlan].name;
     document.getElementById("daily-limit").textContent =
-      newPlan === "pro"
+      newPlan == "pro"
         ? "Unlimited"
         : `${AppData.userData.dailyLimit.used}/${PlanConfig[newPlan].dailyLimit}`;
 
@@ -1067,3 +1068,74 @@ document.querySelectorAll(".nav-link, .mobile-nav-link").forEach((link) => {
     showPage(pageId);
   });
 });
+
+/*-----------------------------------backend--------------------------------------*/
+// function renderPlans(plans) {
+//   const plansGrid = document.querySelector('.plans-grid')
+//   plansGrid.innerHTML = "";
+
+//   plans.forEach((plan) => {
+//     const planCard = document.createElement("div");
+//     planCard.className = `plan-card ${plan.key === "premium" ? "popular" : ""}`;
+//     const modelDisplayName = t(`aiModels.${plan.aiModel}`) || plan.aiModel;
+//     const analysesText =
+//       plan.monthlyLimit === Infinity
+//         ? t("plans.unlimited")
+//         : `${plan.monthlyLimit} ${t("plans.analysesPerMonth")}`;
+
+//     planCard.innerHTML = `
+//                     <div class="plan-name">${t(`plans.${plan.key}`)}</div>
+//                     <div class="plan-price">$${plan.price}<span>${t(
+//       "plans.perMonth"
+//     )}</span></div>
+//                     <div class="plan-features">
+//                         <div class="plan-feature">
+//                             <i class="fas fa-check"></i>
+//                             <span>${analysesText}</span>
+//                         </div>
+//                         <div class="plan-feature">
+//                             <i class="fas fa-check"></i>
+//                             <span>${
+//                               plan.features.advancedInsights
+//                                 ? t("plans.advancedInsights")
+//                                 : t("plans.basicInsights")
+//                             }</span>
+//                         </div>
+//                         <div class="plan-feature ${
+//                           plan.features.fullHistory ? "" : "locked"
+//                         }">
+//                             <i class="fas ${
+//                               plan.features.fullHistory ? "fa-check" : "fa-lock"
+//                             }"></i>
+//                             <span>${t("plans.fullHistory")}</span>
+//                         </div>
+//                         <div class="plan-feature ${
+//                           plan.features.export ? "" : "locked"
+//                         }">
+//                             <i class="fas ${
+//                               plan.features.export ? "fa-check" : "fa-lock"
+//                             }"></i>
+//                             <span>${t("plans.export")}</span>
+//                         </div>
+//                         <div class="plan-feature">
+//                             <i class="fas fa-brain"></i>
+//                             <span>${modelDisplayName}</span>
+//                         </div>
+//                     </div>
+//                     <button class="plan-btn" data-plan="${plan.key}">${
+//       currentUser && currentUser.plan == plan.key
+//         ? t("plans.currentPlan")
+//         : t("plans.choosePlanBtn").replace("{{plan}}", t(`plans.${plan.key}`))
+//     }</button>
+//                 `;
+
+//     const planBtn = planCard.querySelector(".plan-btn");
+//     if (currentUser && currentUser.plan == plan.key) {
+//       planBtn.disabled = true;
+//     } else {
+//       planBtn.addEventListener("click", () => handlePlanSelection(plan.key));
+//     }
+
+//     plansGrid.appendChild(planCard);
+//   });
+// }
