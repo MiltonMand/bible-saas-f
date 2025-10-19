@@ -1,484 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BibleInsight - Biblical Text Analysis</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
     <header>
-      <div class="container">
-        <nav class="navbar">
-          <a href="#" class="logo" onclick="showPage('home')">
-            <i class="fas fa-bible"></i>
-            <span id="logo-text">BibleInsight</span>
-          </a>
-          <div class="nav-links">
-            <a href="#" class="nav-link active" onclick="showPage('home')"
-              >Home</a
-            >
-            <a href="#" class="nav-link" onclick="showPage('profile')"
-              >Profile</a
-            >
-            <a href="#" class="nav-link" onclick="showPage('plans')">Plans</a>
-            <a href="#" class="nav-link" onclick="showPage('history')"
-              >History</a
-            >
-          </div>
-          <div class="nav-controls">
-            <div class="language-selector">
-              <select id="language-select">
-                <option value="en">English</option>
-                <option value="pt">Português</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-              </select>
-            </div>
-            <div class="theme-toggle" id="theme-toggle">
-              <i class="fas fa-moon"></i>
-            </div>
-            <div class="auth-buttons">
-              <button id="login-btn">Sign In</button>
-            </div>
-            <div class="mobile-menu-btn" id="mobile-menu-btn">
-              <i class="fas fa-bars"></i>
-            </div>
-          </div>
-        </nav>
-      </div>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo" onclick="showPage('home')">
+                    <i class="fas fa-bible"></i>
+                    <span id="logo-text">BibleInsight</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
+                    <a href="#" class="nav-link" onclick="showPage('profile')">Profile</a>
+                    <a href="#" class="nav-link" onclick="showPage('plans')">Plans</a>
+                    <a href="#" class="nav-link" onclick="showPage('history')">History</a>
+                </div>
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="language-select">
+                            <option value="en" selected>English</option>
+                            <option value="pt">Português</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+                    <div class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="auth-buttons">
+                        <button id="login-btn">Sign In</button>
+                    </div>
+                    <div class="mobile-menu-btn" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
-      <div class="mobile-menu-header">
-        <div class="logo">
-          <i class="fas fa-bible"></i>
-          <span id="mobile-logo-text">BibleInsight</span>
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i class="fas fa-bible"></i>
+                <span id="mobile-logo-text">BibleInsight</span>
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <button class="mobile-menu-close" id="mobile-menu-close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="mobile-nav-links">
-        <a href="#" class="mobile-nav-link active" onclick="showPage('home')"
-          >Home</a
-        >
-        <a href="#" class="mobile-nav-link" onclick="showPage('profile')"
-          >Profile</a
-        >
-        <a href="#" class="mobile-nav-link" onclick="showPage('plans')"
-          >Plans</a
-        >
-        <a href="#" class="mobile-nav-link" onclick="showPage('history')"
-          >History</a
-        >
-      </div>
-      <div class="mobile-nav-controls">
-        <div class="language-selector">
-          <select id="mobile-language-select">
-            <option value="en">English</option>
-            <option value="pt">Português</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-          </select>
+        <div class="mobile-nav-links">
+            <a href="#" class="mobile-nav-link active" onclick="showPage('home')">Home</a>
+            <a href="#" class="mobile-nav-link" onclick="showPage('profile')">Profile</a>
+            <a href="#" class="mobile-nav-link" onclick="showPage('plans')">Plans</a>
+            <a href="#" class="mobile-nav-link" onclick="showPage('history')">History</a>
         </div>
-        <div class="theme-toggle" id="mobile-theme-toggle">
-          <i class="fas fa-moon"></i>
+        <div class="mobile-nav-controls">
+            <div class="language-selector">
+                <select id="mobile-language-select">
+                    <option value="en" selected>English</option>
+                    <option value="pt">Português</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            <div class="theme-toggle" id="mobile-theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+            <button class="auth-buttons" id="mobile-login-btn">Sign In</button>
         </div>
-        <div class="auth-buttons">
-          <button id="login-btn">Sign In</button>
-        </div>
-      </div>
     </div>
 
     <!-- Auth Modal -->
     <div class="auth-modal" id="auth-modal">
-      <div class="auth-modal-content">
-        <button class="auth-modal-close" id="auth-modal-close">
-          <i class="fas fa-times"></i>
-        </button>
-        <div class="auth-modal-header">
-          <h2 id="auth-modal-title">Sign In</h2>
-          <p id="auth-modal-subtitle">
-            Access your biblical insights and analysis history
-          </p>
-        </div>
-        <div class="error-message" id="auth-error"></div>
-        <form id="auth-form">
-          <div class="auth-form-group">
-            <label for="auth-email">Email Address</label>
-            <input
-              type="email"
-              id="auth-email"
-              placeholder="Enter your email"
-              required />
-          </div>
-          <div class="auth-form-group">
-            <label for="auth-password">Password</label>
-            <input
-              type="password"
-              id="auth-password"
-              placeholder="Enter your password"
-              required />
-          </div>
-          <div class="auth-form-group">
-            <label for="auth-language">Language</label>
-            <select id="auth-language">
-              <option value="en">English</option>
-              <option value="pt">Português</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-            </select>
-          </div>
-          <div class="auth-form-actions">
-            <button
-              type="submit"
-              class="form-btn save-btn"
-              id="auth-submit-btn">
-              Sign In
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" id="auth-modal-close">
+                <i class="fas fa-times"></i>
             </button>
-          </div>
-        </form>
-        <div class="auth-toggle">
-          <p>
-            Don't have an account?
-            <a href="#" id="switch-to-register">Register now</a>
-          </p>
+            <div class="auth-modal-header">
+                <h2 id="auth-modal-title">Sign In</h2>
+                <p id="auth-modal-subtitle">Access your biblical insights and analysis history</p>
+            </div>
+            <div class="error-message" id="auth-error"></div>
+            <form id="auth-form">
+                <div class="auth-form-group">
+                    <label for="auth-email">Email Address</label>
+                    <input type="email" id="auth-email" placeholder="Enter your email" required>
+                </div>
+                <div class="auth-form-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" placeholder="Enter your password" required>
+                </div>
+                <div class="auth-form-group">
+                    <label for="auth-language">Language</label>
+                    <select id="auth-language">
+                        <option value="en" selected>English</option>
+                        <option value="pt">Português</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+                <div class="auth-form-actions">
+                    <button type="submit" class="auth-btn auth-save-btn" id="auth-submit-btn">Sign In</button>
+                </div>
+            </form>
+            <div class="auth-toggle">
+                <p>Don't have an account? <a href="#" id="switch-to-register">Register now</a></p>
+            </div>
         </div>
-      </div>
+    </div>
+
+    <!-- PayPal Modal -->
+    <div class="paypal-modal" id="paypal-modal">
+        <div class="paypal-modal-content">
+            <button class="paypal-modal-close" id="paypal-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="paypal-modal-header">
+                <h2 id="paypal-modal-title">Complete Your Subscription</h2>
+                <p id="paypal-modal-subtitle">Secure payment processing with PayPal</p>
+            </div>
+            <div class="error-message" id="paypal-error"></div>
+            <div class="paypal-button-container">
+                <div id="paypal-button-container"></div>
+            </div>
+            <div class="auth-toggle">
+                <p>By subscribing, you agree to our <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>.</p>
+            </div>
+        </div>
     </div>
 
     <main class="main-content">
-      <div class="container">
-        <!-- Home Page -->
-        <div class="page active" id="home-page">
-          <div class="hero">
-            <h1 id="hero-title">Deep Biblical Understanding</h1>
-            <p id="hero-subtitle">
-              Paste biblical text or enter a reference to receive AI-powered
-              insights, practical applications, and personal reflections.
-            </p>
-            <div class="auth-buttons">
-              <button id="login-btn">Let Start Now</button>
-            </div>
-          </div>
-
-          <div class="input-section">
-            <div class="input-tabs">
-              <button class="input-tab active" data-tab="text" id="text-tab">
-                Paste Text
-              </button>
-              <button class="input-tab" data-tab="reference" id="reference-tab">
-                Bible Reference
-              </button>
-            </div>
-
-            <!-- Text Input -->
-            <div class="input-group" id="text-input-group">
-              <label for="bible-input" id="input-label">
-                <i class="fas fa-paste"></i>
-                <span id="input-label-text">Biblical Text</span>
-              </label>
-              <textarea
-                id="bible-input"
-                placeholder="Example: Paste the full biblical text here..."></textarea>
-            </div>
-
-            <!-- Reference Input -->
-            <div
-              class="input-group"
-              id="reference-input-group"
-              style="display: none">
-              <label for="book-input">
-                <i class="fas fa-book"></i>
-                <span id="reference-label">Bible Reference</span>
-              </label>
-              <div class="reference-inputs">
-                <div class="reference-input-group">
-                  <label for="book-input" id="book-label">Book</label>
-                  <input
-                    type="text"
-                    id="book-input"
-                    class="reference-input"
-                    placeholder="John" />
+        <div class="container">
+            <!-- Home Page -->
+            <div class="page active" id="home-page">
+                <div class="hero">
+                    <h1 id="hero-title">Deep Biblical Understanding</h1>
+                    <p id="hero-subtitle">Paste biblical text or enter a reference to receive AI-powered insights, practical applications, and personal reflections.</p>
                 </div>
-                <div class="reference-input-group">
-                  <label for="chapter-input" id="chapter-label">Chapter</label>
-                  <input
-                    type="number"
-                    id="chapter-input"
-                    class="reference-input"
-                    placeholder="3"
-                    min="1" />
-                </div>
-                <div class="reference-input-group">
-                  <label for="verse-input" id="verse-label">Verse(s)</label>
-                  <div class="verse-type-selector">
-                    <button
-                      class="verse-type-btn active"
-                      data-type="single"
-                      id="single-btn">
-                      Single
-                    </button>
-                    <button
-                      class="verse-type-btn"
-                      data-type="range"
-                      id="range-btn">
-                      Range
-                    </button>
-                  </div>
-                  <div id="verse-single-input">
-                    <input
-                      type="number"
-                      id="verse-single"
-                      class="reference-input"
-                      placeholder="16"
-                      min="1" />
-                  </div>
-                  <div id="verse-range-input" style="display: none">
-                    <div class="verse-range-inputs">
-                      <div class="verse-range-input">
-                        <input
-                          type="number"
-                          id="verse-start"
-                          class="reference-input"
-                          placeholder="1"
-                          min="1" />
-                      </div>
-                      <div class="verse-range-input">
-                        <input
-                          type="number"
-                          id="verse-end"
-                          class="reference-input"
-                          placeholder="10"
-                          min="1" />
-                      </div>
+
+                <div class="input-section">
+                    <div class="input-tabs">
+                        <button class="input-tab active" data-tab="text" id="text-tab">Paste Text</button>
+                        <button class="input-tab" data-tab="reference" id="reference-tab">Bible Reference</button>
                     </div>
-                  </div>
+                    
+                    <!-- Text Input -->
+                    <div class="input-group" id="text-input-group">
+                        <label for="bible-input" id="input-label">
+                            <i class="fas fa-paste"></i>
+                            <span id="input-label-text">Biblical Text</span>
+                        </label>
+                        <textarea id="bible-input" placeholder="Example: Paste the full biblical text here..."></textarea>
+                    </div>
+                    
+                    <!-- Reference Input -->
+                    <div class="input-group" id="reference-input-group" style="display: none;">
+                        <label for="book-input">
+                            <i class="fas fa-book"></i>
+                            <span id="reference-label">Bible Reference</span>
+                        </label>
+                        <div class="reference-inputs">
+                            <div class="reference-input-group">
+                                <label for="book-input" id="book-label">Book</label>
+                                <input type="text" id="book-input" class="reference-input" placeholder="John">
+                            </div>
+                            <div class="reference-input-group">
+                                <label for="chapter-input" id="chapter-label">Chapter</label>
+                                <input type="number" id="chapter-input" class="reference-input" placeholder="3" min="1">
+                            </div>
+                            <div class="reference-input-group">
+                                <label for="verse-input" id="verse-label">Verse(s)</label>
+                                <div class="verse-type-selector">
+                                    <button class="verse-type-btn active" data-type="single" id="single-btn">Single</button>
+                                    <button class="verse-type-btn" data-type="range" id="range-btn">Range</button>
+                                </div>
+                                <div id="verse-single-input">
+                                    <input type="number" id="verse-single" class="reference-input" placeholder="16" min="1">
+                                </div>
+                                <div id="verse-range-input" style="display: none;">
+                                    <div class="verse-range-inputs">
+                                        <div class="verse-range-input">
+                                            <input type="number" id="verse-start" class="reference-input" placeholder="1" min="1">
+                                        </div>
+                                        <div class="verse-range-input">
+                                            <input type="number" id="verse-end" class="reference-input" placeholder="10" min="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analysis Type Selection -->
+                    <div class="analysis-types">
+                        <div class="analysis-btn quick-analysis active" data-type="quick" id="quick-btn">
+                            <i class="fas fa-bolt"></i>
+                            <div>Quick Analysis</div>
+                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Fast & Simple</div>
+                        </div>
+                        <div class="analysis-btn deep-analysis" data-type="deep" id="deep-btn">
+                            <i class="fas fa-search"></i>
+                            <div>Deep Analysis</div>
+                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Comprehensive</div>
+                        </div>
+                        <div class="analysis-btn child-analysis" data-type="child" id="child-btn">
+                            <i class="fas fa-child"></i>
+                            <div>Child-Friendly</div>
+                            <div style="font-size: 12px; font-weight: 400; margin-top: 4px;">Simple & Fun</div>
+                        </div>
+                    </div>
+                    
+                    <button class="analyze-btn" id="analyze-btn">
+                        <i class="fas fa-brain"></i> <span id="analyze-text">Analyze with AI</span>
+                    </button>
+                    
+                    <div class="usage-info" id="usage-info">
+                        <!-- Usage info will be populated by JavaScript -->
+                    </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- Analysis Type Selection -->
-            <div class="analysis-types">
-              <div
-                class="analysis-btn quick-analysis active"
-                data-type="quick"
-                id="quick-btn">
-                <i class="fas fa-bolt"></i>
-                <div>Quick Analysis</div>
-                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
-                  Fast & Simple
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p id="loading-text">Analyzing biblical text with AI...</p>
                 </div>
-              </div>
-              <div
-                class="analysis-btn deep-analysis"
-                data-type="deep"
-                id="deep-btn">
-                <i class="fas fa-search"></i>
-                <div>Deep Analysis</div>
-                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
-                  Comprehensive
+
+                <div class="results-section" id="results-section">
+                    <div class="result-card">
+                        <h3><i class="fas fa-file-alt"></i> <span id="summary-title">Summary</span></h3>
+                        <p id="summary-content"></p>
+                    </div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-history"></i> <span id="context-title">Historical Context</span></h3>
+                        <p id="context-content"></p>
+                    </div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-lightbulb"></i> <span id="practical-title">Practical Application</span></h3>
+                        <p id="practical-content"></p>
+                    </div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-heart"></i> <span id="reflection-title">Personal Reflection</span></h3>
+                        <p id="reflection-content"></p>
+                    </div>
+                    <div class="result-card">
+                        <h3><i class="fas fa-question-circle"></i> <span id="quiz-title">Knowledge Check</span></h3>
+                        <div class="quiz-section" id="quiz-section"></div>
+                    </div>
                 </div>
-              </div>
-              <div
-                class="analysis-btn child-analysis"
-                data-type="child"
-                id="child-btn">
-                <i class="fas fa-child"></i>
-                <div>Child-Friendly</div>
-                <div style="font-size: 12px; font-weight: 400; margin-top: 4px">
-                  Simple & Fun
+            </div>
+
+            <!-- Profile Page -->
+            <div class="page" id="profile-page">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name">John Doe</h2>
+                        <p id="profile-email">john.doe@example.com</p>
+                        <button class="profile-edit-btn" id="edit-profile-btn">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                    </div>
                 </div>
-              </div>
+                
+                <!-- Profile Form -->
+                <div class="profile-form" id="profile-form">
+                    <div class="error-message" id="profile-error"></div>
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" value="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" value="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" value="+1 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label for="timezone">Time Zone</label>
+                        <select id="timezone">
+                            <option value="UTC-5">Eastern Time (UTC-5)</option>
+                            <option value="UTC-6">Central Time (UTC-6)</option>
+                            <option value="UTC-7">Mountain Time (UTC-7)</option>
+                            <option value="UTC-8">Pacific Time (UTC-8)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" rows="4">Passionate about biblical studies and spiritual growth. I love exploring the deeper meanings of scripture and applying them to daily life.</textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="form-btn save-btn" id="save-profile-btn">Save Changes</button>
+                        <button class="form-btn cancel-btn" id="cancel-profile-btn">Cancel</button>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="analyses-count">12</div>
+                        <div class="stat-label" id="analyses-label">Analyses This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="plan-type">Premium</div>
+                        <div class="stat-label" id="plan-label">Current Plan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="daily-limit">28/30</div>
+                        <div class="stat-label" id="limit-label">Daily Limit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="member-since">2 years</div>
+                        <div class="stat-label" id="member-label">Member Since</div>
+                    </div>
+                </div>
             </div>
 
-            <button class="analyze-btn" id="analyze-btn">
-              <i class="fas fa-brain"></i>
-              <span id="analyze-text">Analyze with AI</span>
-            </button>
+            <!-- Plans Page -->
+            <div class="page" id="plans-page">
+                <div class="hero">
+                    <h1 id="plans-title">Choose Your Plan</h1>
+                    <p id="plans-subtitle">Unlock powerful biblical insights with our flexible pricing plans.</p>
+                </div>
+                
+                <div class="plans-grid" id="plans-grid">
+                    <!-- Plans will be populated by JavaScript -->
+                </div>
+            </div>
 
-            <div class="usage-info" id="usage-info">
-              Please sign in to access analysis features
+            <!-- History Page -->
+            <div class="page" id="history-page">
+                <div class="hero">
+                    <h1 id="history-title">Your Analysis History</h1>
+                    <p id="history-subtitle">Review your previous biblical text analyses and insights.</p>
+                </div>
+                
+                <div class="history-list" id="history-list">
+                    <!-- History items will be populated from data -->
+                </div>
             </div>
-            <div class="error-message" id="analysis-error"></div>
-
-            <div class="ai-model-info" id="ai-model-info">
-              <!-- AI model info will be populated based on user's plan -->
-            </div>
-          </div>
-
-          <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p id="loading-text">Analyzing biblical text with AI...</p>
-          </div>
-
-          <div class="results-section" id="results-section">
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-file-alt"></i>
-                <span id="summary-title">Summary</span>
-              </h3>
-              <p id="summary-content"></p>
-            </div>
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-history"></i>
-                <span id="context-title">Historical Context</span>
-              </h3>
-              <p id="context-content"></p>
-            </div>
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-lightbulb"></i>
-                <span id="practical-title">Practical Application</span>
-              </h3>
-              <p id="practical-content"></p>
-            </div>
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-heart"></i>
-                <span id="reflection-title">Personal Reflection</span>
-              </h3>
-              <p id="reflection-content"></p>
-            </div>
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-question-circle"></i>
-                <span id="quiz-title">Knowledge Check</span>
-              </h3>
-              <div class="quiz-section" id="quiz-section"></div>
-            </div>
-          </div>
         </div>
-
-        <!-- Profile Page -->
-        <div class="page" id="profile-page">
-          <div class="profile-header">
-            <div class="profile-avatar">
-              <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-info">
-              <h2 id="profile-name">Loading...</h2>
-              <p id="profile-email">Loading...</p>
-              <button class="profile-edit-btn" id="edit-profile-btn">
-                <i class="fas fa-edit"></i> Edit Profile
-              </button>
-            </div>
-          </div>
-
-          <!-- Profile Form -->
-          <div class="profile-form" id="profile-form">
-            <div class="error-message" id="profile-error"></div>
-            <div class="form-group">
-              <label for="full-name">Full Name</label>
-              <input
-                type="text"
-                id="full-name"
-                placeholder="Enter your full name" />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="Enter your email" />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+1 (555) 123-4567" />
-            </div>
-            <div class="form-group">
-              <label for="timezone">Time Zone</label>
-              <select id="timezone">
-                <option value="UTC-5">Eastern Time (UTC-5)</option>
-                <option value="UTC-6">Central Time (UTC-6)</option>
-                <option value="UTC-7">Mountain Time (UTC-7)</option>
-                <option value="UTC-8">Pacific Time (UTC-8)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="language">Language</label>
-              <select id="language">
-                <option value="en">English</option>
-                <option value="pt">Português</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bio">Bio</label>
-              <textarea
-                id="bio"
-                rows="4"
-                placeholder="Tell us about yourself..."></textarea>
-            </div>
-            <div class="form-actions">
-              <button class="form-btn save-btn" id="save-profile-btn">
-                Save Changes
-              </button>
-              <button class="form-btn cancel-btn" id="cancel-profile-btn">
-                Cancel
-              </button>
-            </div>
-          </div>
-
-          <div class="profile-stats">
-            <div class="stat-card">
-              <div class="stat-value" id="analyses-count">0</div>
-              <div class="stat-label" id="analyses-label">
-                Analyses This Month
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="plan-type">Free</div>
-              <div class="stat-label" id="plan-label">Current Plan</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="daily-limit">0/2</div>
-              <div class="stat-label" id="limit-label">Daily Limit</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="member-since">-</div>
-              <div class="stat-label" id="member-label">Member Since</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Plans Page -->
-        <div class="page" id="plans-page">
-          <div class="hero">
-            <h1 id="plans-title">Choose Your Plan</h1>
-            <p id="plans-subtitle">
-              Unlock powerful biblical insights with our flexible pricing plans.
-            </p>
-          </div>
-          <div class="error-message" id="plans-error"></div>
-          <div class="plans-grid" id="plans-grid">
-            <!-- Plans will be loaded from API -->
-          </div>
-        </div>
-
-        <!-- History Page -->
-        <div class="page" id="history-page">
-          <div class="hero">
-            <h1 id="history-title">Your Analysis History</h1>
-            <p id="history-subtitle">
-              Review your previous biblical text analyses and insights.
-            </p>
-          </div>
-          <div class="error-message" id="history-error"></div>
-          <div class="history-list" id="history-list">
-            <!-- History items will be loaded from API -->
-          </div>
-        </div>
-      </div>
     </main>
 
-    <script src="script/script.js"></script>
-  </body>
+   <script src="script/script.js"></script>
+</body>
 </html>

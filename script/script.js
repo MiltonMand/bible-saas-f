@@ -1,297 +1,5 @@
-// Plan Configuration
-const PlanConfig = {
-  free: {
-    name: "Free",
-    dailyLimit: 2,
-    features: {
-      basicInsights: true,
-      advancedInsights: false,
-      conceptMaps: false,
-      fullHistory: false,
-      export: false,
-      priorityProcessing: false,
-    },
-  },
-  premium: {
-    name: "Premium",
-    dailyLimit: 30,
-    features: {
-      basicInsights: true,
-      advancedInsights: true,
-      conceptMaps: true,
-      fullHistory: true,
-      export: false,
-      priorityProcessing: false,
-    },
-  },
-  pro: {
-    name: "Pro",
-    dailyLimit: Infinity,
-    features: {
-      basicInsights: true,
-      advancedInsights: true,
-      conceptMaps: true,
-      fullHistory: true,
-      export: true,
-      priorityProcessing: true,
-    },
-  },
-};
-
-
-// Mock AI responses for different analysis types
-const MockAIResponses = {
-  quick: {
-    summary:
-      "God loves the world so much that He gave His only Son, so everyone who believes in Him will have eternal life.",
-    context:
-      "Jesus said this to Nicodemus at night, explaining God's amazing love and the gift of eternal life through faith.",
-    practicalExample:
-      "Show God's love to others by being kind and sharing hope with those around you.",
-    personalReflection:
-      "God's love for me is unconditional and eternal, which gives me peace and purpose every day.",
-    test: [
-      {
-        question: "What is the main message of John 3:16?",
-        options: [
-          "God's love",
-          "Eternal punishment",
-          "Religious rules",
-          "Worldly success",
-        ],
-        correctAnswer: "a",
-      },
-      {
-        question: "What do we need to do to have eternal life?",
-        options: [
-          "Believe in Jesus",
-          "Follow many rules",
-          "Be very rich",
-          "Never make mistakes",
-        ],
-        correctAnswer: "a",
-      },
-    ],
-  },
-  deep: {
-    summary:
-      "God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. This verse encapsulates the core message of Christianity: God's sacrificial love and the promise of eternal life through faith in Jesus Christ.",
-    context:
-      "John 3:16 appears in the Gospel of John, chapter 3, during Jesus' conversation with Nicodemus, a Pharisee who came to Jesus at night. This verse is part of Jesus' explanation about being 'born again' and represents one of the most famous and quoted verses in the entire Bible, summarizing the gospel message.",
-    practicalExample:
-      "This verse encourages us to demonstrate sacrificial love in our daily lives, just as God demonstrated His love through Jesus. We can apply this by showing unconditional love to others, sharing the message of hope with those around us, and living with the confidence that comes from knowing we have eternal life.",
-    personalReflection:
-      "When I reflect on John 3:16, I'm reminded that God's love is not based on my worthiness but on His character. This truth brings me comfort during difficult times and motivates me to love others more deeply, knowing that I've been loved so completely by God.",
-    test: [
-      {
-        question: "What is the main theme of John 3:16?",
-        options: [
-          "God's love",
-          "Eternal punishment",
-          "Religious rules",
-          "Worldly success",
-        ],
-        correctAnswer: "a",
-      },
-      {
-        question: "Who was Jesus speaking to when He said John 3:16?",
-        options: ["Peter", "Nicodemus", "Mary Magdalene", "The crowds"],
-        correctAnswer: "b",
-      },
-      {
-        question: "What does 'eternal life' refer to in this context?",
-        options: [
-          "Living forever on earth",
-          "Life after death in heaven",
-          "A relationship with God that begins now and continues forever",
-          "Immortality of the soul",
-        ],
-        correctAnswer: "c",
-      },
-      {
-        question:
-          "What is required to receive eternal life according to this verse?",
-        options: [
-          "Good works",
-          "Church membership",
-          "Believing in Jesus",
-          "Following the law",
-        ],
-        correctAnswer: "c",
-      },
-    ],
-  },
-  child: {
-    summary:
-      "God loves everyone in the whole world so much that He gave His special Son, Jesus! If you believe in Jesus, you can live with God forever!",
-    context:
-      "Jesus was talking to a man named Nicodemus one night and told him this super important message about God's big love!",
-    practicalExample:
-      "You can show God's love by being kind to your friends, helping your family, and telling others about Jesus!",
-    personalReflection:
-      "I feel so happy knowing that God loves me no matter what! His love is like the biggest hug ever!",
-    test: [
-      {
-        question: "Who does God love?",
-        options: [
-          "Only good kids",
-          "Everyone in the world",
-          "Just pastors",
-          "Only rich people",
-        ],
-        correctAnswer: "b",
-      },
-      {
-        question: "What did God give because He loves us?",
-        options: [
-          "Lots of toys",
-          "His Son Jesus",
-          "A big house",
-          "Millions of dollars",
-        ],
-        correctAnswer: "b",
-      },
-      {
-        question: "What happens when we believe in Jesus?",
-        options: [
-          "We get to live with God forever",
-          "We become super strong",
-          "We get lots of presents",
-          "We never get sick",
-        ],
-        correctAnswer: "a",
-      },
-    ],
-  },
-};
-
-// Data Objects
-const AppData = {
-  userData: {
-    id: "user123",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    timezone: "UTC-5",
-    bio: "Passionate about biblical studies and spiritual growth. I love exploring the deeper meanings of scripture and applying them to daily life.",
-    memberSince: "2022-10-15",
-    plan: "free", // Changed to free to demonstrate limitations
-    analysesThisMonth: 12,
-    dailyLimit: { used: 2, total: 2 }, // At limit for free plan
-    lastAnalysisDate: new Date().toDateString(),
-  },
-
-  plans: [
-    {
-      id: "free",
-      name: "Free",
-      price: 0,
-      features: [
-        "2 analyses per day",
-        "Basic insights",
-        "No concept maps",
-        "Limited history",
-      ],
-      popular: false,
-    },
-    {
-      id: "premium",
-      name: "Premium",
-      price: 9,
-      features: [
-        "30 analyses per day",
-        "Advanced insights",
-        "Interactive concept maps",
-        "Full history access",
-      ],
-      popular: true,
-    },
-    {
-      id: "pro",
-      name: "Pro",
-      price: 19,
-      features: [
-        "Unlimited analyses",
-        "Priority AI processing",
-        "Advanced concept maps",
-        "Export capabilities",
-      ],
-      popular: false,
-    },
-  ],
-
-  history: [
-    {
-      id: "hist1",
-      reference: "John 3:16",
-      date: "2024-10-20T14:30:00",
-      summary: "God so loved the world that he gave his one and only Son...",
-      aiResponse: null,
-    },
-    {
-      id: "hist2",
-      reference: "Psalm 23",
-      date: "2024-10-19T10:15:00",
-      summary: "The Lord is my shepherd; I shall not want...",
-      aiResponse: null,
-    },
-  ],
-};
-
 // Translation data
 const translations = {
-  pt: {
-    logoText: "BibleInsight",
-    heroTitle: "Compreensão Bíblica Profunda",
-    heroSubtitle:
-      "Cole texto bíblico ou insira uma referência para receber insights com IA, aplicações práticas e reflexões pessoais.",
-    inputLabelText: "Texto Bíblico",
-    referenceLabel: "Referência Bíblica",
-    bookLabel: "Livro",
-    chapterLabel: "Capítulo",
-    verseLabel: "Versículo(s)",
-    analyzeText: "Analisar com IA",
-    loadingText: "Analisando texto bíblico com IA...",
-    summaryTitle: "Resumo",
-    contextTitle: "Contexto Histórico",
-    practicalTitle: "Aplicação Prática",
-    reflectionTitle: "Reflexão Pessoal",
-    quizTitle: "Verificação de Conhecimento",
-    plansTitle: "Escolha Seu Plano",
-    plansSubtitle:
-      "Desbloqueie insights bíblicos poderosos com nossos planos flexíveis.",
-    historyTitle: "Seu Histórico de Análises",
-    historySubtitle:
-      "Revise suas análises anteriores de textos bíblicos e insights.",
-    profileName: "João Silva",
-    profileEmail: "joao.silva@email.com",
-    analysesLabel: "Análises Este Mês",
-    planLabel: "Plano Atual",
-    limitLabel: "Limite Diário",
-    memberLabel: "Membro Desde",
-    freePlan: "Gratuito",
-    premiumPlan: "Premium",
-    proPlan: "Pro",
-    freeFeature1: "2 análises por dia",
-    freeFeature2: "Insights básicos",
-    freeFeature3: "Sem mapas conceituais",
-    freeFeature4: "Histórico limitado",
-    premiumFeature1: "30 análises por dia",
-    premiumFeature2: "Insights avançados",
-    premiumFeature3: "Mapas conceituais interativos",
-    premiumFeature4: "Acesso completo ao histórico",
-    proFeature1: "Análises ilimitadas",
-    proFeature2: "Processamento prioritário com IA",
-    proFeature3: "Mapas conceituais avançados",
-    proFeature4: "Capacidades de exportação",
-    usageInfo: {
-      free: "Plano Gratuito: {{used}}/{{total}} análises usadas hoje",
-      premium: "Plano Premium: {{used}}/{{total}} análises usadas hoje",
-      pro: "Plano Pro: Análises ilimitadas",
-      warning: "Você atingiu seu limite diário! Atualize para continuar.",
-      upgrade: "Atualize seu plano para desbloquear mais análises!",
-    },
-  },
   en: {
     logoText: "BibleInsight",
     heroTitle: "Deep Biblical Understanding",
@@ -319,16 +27,16 @@ const translations = {
     profileEmail: "john.doe@example.com",
     analysesLabel: "Analyses This Month",
     planLabel: "Current Plan",
-    limitLabel: "Daily Limit",
+    limitLabel: "Monthly Limit",
     memberLabel: "Member Since",
     freePlan: "Free",
     premiumPlan: "Premium",
     proPlan: "Pro",
-    freeFeature1: "2 analyses per day",
+    freeFeature1: "5 analyses per month",
     freeFeature2: "Basic insights",
     freeFeature3: "No concept maps",
     freeFeature4: "Limited history",
-    premiumFeature1: "30 analyses per day",
+    premiumFeature1: "400 analyses per month",
     premiumFeature2: "Advanced insights",
     premiumFeature3: "Interactive concept maps",
     premiumFeature4: "Full history access",
@@ -337,11 +45,121 @@ const translations = {
     proFeature3: "Advanced concept maps",
     proFeature4: "Export capabilities",
     usageInfo: {
-      free: "Free Plan: {{used}}/{{total}} analyses used today",
-      premium: "Premium Plan: {{used}}/{{total}} analyses used today",
+      free: "Free Plan: {{used}}/{{total}} analyses used this month",
+      premium: "Premium Plan: {{used}}/{{total}} analyses used this month",
       pro: "Pro Plan: Unlimited analyses",
-      warning: "You've reached your daily limit! Upgrade to continue.",
-      upgrade: "Upgrade your plan to unlock more analyses!",
+      warning: "You've reached your monthly limit! Upgrade to continue.",
+      upgrade: "Upgrade your plan to unlock more analyses this month!",
+    },
+    auth: {
+      signIn: "Sign In",
+      register: "Register",
+      email: "Email Address",
+      password: "Password",
+      name: "Full Name",
+      language: "Language",
+      signInSubtitle: "Access your biblical insights and analysis history",
+      registerSubtitle:
+        "Join BibleInsight to save your analyses and access premium features",
+      signInButton: "Sign In",
+      registerButton: "Register",
+      noAccount: "Don't have an account?",
+      haveAccount: "Already have an account?",
+      registerNow: "Register now",
+      signInNow: "Sign in now",
+    },
+    plans: {
+      currentPlan: "Current Plan",
+      choosePlanBtn: "Choose {{plan}}",
+      perMonth: "/month",
+      unlimited: "Unlimited",
+      basicInsights: "Basic insights",
+      advancedInsights: "Advanced insights",
+      conceptMaps: "Concept maps",
+      fullHistory: "Full history access",
+      export: "Export capabilities",
+      priorityProcessing: "Priority processing",
+    },
+  },
+  pt: {
+    logoText: "BibleInsight",
+    heroTitle: "Compreensão Bíblica Profunda",
+    heroSubtitle:
+      "Cole texto bíblico ou insira uma referência para receber insights com IA, aplicações práticas e reflexões pessoais.",
+    inputLabelText: "Texto Bíblico",
+    referenceLabel: "Referência Bíblica",
+    bookLabel: "Livro",
+    chapterLabel: "Capítulo",
+    verseLabel: "Versículo(s)",
+    analyzeText: "Analisar com IA",
+    loadingText: "Analisando texto bíblico com IA...",
+    summaryTitle: "Resumo",
+    contextTitle: "Contexto Histórico",
+    practicalTitle: "Aplicação Prática",
+    reflectionTitle: "Reflexão Pessoal",
+    quizTitle: "Verificação de Conhecimento",
+    plansTitle: "Escolha Seu Plano",
+    plansSubtitle:
+      "Desbloqueie insights bíblicos poderosos com nossos planos flexíveis.",
+    historyTitle: "Seu Histórico de Análises",
+    historySubtitle:
+      "Revise suas análises anteriores de textos bíblicos e insights.",
+    profileName: "João Silva",
+    profileEmail: "joao.silva@email.com",
+    analysesLabel: "Análises Este Mês",
+    planLabel: "Plano Atual",
+    limitLabel: "Limite Mensal",
+    memberLabel: "Membro Desde",
+    freePlan: "Gratuito",
+    premiumPlan: "Premium",
+    proPlan: "Pro",
+    freeFeature1: "5 análises por mês",
+    freeFeature2: "Insights básicos",
+    freeFeature3: "Sem mapas conceituais",
+    freeFeature4: "Histórico limitado",
+    premiumFeature1: "400 análises por mês",
+    premiumFeature2: "Insights avançados",
+    premiumFeature3: "Mapas conceituais interativos",
+    premiumFeature4: "Acesso completo ao histórico",
+    proFeature1: "Análises ilimitadas",
+    proFeature2: "Processamento prioritário com IA",
+    proFeature3: "Mapas conceituais avançados",
+    proFeature4: "Capacidades de exportação",
+    usageInfo: {
+      free: "Plano Gratuito: {{used}}/{{total}} análises usadas este mês",
+      premium: "Plano Premium: {{used}}/{{total}} análises usadas este mês",
+      pro: "Plano Pro: Análises ilimitadas",
+      warning: "Você atingiu seu limite mensal! Atualize para continuar.",
+      upgrade: "Atualize seu plano para desbloquear mais análises este mês!",
+    },
+    auth: {
+      signIn: "Entrar",
+      register: "Registrar",
+      email: "Endereço de Email",
+      password: "Senha",
+      name: "Nome Completo",
+      language: "Idioma",
+      signInSubtitle: "Acesse seus insights bíblicos e histórico de análises",
+      registerSubtitle:
+        "Junte-se ao BibleInsight para salvar suas análises e acessar recursos premium",
+      signInButton: "Entrar",
+      registerButton: "Registrar",
+      noAccount: "Não tem uma conta?",
+      haveAccount: "Já tem uma conta?",
+      registerNow: "Registre-se agora",
+      signInNow: "Entre agora",
+    },
+    plans: {
+      currentPlan: "Plano Atual",
+      choosePlanBtn: "Escolher {{plan}}",
+      perMonth: "/mês",
+      unlimited: "Ilimitado",
+      basicInsights: "Insights básicos",
+      advancedInsights: "Insights avançados",
+      conceptMaps: "Mapas conceituais",
+      fullHistory: "Acesso completo ao histórico",
+      export: "Capacidades de exportação",
+      priorityProcessing: "Processamento prioritário",
     },
   },
   es: {
@@ -371,16 +189,16 @@ const translations = {
     profileEmail: "juan.perez@email.com",
     analysesLabel: "Análisis Este Mes",
     planLabel: "Plan Actual",
-    limitLabel: "Límite Diario",
+    limitLabel: "Límite Mensual",
     memberLabel: "Miembro Desde",
     freePlan: "Gratis",
     premiumPlan: "Premium",
     proPlan: "Pro",
-    freeFeature1: "2 análisis por día",
+    freeFeature1: "5 análisis por mes",
     freeFeature2: "Ideas básicas",
     freeFeature3: "Sin mapas conceptuales",
     freeFeature4: "Historial limitado",
-    premiumFeature1: "30 análisis por día",
+    premiumFeature1: "400 análisis por mes",
     premiumFeature2: "Ideas avanzadas",
     premiumFeature3: "Mapas conceptuales interactivos",
     premiumFeature4: "Acceso completo al historial",
@@ -389,11 +207,41 @@ const translations = {
     proFeature3: "Mapas conceptuales avanzados",
     proFeature4: "Capacidades de exportación",
     usageInfo: {
-      free: "Plan Gratis: {{used}}/{{total}} análisis usados hoy",
-      premium: "Plan Premium: {{used}}/{{total}} análisis usados hoy",
+      free: "Plan Gratis: {{used}}/{{total}} análisis usados este mes",
+      premium: "Plan Premium: {{used}}/{{total}} análisis usados este mes",
       pro: "Plan Pro: Análisis ilimitados",
-      warning: "¡Has alcanzado tu límite diario! Actualiza para continuar.",
-      upgrade: "¡Actualiza tu plan para desbloquear más análisis!",
+      warning: "¡Has alcanzado tu límite mensual! Actualiza para continuar.",
+      upgrade: "¡Actualiza tu plan para desbloquear más análisis este mes!",
+    },
+    auth: {
+      signIn: "Iniciar Sesión",
+      register: "Registrarse",
+      email: "Dirección de Email",
+      password: "Contraseña",
+      name: "Nombre Completo",
+      language: "Idioma",
+      signInSubtitle:
+        "Accede a tus conocimientos bíblicos e historial de análisis",
+      registerSubtitle:
+        "Únete a BibleInsight para guardar tus análisis y acceder a funciones premium",
+      signInButton: "Iniciar Sesión",
+      registerButton: "Registrarse",
+      noAccount: "¿No tienes una cuenta?",
+      haveAccount: "¿Ya tienes una cuenta?",
+      registerNow: "Regístrate ahora",
+      signInNow: "Inicia sesión ahora",
+    },
+    plans: {
+      currentPlan: "Plan Actual",
+      choosePlanBtn: "Elegir {{plan}}",
+      perMonth: "/mes",
+      unlimited: "Ilimitado",
+      basicInsights: "Ideas básicas",
+      advancedInsights: "Ideas avanzadas",
+      conceptMaps: "Mapas conceptuales",
+      fullHistory: "Acceso completo al historial",
+      export: "Capacidades de exportación",
+      priorityProcessing: "Procesamiento prioritario",
     },
   },
   fr: {
@@ -423,16 +271,16 @@ const translations = {
     profileEmail: "jean.dupont@email.com",
     analysesLabel: "Analyses Ce Mois-ci",
     planLabel: "Forfait Actuel",
-    limitLabel: "Limite Quotidienne",
+    limitLabel: "Limite Mensuelle",
     memberLabel: "Membre Depuis",
     freePlan: "Gratuit",
     premiumPlan: "Premium",
     proPlan: "Pro",
-    freeFeature1: "2 analyses par jour",
+    freeFeature1: "5 analyses par mois",
     freeFeature2: "Insights de base",
     freeFeature3: "Pas de cartes conceptuelles",
     freeFeature4: "Historique limité",
-    premiumFeature1: "30 analyses par jour",
+    premiumFeature1: "400 analyses par mois",
     premiumFeature2: "Insights avancés",
     premiumFeature3: "Cartes conceptuelles interactives",
     premiumFeature4: "Accès complet à l'historique",
@@ -441,16 +289,124 @@ const translations = {
     proFeature3: "Cartes conceptuelles avancées",
     proFeature4: "Capacités d'exportation",
     usageInfo: {
-      free: "Forfait Gratuit: {{used}}/{{total}} analyses utilisées aujourd'hui",
+      free: "Forfait Gratuit: {{used}}/{{total}} analyses utilisées ce mois-ci",
       premium:
-        "Forfait Premium: {{used}}/{{total}} analyses utilisées aujourd'hui",
+        "Forfait Premium: {{used}}/{{total}} analyses utilisées ce mois-ci",
       pro: "Forfait Pro: Analyses illimitées",
       warning:
-        "Vous avez atteint votre limite quotidienne! Mettez à niveau pour continuer.",
-      upgrade: "Mettez à niveau votre forfait pour débloquer plus d'analyses!",
+        "Vous avez atteint votre limite mensuelle! Mettez à niveau pour continuer.",
+      upgrade:
+        "Mettez à niveau votre forfait pour débloquer plus d'analyses ce mois-ci!",
+    },
+    auth: {
+      signIn: "Se Connecter",
+      register: "S'Inscrire",
+      email: "Adresse Email",
+      password: "Mot de Passe",
+      name: "Nom Complet",
+      language: "Langue",
+      signInSubtitle:
+        "Accédez à vos insights bibliques et à l'historique d'analyse",
+      registerSubtitle:
+        "Rejoignez BibleInsight pour enregistrer vos analyses et accéder aux fonctionnalités premium",
+      signInButton: "Se Connecter",
+      registerButton: "S'Inscrire",
+      noAccount: "Vous n'avez pas de compte?",
+      haveAccount: "Vous avez déjà un compte?",
+      registerNow: "Inscrivez-vous maintenant",
+      signInNow: "Connectez-vous maintenant",
+    },
+    plans: {
+      currentPlan: "Forfait Actuel",
+      choosePlanBtn: "Choisir {{plan}}",
+      perMonth: "/mois",
+      unlimited: "Illimité",
+      basicInsights: "Insights de base",
+      advancedInsights: "Insights avancés",
+      conceptMaps: "Cartes conceptuelles",
+      fullHistory: "Accès complet à l'historique",
+      export: "Capacités d'exportation",
+      priorityProcessing: "Traitement prioritaire",
     },
   },
 };
+
+// Mock data for demonstration
+const mockPlans = [
+  {
+    id: "free",
+    name: "Free",
+    key: "free",
+    price: 0,
+    monthlyLimit: 5,
+    aiModel: "meta-llama/llama-3.2-3b-instruct:free",
+    features: {
+      basicInsights: true,
+      advancedInsights: false,
+      conceptMaps: false,
+      fullHistory: false,
+      export: false,
+      priorityProcessing: false,
+    },
+    paypalPlanId: null,
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    key: "premium",
+    price: 9,
+    monthlyLimit: 400,
+    aiModel: "google/gemini-pro-1.5",
+    features: {
+      basicInsights: true,
+      advancedInsights: true,
+      conceptMaps: true,
+      fullHistory: true,
+      export: false,
+      priorityProcessing: false,
+    },
+    paypalPlanId: "premium-paypal-id",
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    key: "pro",
+    price: 19,
+    monthlyLimit: Infinity,
+    aiModel: "anthropic/claude-3.5-sonnet",
+    features: {
+      basicInsights: true,
+      advancedInsights: true,
+      conceptMaps: true,
+      fullHistory: true,
+      export: true,
+      priorityProcessing: true,
+    },
+    paypalPlanId: "pro-paypal-id",
+  },
+];
+
+// State management
+let currentUser = {
+  id: "user123",
+  name: "John Doe",
+  email: "john.doe@example.com",
+  plan: "free",
+  analysesThisMonth: 2,
+  monthlyLimit: 5,
+  language: "en",
+  subscription: {
+    id: "sub-123",
+    status: "ACTIVE",
+    planId: "premium-paypal-id",
+    startDate: new Date(),
+    nextBillingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+  },
+};
+
+let currentAnalysisType = "quick";
+let currentLanguage = "en";
+let selectedPlan = null;
 
 // DOM Elements
 const themeToggle = document.getElementById("theme-toggle");
@@ -481,77 +437,93 @@ const usageInfo = document.getElementById("usage-info");
 const quickBtn = document.getElementById("quick-btn");
 const deepBtn = document.getElementById("deep-btn");
 const childBtn = document.getElementById("child-btn");
+const loginBtn = document.getElementById("login-btn");
+const mobileLoginBtn = document.getElementById("mobile-login-btn");
+const authModal = document.getElementById("auth-modal");
+const authModalClose = document.getElementById("auth-modal-close");
+const authForm = document.getElementById("auth-form");
+const authEmail = document.getElementById("auth-email");
+const authPassword = document.getElementById("auth-password");
+const authLanguage = document.getElementById("auth-language");
+const authSubmitBtn = document.getElementById("auth-submit-btn");
+const switchToRegister = document.getElementById("switch-to-register");
+const authModalTitle = document.getElementById("auth-modal-title");
+const authModalSubtitle = document.getElementById("auth-modal-subtitle");
+const authError = document.getElementById("auth-error");
+const profileError = document.getElementById("profile-error");
+const plansGrid = document.getElementById("plans-grid");
+const paypalModal = document.getElementById("paypal-modal");
+const paypalModalClose = document.getElementById("paypal-modal-close");
+const paypalError = document.getElementById("paypal-error");
+const paypalButtonContainer = document.getElementById(
+  "paypal-button-container"
+);
 
-let currentAnalysisType = "quick";
+// Translation function
+function t(key) {
+  const keys = key.split(".");
+  let value = translations[currentLanguage];
 
-// Check if user can perform analysis based on plan
-function canAnalyze() {
-  const planConfig = PlanConfig[AppData.userData.plan];
-  if (!planConfig) return false;
-
-  const today = new Date().toDateString();
-  const lastAnalysisDate = AppData.userData.lastAnalysisDate;
-
-  // Reset daily limit if it's a new day
-  if (today !== lastAnalysisDate) {
-    AppData.userData.dailyLimit.used = 0;
-    AppData.userData.lastAnalysisDate = today;
-  }
-
-  // Check if at daily limit (for non-pro plans)
-  if (
-    planConfig.dailyLimit !== Infinity &&
-    AppData.userData.dailyLimit.used >= planConfig.dailyLimit
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
-// Update usage info display
-function updateUsageInfo() {
-  const planConfig = PlanConfig[AppData.userData.plan];
-  const lang = languageSelect.value;
-  const t = translations[lang].usageInfo;
-
-  if (AppData.userData.plan === "pro") {
-    usageInfo.innerHTML = `<span class="usage-info-text">${t.pro}</span>`;
-    usageInfo.className = "usage-info";
-  } else {
-    const used = AppData.userData.dailyLimit.used;
-    const total = planConfig.dailyLimit;
-    const usageText = t[AppData.userData.plan]
-      .replace("{{used}}", used)
-      .replace("{{total}}", total);
-
-    if (used >= total) {
-      usageInfo.innerHTML = `<span class="usage-limit">${t.warning}</span><br><button class="upgrade-btn" onclick="showPage('plans')">Upgrade Now</button>`;
-      usageInfo.className = "usage-info";
-    } else if (used >= total * 0.8) {
-      usageInfo.innerHTML = `<span class="usage-warning">${usageText}</span><br><span class="usage-info-text">${t.upgrade}</span>`;
-      usageInfo.className = "usage-info";
+  for (let k of keys) {
+    if (value && value[k] !== undefined) {
+      value = value[k];
     } else {
-      usageInfo.innerHTML = `<span class="usage-info-text">${usageText}</span>`;
-      usageInfo.className = "usage-info";
+      return key;
     }
   }
 
-  // Enable/disable analyze button
-  analyzeBtn.disabled = !canAnalyze();
+  return value;
 }
 
-// Initialize theme
-function initTheme() {
-  const savedTheme = localStorage.getItem("theme") || "light";
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-  }
+// Update all text content
+function updateTextContent() {
+  document.getElementById("logo-text").textContent = t("logoText");
+  document.getElementById("mobile-logo-text").textContent = t("logoText");
+  document.getElementById("hero-title").textContent = t("heroTitle");
+  document.getElementById("hero-subtitle").textContent = t("heroSubtitle");
+  document.getElementById("input-label-text").textContent = t("inputLabelText");
+  document.getElementById("reference-label").textContent = t("referenceLabel");
+  document.getElementById("book-label").textContent = t("bookLabel");
+  document.getElementById("chapter-label").textContent = t("chapterLabel");
+  document.getElementById("verse-label").textContent = t("verseLabel");
+  document.getElementById("analyze-text").textContent = t("analyzeText");
+  document.getElementById("loading-text").textContent = t("loadingText");
+  document.getElementById("summary-title").textContent = t("summaryTitle");
+  document.getElementById("context-title").textContent = t("contextTitle");
+  document.getElementById("practical-title").textContent = t("practicalTitle");
+  document.getElementById("reflection-title").textContent =
+    t("reflectionTitle");
+  document.getElementById("quiz-title").textContent = t("quizTitle");
+  document.getElementById("plans-title").textContent = t("plansTitle");
+  document.getElementById("plans-subtitle").textContent = t("plansSubtitle");
+  document.getElementById("history-title").textContent = t("historyTitle");
+  document.getElementById("history-subtitle").textContent =
+    t("historySubtitle");
+  document.getElementById("profile-name").textContent = t("profileName");
+  document.getElementById("profile-email").textContent = t("profileEmail");
+  document.getElementById("analyses-label").textContent = t("analysesLabel");
+  document.getElementById("plan-label").textContent = t("planLabel");
+  document.getElementById("limit-label").textContent = t("limitLabel");
+  document.getElementById("member-label").textContent = t("memberLabel");
+  document.getElementById("auth-modal-title").textContent = t("auth.signIn");
+  document.getElementById("auth-modal-subtitle").textContent = t(
+    "auth.signInSubtitle"
+  );
+  document.getElementById("auth-email").placeholder = t("auth.email");
+  document.getElementById("auth-password").placeholder = t("auth.password");
+  document.getElementById("auth-submit-btn").textContent =
+    t("auth.signInButton");
+  document.getElementById("switch-to-register").textContent =
+    t("auth.registerNow");
+
+  // Update usage info
+  updateUsageInfo();
+
+  // Update plans
+  renderPlans(mockPlans);
 }
 
-// Toggle theme
+// Theme toggle
 function toggleTheme() {
   document.body.classList.toggle("dark-mode");
   const isDark = document.body.classList.contains("dark-mode");
@@ -564,77 +536,12 @@ function toggleTheme() {
     : '<i class="fas fa-moon"></i>';
 }
 
-themeToggle.addEventListener("click", toggleTheme);
-mobileThemeToggle.addEventListener("click", toggleTheme);
-
-// Initialize language
-function initLanguage() {
-  const browserLang = navigator.language.split("-")[0];
-  const supportedLangs = ["pt", "en", "es", "fr"];
-  const lang = supportedLangs.includes(browserLang) ? browserLang : "en";
-  languageSelect.value = lang;
-  mobileLanguageSelect.value = lang;
-  updateLanguage(lang);
-}
-
-// Update language
+// Language selection
 function updateLanguage(lang) {
-  const t = translations[lang];
-  document.getElementById("logo-text").textContent = t.logoText;
-  document.getElementById("mobile-logo-text").textContent = t.logoText;
-  document.getElementById("hero-title").textContent = t.heroTitle;
-  document.getElementById("hero-subtitle").textContent = t.heroSubtitle;
-  document.getElementById("input-label-text").textContent = t.inputLabelText;
-  document.getElementById("reference-label").textContent = t.referenceLabel;
-  document.getElementById("book-label").textContent = t.bookLabel;
-  document.getElementById("chapter-label").textContent = t.chapterLabel;
-  document.getElementById("verse-label").textContent = t.verseLabel;
-  document.getElementById("analyze-text").textContent = t.analyzeText;
-  document.getElementById("loading-text").textContent = t.loadingText;
-  document.getElementById("summary-title").textContent = t.summaryTitle;
-  document.getElementById("context-title").textContent = t.contextTitle;
-  document.getElementById("practical-title").textContent = t.practicalTitle;
-  document.getElementById("reflection-title").textContent = t.reflectionTitle;
-  document.getElementById("quiz-title").textContent = t.quizTitle;
-  document.getElementById("plans-title").textContent = t.plansTitle;
-  document.getElementById("plans-subtitle").textContent = t.plansSubtitle;
-  document.getElementById("history-title").textContent = t.historyTitle;
-  document.getElementById("history-subtitle").textContent = t.historySubtitle;
-  document.getElementById("profile-name").textContent = t.profileName;
-  document.getElementById("profile-email").textContent = t.profileEmail;
-  document.getElementById("analyses-label").textContent = t.analysesLabel;
-  document.getElementById("plan-label").textContent = t.planLabel;
-  document.getElementById("limit-label").textContent = t.limitLabel;
-  document.getElementById("member-label").textContent = t.memberLabel;
-  document.getElementById("free-plan").textContent = t.freePlan;
-  document.getElementById("premium-plan").textContent = t.premiumPlan;
-  document.getElementById("pro-plan").textContent = t.proPlan;
-  document.getElementById("free-feature1").textContent = t.freeFeature1;
-  document.getElementById("free-feature2").textContent = t.freeFeature2;
-  document.getElementById("free-feature3").textContent = t.freeFeature3;
-  document.getElementById("free-feature4").textContent = t.freeFeature4;
-  document.getElementById("premium-feature1").textContent = t.premiumFeature1;
-  document.getElementById("premium-feature2").textContent = t.premiumFeature2;
-  document.getElementById("premium-feature3").textContent = t.premiumFeature3;
-  document.getElementById("premium-feature4").textContent = t.premiumFeature4;
-  document.getElementById("pro-feature1").textContent = t.proFeature1;
-  document.getElementById("pro-feature2").textContent = t.proFeature2;
-  document.getElementById("pro-feature3").textContent = t.proFeature3;
-  document.getElementById("pro-feature4").textContent = t.proFeature4;
-
-  // Update usage info
-  updateUsageInfo();
+  currentLanguage = lang;
+  localStorage.setItem("language", lang);
+  updateTextContent();
 }
-
-languageSelect.addEventListener("change", (e) => {
-  mobileLanguageSelect.value = e.target.value;
-  updateLanguage(e.target.value);
-});
-
-mobileLanguageSelect.addEventListener("change", (e) => {
-  languageSelect.value = e.target.value;
-  updateLanguage(e.target.value);
-});
 
 // Tab switching for input
 textTab.addEventListener("click", () => {
@@ -708,99 +615,170 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Page navigation
-function showPage(pageId) {
-  document.querySelectorAll(".page").forEach((page) => {
-    page.classList.remove("active");
-  });
-  document.getElementById(`${pageId}-page`).classList.add("active");
+// Auth modal
+loginBtn.addEventListener("click", () => {
+  authModal.classList.add("active");
+});
 
-  // Update nav links
-  document.querySelectorAll(".nav-link, .mobile-nav-link").forEach((link) => {
-    link.classList.remove("active");
-  });
-  const activeLinks = document.querySelectorAll(
-    `[onclick="showPage('${pageId}')"]`
-  );
-  activeLinks.forEach((link) => link.classList.add("active"));
+mobileLoginBtn.addEventListener("click", () => {
+  authModal.classList.add("active");
+});
 
-  // Close mobile menu
-  mobileMenu.classList.remove("active");
+authModalClose.addEventListener("click", () => {
+  authModal.classList.remove("active");
+});
 
-  // Populate history if needed
-  if (pageId == "history") {
-    populateHistory();
+// Close auth modal when clicking outside
+authModal.addEventListener("click", (e) => {
+  if (e.target === authModal) {
+    authModal.classList.remove("active");
   }
-}
+});
 
-// Populate history from data
-function populateHistory() {
-  historyList.innerHTML = "";
-  const planConfig = PlanConfig[AppData.userData.plan];
+// Switch between sign in and register
+switchToRegister.addEventListener("click", (e) => {
+  e.preventDefault();
+  const isRegister = authModalTitle.textContent === t("auth.register");
+  if (isRegister) {
+    authModalTitle.textContent = t("auth.signIn");
+    authModalSubtitle.textContent = t("auth.signInSubtitle");
+    authSubmitBtn.textContent = t("auth.signInButton");
+    switchToRegister.textContent = t("auth.registerNow");
+  } else {
+    authModalTitle.textContent = t("auth.register");
+    authModalSubtitle.textContent = t("auth.registerSubtitle");
+    authSubmitBtn.textContent = t("auth.registerButton");
+    switchToRegister.textContent = t("auth.signInNow");
+  }
+  authError.style.display = "none";
+  authEmail.value = "";
+  authPassword.value = "";
+  authLanguage.value = currentLanguage;
+});
 
-  // Limit history for free plan
-  let historyToShow = AppData.history;
-  if (!planConfig.features.fullHistory && AppData.userData.plan == "free") {
-    historyToShow = AppData.history.slice(0, 2); // Only show last 2 for free plan
+// Auth form submission
+authForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = authEmail.value.trim();
+  const password = authPassword.value.trim();
+  const language = authLanguage.value;
+
+  if (!email || !password) {
+    authError.style.display = "block";
+    authError.textContent = "Please fill in all fields";
+    return;
   }
 
-  historyToShow.forEach((item) => {
-    const date = new Date(item.date);
-    const formattedDate = date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+  authError.style.display = "none";
+  authSubmitBtn.disabled = true;
+  authSubmitBtn.textContent = "Processing...";
 
-    const historyItem = document.createElement("div");
-    historyItem.className = "history-item";
-    historyItem.innerHTML = `
-                    <div class="history-header">
-                        <div class="history-reference">${item.reference}</div>
-                        <div class="history-date">${formattedDate}</div>
-                    </div>
-                    <div class="history-summary">${item.summary}</div>
-                `;
-    historyItem.addEventListener("click", () =>
-      showHistoryAnalysis(item.reference)
-    );
-    historyList.appendChild(historyItem);
-  });
-
-  // Add upgrade banner for free users with limited history
-  if (AppData.userData.plan === "free" && AppData.history.length > 2) {
-    const upgradeBanner = document.createElement("div");
-    upgradeBanner.className = "upgrade-banner";
-    upgradeBanner.innerHTML = `
-                    <h3>Unlock Full History Access</h3>
-                    <p>Upgrade to Premium to view your complete analysis history.</p>
-                    <button class="upgrade-btn" onclick="showPage('plans')">Upgrade Now</button>
-                `;
-    historyList.appendChild(upgradeBanner);
-  }
-}
-
-// Show history analysis
-function showHistoryAnalysis(reference) {
-  showPage("home");
-  // Simulate loading the analysis
-  loading.style.display = "block";
-  resultsSection.style.display = "none";
-
+  // Simulate API call
   setTimeout(() => {
-    loading.style.display = "none";
-    displayResults(MockAIResponses[currentAnalysisType]);
-    resultsSection.style.display = "grid";
-    resultsSection.style.gridTemplateColumns =
-      "repeat(auto-fit, minmax(300px, 1fr))";
+    authModal.classList.remove("active");
+    authSubmitBtn.disabled = false;
+    authSubmitBtn.textContent = t("auth.signInButton");
+    updateUIWithUserData();
+    updateUsageInfo();
+    alert("Signed in successfully!");
   }, 1500);
+});
+
+// Profile editing
+editProfileBtn.addEventListener("click", () => {
+  document.getElementById("full-name").value = currentUser.name;
+  document.getElementById("email").value = currentUser.email;
+  document.getElementById("phone").value = "+1 (555) 123-4567";
+  document.getElementById("timezone").value = "UTC-5";
+  document.getElementById("bio").value =
+    "Passionate about biblical studies and spiritual growth. I love exploring the deeper meanings of scripture and applying them to daily life.";
+  profileForm.classList.add("active");
+});
+
+cancelProfileBtn.addEventListener("click", () => {
+  profileForm.classList.remove("active");
+});
+
+saveProfileBtn.addEventListener("click", () => {
+  profileForm.classList.remove("active");
+  alert("Profile updated successfully!");
+});
+
+// Update UI with user data
+function updateUIWithUserData() {
+  document.getElementById("profile-name").textContent = currentUser.name;
+  document.getElementById("profile-email").textContent = currentUser.email;
+  document.getElementById("plan-type").textContent =
+    currentUser.plan.charAt(0).toUpperCase() + currentUser.plan.slice(1);
+  document.getElementById("analyses-count").textContent =
+    currentUser.analysesThisMonth;
+
+  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  const limit =
+    plan.monthlyLimit === Infinity
+      ? t("plans.unlimited")
+      : `${currentUser.analysesThisMonth}/${plan.monthlyLimit}`;
+  document.getElementById("daily-limit").textContent = limit;
+
+  document.getElementById("member-since").textContent = "2 years";
+
+  loginBtn.textContent = "Sign Out";
+  mobileLoginBtn.textContent = "Sign Out";
+}
+
+// Update usage info
+function updateUsageInfo() {
+  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  const lang = currentLanguage;
+  const t = translations[lang].usageInfo;
+
+  if (currentUser.plan === "pro") {
+    usageInfo.innerHTML = `<span class="usage-info-text">${t.pro}</span>`;
+    usageInfo.className = "usage-info";
+  } else {
+    const used = currentUser.analysesThisMonth;
+    const total = plan.monthlyLimit;
+    const usageText = t[currentUser.plan]
+      .replace("{{used}}", used)
+      .replace("{{total}}", total);
+
+    if (used >= total) {
+      usageInfo.innerHTML = `<span class="usage-limit">${t.warning}</span><br><button class="upgrade-btn" onclick="showPage('plans')">Upgrade Now</button>`;
+      usageInfo.className = "usage-info";
+    } else if (used >= total * 0.8) {
+      usageInfo.innerHTML = `<span class="usage-warning">${usageText}</span><br><span class="usage-info-text">${t.upgrade}</span>`;
+      usageInfo.className = "usage-info";
+    } else {
+      usageInfo.innerHTML = `<span class="usage-info-text">${usageText}</span>`;
+      usageInfo.className = "usage-info";
+    }
+  }
+
+  // Enable/disable analyze button
+  analyzeBtn.disabled = !canAnalyze();
+}
+
+// Check if user can perform analysis
+function canAnalyze() {
+  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  if (!plan) return false;
+
+  if (
+    plan.monthlyLimit !== Infinity &&
+    currentUser.analysesThisMonth >= plan.monthlyLimit
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 // Analyze function
 analyzeBtn.addEventListener("click", () => {
   if (!canAnalyze()) {
     alert(
-      "You have reached your daily analysis limit. Please upgrade your plan to continue."
+      "You have reached your monthly analysis limit. Please upgrade your plan to continue."
     );
     showPage("plans");
     return;
@@ -838,37 +816,66 @@ analyzeBtn.addEventListener("click", () => {
   // Simulate API call delay
   setTimeout(() => {
     loading.style.display = "none";
-    displayResults(MockAIResponses[currentAnalysisType]);
+    displayResults(mockAIResponse);
     resultsSection.style.display = "grid";
     resultsSection.style.gridTemplateColumns =
       "repeat(auto-fit, minmax(300px, 1fr))";
 
     // Update usage count
-    AppData.userData.dailyLimit.used++;
-    AppData.userData.lastAnalysisDate = new Date().toDateString();
-    AppData.userData.analysesThisMonth++;
-
-    // Update UI
-    document.getElementById("daily-limit").textContent = `${
-      AppData.userData.dailyLimit.used
-    }/${PlanConfig[AppData.userData.plan].dailyLimit}`;
-    document.getElementById("analyses-count").textContent =
-      AppData.userData.analysesThisMonth;
-
-    // Add to history
-    const newHistoryItem = {
-      id: `hist${AppData.history.length + 1}`,
-      reference: input,
-      date: new Date().toISOString(),
-      summary:
-        MockAIResponses[currentAnalysisType].summary.substring(0, 100) + "...",
-      aiResponse: MockAIResponses[currentAnalysisType],
-    };
-    AppData.history.unshift(newHistoryItem);
-
+    currentUser.analysesThisMonth++;
     updateUsageInfo();
   }, 2000);
 });
+
+// Mock AI response data
+const mockAIResponse = {
+  summary:
+    "God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. This verse encapsulates the core message of Christianity: God's sacrificial love and the promise of eternal life through faith in Jesus Christ.",
+  context:
+    "John 3:16 appears in the Gospel of John, chapter 3, during Jesus' conversation with Nicodemus, a Pharisee who came to Jesus at night. This verse is part of Jesus' explanation about being 'born again' and represents one of the most famous and quoted verses in the entire Bible, summarizing the gospel message.",
+  practicalExample:
+    "This verse encourages us to demonstrate sacrificial love in our daily lives, just as God demonstrated His love through Jesus. We can apply this by showing unconditional love to others, sharing the message of hope with those around us, and living with the confidence that comes from knowing we have eternal life.",
+  personalReflection:
+    "When I reflect on John 3:16, I'm reminded that God's love is not based on my worthiness but on His character. This truth brings me comfort during difficult times and motivates me to love others more deeply, knowing that I've been loved so completely by God.",
+  test: [
+    {
+      question: "What is the main theme of John 3:16?",
+      options: [
+        "God's love",
+        "Eternal punishment",
+        "Religious rules",
+        "Worldly success",
+      ],
+      correctAnswer: "a",
+    },
+    {
+      question: "Who was Jesus speaking to when He said John 3:16?",
+      options: ["Peter", "Nicodemus", "Mary Magdalene", "The crowds"],
+      correctAnswer: "b",
+    },
+    {
+      question: "What does 'eternal life' refer to in this context?",
+      options: [
+        "Living forever on earth",
+        "Life after death in heaven",
+        "A relationship with God that begins now and continues forever",
+        "Immortality of the soul",
+      ],
+      correctAnswer: "c",
+    },
+    {
+      question:
+        "What is required to receive eternal life according to this verse?",
+      options: [
+        "Good works",
+        "Church membership",
+        "Believing in Jesus",
+        "Following the law",
+      ],
+      correctAnswer: "c",
+    },
+  ],
+};
 
 // Display results
 function displayResults(data) {
@@ -928,7 +935,7 @@ function displayResults(data) {
         userAnswers[questionIndex] = this.dataset.answer;
 
         // Check if correct
-        const isCorrect = this.dataset.answer == question.correctAnswer;
+        const isCorrect = this.dataset.answer === question.correctAnswer;
         if (isCorrect) score++;
 
         // Show feedback
@@ -945,7 +952,7 @@ function displayResults(data) {
         // Disable options
         document.querySelectorAll(".quiz-option").forEach((opt) => {
           opt.style.pointerEvents = "none";
-          if (opt.dataset.answer == question.correctAnswer) {
+          if (opt.dataset.answer === question.correctAnswer) {
             opt.classList.add("selected");
           }
         });
@@ -977,7 +984,7 @@ function displayResults(data) {
                     )}%!</p>
                     <p style="margin-top: 16px; color: var(--text-light);">
                         ${
-                          score == data.test.length
+                          score === data.test.length
                             ? "Excellent work! You have a deep understanding of this passage."
                             : score >= data.test.length / 2
                             ? "Good job! You have a solid understanding of this passage."
@@ -991,151 +998,326 @@ function displayResults(data) {
   showQuestion(currentQuestion);
 }
 
-// Profile editing
-editProfileBtn.addEventListener("click", () => {
-  // Populate form with current data
-  document.getElementById("full-name").value = AppData.userData.name;
-  document.getElementById("email").value = AppData.userData.email;
-  document.getElementById("phone").value = AppData.userData.phone;
-  document.getElementById("timezone").value = AppData.userData.timezone;
-  document.getElementById("bio").value = AppData.userData.bio;
+// Render plans
+function renderPlans(plans) {
+  plansGrid.innerHTML = "";
 
-  profileForm.classList.add("active");
-});
+  plans.forEach((plan) => {
+    const planCard = document.createElement("div");
+    planCard.className = `plan-card ${plan.key === "premium" ? "popular" : ""}`;
 
-cancelProfileBtn.addEventListener("click", () => {
-  profileForm.classList.remove("active");
-});
+    const planLimit =
+      plan.monthlyLimit === Infinity
+        ? t("plans.unlimited")
+        : `${plan.monthlyLimit} ${t("plans.analysesPerMonth")}`;
 
-saveProfileBtn.addEventListener("click", () => {
-  // Update data object
-  AppData.userData.name = document.getElementById("full-name").value;
-  AppData.userData.email = document.getElementById("email").value;
-  AppData.userData.phone = document.getElementById("phone").value;
-  AppData.userData.timezone = document.getElementById("timezone").value;
-  AppData.userData.bio = document.getElementById("bio").value;
-
-  // Update UI
-  document.getElementById("profile-name").textContent = AppData.userData.name;
-  document.getElementById("profile-email").textContent = AppData.userData.email;
-
-  profileForm.classList.remove("active");
-  alert("Profile updated successfully!");
-});
-
-// Plan selection
-document.querySelectorAll(".plan-btn").forEach((btn) => {
-  btn.addEventListener("click", function () {
-    const newPlan = this.dataset.plan;
-    AppData.userData.plan = newPlan;
-    AppData.userData.dailyLimit.total = PlanConfig[newPlan].dailyLimit;
-
-    // Reset daily usage when upgrading
-    if (newPlan !== "free") {
-      AppData.userData.dailyLimit.used = 0;
+    let planButtonHTML = "";
+    if (currentUser && currentUser.plan === plan.key) {
+      if (plan.key === "free") {
+        planButtonHTML = `<button class="plan-btn" disabled>${t(
+          "plans.currentPlan"
+        )}</button>`;
+      } else {
+        planButtonHTML = `
+                            <div class="subscription-status">
+                                ${t("plans.currentPlan")} • ${
+          currentUser.subscription?.status === "ACTIVE" ? "Active" : "Cancelled"
+        }
+                                ${
+                                  currentUser.subscription?.nextBillingDate
+                                    ? ` • Next billing: ${new Date(
+                                        currentUser.subscription.nextBillingDate
+                                      ).toLocaleDateString()}`
+                                    : ""
+                                }
+                            </div>
+                            <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
+                              plan.key
+                            }')">
+                                Cancel Subscription
+                            </button>
+                        `;
+      }
+    } else if (plan.key === "free") {
+      planButtonHTML = `<button class="plan-btn" data-plan="${
+        plan.key
+      }" onclick="handlePlanSelection('${plan.key}')">${t(
+        "plans.choosePlanBtn"
+      ).replace("{{plan}}", t(`${plan.key}Plan`))}</button>`;
+    } else {
+      planButtonHTML = `<button class="plan-btn" data-plan="${
+        plan.key
+      }" onclick="handlePayPalSubscription('${plan.key}', '${
+        plan.paypalPlanId
+      }')">${t("plans.choosePlanBtn").replace(
+        "{{plan}}",
+        t(`${plan.key}Plan`)
+      )}</button>`;
     }
 
-    // Update UI
-    document.getElementById("plan-type").textContent = PlanConfig[newPlan].name;
-    document.getElementById("daily-limit").textContent =
-      newPlan == "pro"
-        ? "Unlimited"
-        : `${AppData.userData.dailyLimit.used}/${PlanConfig[newPlan].dailyLimit}`;
+    planCard.innerHTML = `
+                    <div class="plan-name">${t(`${plan.key}Plan`)}</div>
+                    <div class="plan-price">$${plan.price}<span>${t(
+      "plans.perMonth"
+    )}</span></div>
+                    <div class="plan-features">
+                        <div class="plan-feature">
+                            <i class="fas fa-check"></i>
+                            <span>${planLimit}</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check"></i>
+                            <span>${
+                              plan.features.advancedInsights
+                                ? t("plans.advancedInsights")
+                                : t("plans.basicInsights")
+                            }</span>
+                        </div>
+                        <div class="plan-feature ${
+                          plan.features.conceptMaps ? "" : "locked"
+                        }">
+                            <i class="fas ${
+                              plan.features.conceptMaps ? "fa-check" : "fa-lock"
+                            }"></i>
+                            <span>${t("plans.conceptMaps")}</span>
+                        </div>
+                        <div class="plan-feature ${
+                          plan.features.fullHistory ? "" : "locked"
+                        }">
+                            <i class="fas ${
+                              plan.features.fullHistory ? "fa-check" : "fa-lock"
+                            }"></i>
+                            <span>${t("plans.fullHistory")}</span>
+                        </div>
+                    </div>
+                    ${planButtonHTML}
+                `;
+    plansGrid.appendChild(planCard);
+  });
+}
 
+// Handle plan selection
+function handlePlanSelection(planKey) {
+  if (planKey === "free") {
+    currentUser.plan = "free";
+    updateUIWithUserData();
     updateUsageInfo();
     showPage("home");
-    alert(`Plan upgraded to ${PlanConfig[newPlan].name}!`);
-  });
+    alert("Plan updated to Free!");
+  } else {
+    selectedPlan = mockPlans.find((p) => p.key === planKey);
+    handlePayPalSubscription(planKey, selectedPlan.paypalPlanId);
+  }
+}
+
+// Handle PayPal subscription
+function handlePayPalSubscription(planKey, planId) {
+  selectedPlan = mockPlans.find((p) => p.key === planKey);
+
+  // Show PayPal modal
+  document.getElementById("paypal-modal-title").textContent = `Subscribe to ${t(
+    `${planKey}Plan`
+  )}`;
+  document.getElementById(
+    "paypal-modal-subtitle"
+  ).textContent = `Only $${selectedPlan.price} per month`;
+  document.getElementById("paypal-error").style.display = "none";
+  paypalModal.classList.add("active");
+
+  // Initialize PayPal buttons
+  initializePayPalButtons(planId);
+}
+
+// Initialize PayPal buttons
+function initializePayPalButtons(planId) {
+  if (typeof paypal === "undefined") {
+    console.error("PayPal SDK not loaded");
+    return;
+  }
+
+  paypalButtonContainer.innerHTML = "";
+
+  paypal
+    .Buttons({
+      style: {
+        layout: "vertical",
+        color: "gold",
+        shape: "rect",
+        label: "subscribe",
+      },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({
+          plan_id: planId,
+        });
+      },
+      onApprove: function (data, actions) {
+        alert("Subscription created successfully!");
+        currentUser.plan = selectedPlan.key;
+        currentUser.analysesThisMonth = 0;
+        updateUIWithUserData();
+        updateUsageInfo();
+        paypalModal.classList.remove("active");
+        showPage("home");
+      },
+      onError: function (err) {
+        console.error("PayPal error:", err);
+        document.getElementById("paypal-error").style.display = "block";
+        document.getElementById("paypal-error").textContent =
+          "An error occurred with PayPal. Please try again.";
+      },
+    })
+    .render("#paypal-button-container");
+}
+
+// Handle cancel subscription
+function handleCancelSubscription(planKey) {
+  if (
+    confirm(
+      "Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your billing period."
+    )
+  ) {
+    currentUser.plan = "free";
+    currentUser.analysesThisMonth = 0;
+    updateUIWithUserData();
+    updateUsageInfo();
+    showPage("plans");
+    alert("Subscription cancelled successfully!");
+  }
+}
+
+// Close PayPal modal
+paypalModalClose.addEventListener("click", () => {
+  paypalModal.classList.remove("active");
 });
+
+// Close PayPal modal when clicking outside
+paypalModal.addEventListener("click", (e) => {
+  if (e.target === paypalModal) {
+    paypalModal.classList.remove("active");
+  }
+});
+
+// Page navigation
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach((page) => {
+    page.classList.remove("active");
+  });
+  document.getElementById(`${pageId}-page`).classList.add("active");
+
+  // Update nav links
+  document.querySelectorAll(".nav-link, .mobile-nav-link").forEach((link) => {
+    link.classList.remove("active");
+  });
+  const activeLinks = document.querySelectorAll(
+    `[onclick="showPage('${pageId}')"]`
+  );
+  activeLinks.forEach((link) => link.classList.add("active"));
+
+  // Close mobile menu
+  mobileMenu.classList.remove("active");
+
+  // Populate history if needed
+  if (pageId === "history") {
+    populateHistory();
+  }
+
+  // Populate plans if needed
+  if (pageId === "plans") {
+    renderPlans(mockPlans);
+  }
+}
+
+// Populate history
+function populateHistory() {
+  historyList.innerHTML = "";
+
+  const historyItems = [
+    {
+      reference: "John 3:16",
+      date: "Today, 2:30 PM",
+      summary: "God so loved the world that he gave his one and only Son...",
+    },
+    {
+      reference: "Psalm 23",
+      date: "Yesterday, 10:15 AM",
+      summary: "The Lord is my shepherd; I shall not want...",
+    },
+    {
+      reference: "Matthew 5:1-12",
+      date: "Oct 15, 2024",
+      summary:
+        "Blessed are the poor in spirit, for theirs is the kingdom of heaven...",
+    },
+  ];
+
+  historyItems.forEach((item) => {
+    const historyItem = document.createElement("div");
+    historyItem.className = "history-item";
+    historyItem.innerHTML = `
+                    <div class="history-header">
+                        <div class="history-reference">${item.reference}</div>
+                        <div class="history-date">${item.date}</div>
+                    </div>
+                    <div class="history-summary">${item.summary}</div>
+                `;
+    historyItem.addEventListener("click", () =>
+      showHistoryAnalysis(item.reference)
+    );
+    historyList.appendChild(historyItem);
+  });
+}
+
+// Show history analysis
+function showHistoryAnalysis(reference) {
+  showPage("home");
+  // Simulate loading the analysis
+  loading.style.display = "block";
+  resultsSection.style.display = "none";
+
+  setTimeout(() => {
+    loading.style.display = "none";
+    displayResults(mockAIResponse);
+    resultsSection.style.display = "grid";
+    resultsSection.style.gridTemplateColumns =
+      "repeat(auto-fit, minmax(300px, 1fr))";
+  }, 1500);
+}
 
 // Initialize
-initTheme();
-initLanguage();
-populateHistory();
-updateUsageInfo();
+function init() {
+  // Set theme
+  const savedTheme = localStorage.getItem("theme") || "light";
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
 
-// Set up nav links
-document.querySelectorAll(".nav-link, .mobile-nav-link").forEach((link) => {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    const pageText = this.textContent.toLowerCase();
-    let pageId;
-    if (pageText.includes("home")) pageId = "home";
-    else if (pageText.includes("profile")) pageId = "profile";
-    else if (pageText.includes("plans")) pageId = "plans";
-    else if (pageText.includes("history")) pageId = "history";
-    else pageId = "home";
-    showPage(pageId);
+  // Set language
+  const savedLanguage = localStorage.getItem("language") || "en";
+  currentLanguage = savedLanguage;
+  languageSelect.value = savedLanguage;
+  mobileLanguageSelect.value = savedLanguage;
+
+  // Set up event listeners
+  themeToggle.addEventListener("click", toggleTheme);
+  mobileThemeToggle.addEventListener("click", toggleTheme);
+
+  languageSelect.addEventListener("change", (e) => {
+    updateLanguage(e.target.value);
   });
-});
 
-/*-----------------------------------backend--------------------------------------*/
-// function renderPlans(plans) {
-//   const plansGrid = document.querySelector('.plans-grid')
-//   plansGrid.innerHTML = "";
+  mobileLanguageSelect.addEventListener("change", (e) => {
+    updateLanguage(e.target.value);
+  });
 
-//   plans.forEach((plan) => {
-//     const planCard = document.createElement("div");
-//     planCard.className = `plan-card ${plan.key === "premium" ? "popular" : ""}`;
-//     const modelDisplayName = t(`aiModels.${plan.aiModel}`) || plan.aiModel;
-//     const analysesText =
-//       plan.monthlyLimit === Infinity
-//         ? t("plans.unlimited")
-//         : `${plan.monthlyLimit} ${t("plans.analysesPerMonth")}`;
+  // Initialize UI
+  updateTextContent();
+  updateUIWithUserData();
+  updateUsageInfo();
+  renderPlans(mockPlans);
+  populateHistory();
+}
 
-//     planCard.innerHTML = `
-//                     <div class="plan-name">${t(`plans.${plan.key}`)}</div>
-//                     <div class="plan-price">$${plan.price}<span>${t(
-//       "plans.perMonth"
-//     )}</span></div>
-//                     <div class="plan-features">
-//                         <div class="plan-feature">
-//                             <i class="fas fa-check"></i>
-//                             <span>${analysesText}</span>
-//                         </div>
-//                         <div class="plan-feature">
-//                             <i class="fas fa-check"></i>
-//                             <span>${
-//                               plan.features.advancedInsights
-//                                 ? t("plans.advancedInsights")
-//                                 : t("plans.basicInsights")
-//                             }</span>
-//                         </div>
-//                         <div class="plan-feature ${
-//                           plan.features.fullHistory ? "" : "locked"
-//                         }">
-//                             <i class="fas ${
-//                               plan.features.fullHistory ? "fa-check" : "fa-lock"
-//                             }"></i>
-//                             <span>${t("plans.fullHistory")}</span>
-//                         </div>
-//                         <div class="plan-feature ${
-//                           plan.features.export ? "" : "locked"
-//                         }">
-//                             <i class="fas ${
-//                               plan.features.export ? "fa-check" : "fa-lock"
-//                             }"></i>
-//                             <span>${t("plans.export")}</span>
-//                         </div>
-//                         <div class="plan-feature">
-//                             <i class="fas fa-brain"></i>
-//                             <span>${modelDisplayName}</span>
-//                         </div>
-//                     </div>
-//                     <button class="plan-btn" data-plan="${plan.key}">${
-//       currentUser && currentUser.plan == plan.key
-//         ? t("plans.currentPlan")
-//         : t("plans.choosePlanBtn").replace("{{plan}}", t(`plans.${plan.key}`))
-//     }</button>
-//                 `;
-
-//     const planBtn = planCard.querySelector(".plan-btn");
-//     if (currentUser && currentUser.plan == plan.key) {
-//       planBtn.disabled = true;
-//     } else {
-//       planBtn.addEventListener("click", () => handlePlanSelection(plan.key));
-//     }
-
-//     plansGrid.appendChild(planCard);
-//   });
-// }
+// Initialize the app
+init();
