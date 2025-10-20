@@ -1,6 +1,12 @@
 // Translation data
 const translations = {
   en: {
+    menu: {
+      home: "Home",
+      profile: "Profile",
+      plans: "Plans",
+      history: "History",
+    },
     logoText: "BibleInsight",
     heroTitle: "Deep Biblical Understanding",
     heroSubtitle:
@@ -10,7 +16,7 @@ const translations = {
     bookLabel: "Book",
     chapterLabel: "Chapter",
     verseLabel: "Verse(s)",
-    analyzeText: "Analyze with AI",
+    analyzeText: "Analyze",
     loadingText: "Analyzing biblical text with AI...",
     summaryTitle: "Summary",
     contextTitle: "Historical Context",
@@ -80,8 +86,38 @@ const translations = {
       export: "Export capabilities",
       priorityProcessing: "Priority processing",
     },
+    btns: {
+      quickAnalysis: {
+        div: "Quick Analysis",
+        p: "Fast & Simple",
+      },
+      deepAnalysis: {
+        div: "Deep Analysis",
+        p: "Comprehensive",
+      },
+      childFriendly: {
+        div: "Child-Friendly",
+        p: "Simple & Fun",
+      },
+      pasteText: "Paste Text",
+      bibleReference: "Bible Reference",
+      single: "Single",
+      range: "Range",
+      signOut: "Sign Out",
+      signIn: "Sign In",
+    },
+    placeholders: {
+      bibleInput: "Example: Paste the full biblical text here...",
+      reference: "John",
+    },
   },
   pt: {
+    menu: {
+      home: "Início",
+      profile: "Perfil",
+      plans: "Planos",
+      history: "Histórico",
+    },
     logoText: "BibleInsight",
     heroTitle: "Compreensão Bíblica Profunda",
     heroSubtitle:
@@ -91,7 +127,7 @@ const translations = {
     bookLabel: "Livro",
     chapterLabel: "Capítulo",
     verseLabel: "Versículo(s)",
-    analyzeText: "Analisar com IA",
+    analyzeText: "Analisar",
     loadingText: "Analisando texto bíblico com IA...",
     summaryTitle: "Resumo",
     contextTitle: "Contexto Histórico",
@@ -161,8 +197,38 @@ const translations = {
       export: "Capacidades de exportação",
       priorityProcessing: "Processamento prioritário",
     },
+    btns: {
+      quickAnalysis: {
+        div: "Análise Rápida",
+        p: "Rápido e Simples",
+      },
+      deepAnalysis: {
+        div: "Análise Profunda",
+        p: "Abrangente",
+      },
+      childFriendly: {
+        div: "Amigável para Crianças",
+        p: "Simples e Divertido",
+      },
+      pasteText: "Colar Texto",
+      bibleReference: "Referência Bíblica",
+      single: "Único",
+      range: "Intervalo",
+      signOut: "Sair",
+      signIn: "Entrar",
+    },
+    placeholders: {
+      bibleInput: "Exemplo: Cole aqui o texto bíblico completo...",
+      reference: "Joao",
+    },
   },
   es: {
+    menu: {
+      home: "Inicio",
+      profile: "Perfil",
+      plans: "Planes",
+      history: "Historial",
+    },
     logoText: "BibleInsight",
     heroTitle: "Comprensión Bíblica Profunda",
     heroSubtitle:
@@ -172,7 +238,7 @@ const translations = {
     bookLabel: "Libro",
     chapterLabel: "Capítulo",
     verseLabel: "Versículo(s)",
-    analyzeText: "Analizar con IA",
+    analyzeText: "Analizar",
     loadingText: "Analizando texto bíblico con IA...",
     summaryTitle: "Resumen",
     contextTitle: "Contexto Histórico",
@@ -243,8 +309,38 @@ const translations = {
       export: "Capacidades de exportación",
       priorityProcessing: "Procesamiento prioritario",
     },
+    btns: {
+      quickAnalysis: {
+        div: "Análisis Rápido",
+        p: "Rápido y Sencillo",
+      },
+      deepAnalysis: {
+        div: "Análisis Profundo",
+        p: "Integral",
+      },
+      childFriendly: {
+        div: "Apto para Niños",
+        p: "Simple y Divertido",
+      },
+      pasteText: "Pegar Texto",
+      bibleReference: "Referencia Bíblica",
+      single: "Único",
+      range: "Rango",
+      signOut: "Cerrar Sesión",
+      signIn: "Iniciar Sesión",
+    },
+    placeholders: {
+      bibleInput: "Ejemplo: Pegue aquí el texto bíblico completo...",
+      reference: "Juan",
+    },
   },
   fr: {
+    menu: {
+      home: "Accueil",
+      profile: "Profil",
+      plans: "Plans",
+      history: "Historique",
+    },
     logoText: "BibleInsight",
     heroTitle: "Compréhension Biblique Approfondie",
     heroSubtitle:
@@ -254,7 +350,7 @@ const translations = {
     bookLabel: "Livre",
     chapterLabel: "Chapitre",
     verseLabel: "Verset(s)",
-    analyzeText: "Analyser avec l'IA",
+    analyzeText: "Analyser",
     loadingText: "Analyse du texte biblique avec l'IA...",
     summaryTitle: "Résumé",
     contextTitle: "Contexte Historique",
@@ -327,6 +423,30 @@ const translations = {
       fullHistory: "Accès complet à l'historique",
       export: "Capacités d'exportation",
       priorityProcessing: "Traitement prioritaire",
+    },
+    btns: {
+      quickAnalysis: {
+        div: "Analyse Rapide",
+        p: "Rapide et Simple",
+      },
+      deepAnalysis: {
+        div: "Analyse Approfondie",
+        p: "Complète",
+      },
+      childFriendly: {
+        div: "Adapté aux Enfants",
+        p: "Simple et Amusant",
+      },
+      pasteText: "Coller le Texte",
+      bibleReference: "Référence Biblique",
+      single: "Unique",
+      range: "Plage",
+      signOut: "Se Déconnecter",
+      signIn: "Se Connecter",
+    },
+    placeholders: {
+      bibleInput: "Exemple : Collez ici le texte biblique complet...",
+      reference: "Jean",
     },
   },
 };
@@ -504,7 +624,6 @@ function updateTextContent() {
   document.getElementById("analyses-label").textContent = t("analysesLabel");
   document.getElementById("plan-label").textContent = t("planLabel");
   document.getElementById("limit-label").textContent = t("limitLabel");
-  document.getElementById("member-label").textContent = t("memberLabel");
   document.getElementById("auth-modal-title").textContent = t("auth.signIn");
   document.getElementById("auth-modal-subtitle").textContent = t(
     "auth.signInSubtitle"
@@ -515,6 +634,42 @@ function updateTextContent() {
     t("auth.signInButton");
   document.getElementById("switch-to-register").textContent =
     t("auth.registerNow");
+  document.getElementById("bible-input").placeholder = t(
+    "placeholders.bibleInput"
+  );
+  document.getElementById("book-input").placeholder = t(
+    "placeholders.reference"
+  );
+  document.querySelector("#quick-analysis-title").textContent = t(
+    "btns.quickAnalysis.div"
+  );
+  document.querySelector("#quick-analysis-desc").textContent = t(
+    "btns.quickAnalysis.p"
+  );
+  document.querySelector("#deep-analysis-title").textContent = t(
+    "btns.deepAnalysis.div"
+  );
+  document.querySelector("#deep-analysis-desc").textContent = t(
+    "btns.deepAnalysis.p"
+  );
+  document.querySelector("#child-friendly-title").textContent = t(
+    "btns.childFriendly.div"
+  );
+  document.querySelector("#child-friendly-desc").textContent = t(
+    "btns.childFriendly.p"
+  );
+  document.querySelector("#text-tab").textContent = t("btns.pasteText");
+  document.querySelector("#reference-tab").textContent = t(
+    "btns.bibleReference"
+  );
+  document.querySelector("#single-btn").textContent = t("btns.single");
+  document.querySelector("#range-btn").textContent = t("btns.range");
+  document.querySelector("#login-btn").textContent = t("btns.signIn");
+  document.querySelector("#mobile-login-btn").textContent = t("btns.signIn");
+  document.getElementById("menu-home").textContent = t("menu.home");
+  document.getElementById("menu-profile").textContent = t("menu.profile");
+  document.getElementById("menu-plans").textContent = t("menu.plans");
+  document.getElementById("menu-history").textContent = t("menu.history");
 
   // Update usage info
   updateUsageInfo();
@@ -714,26 +869,21 @@ function updateUIWithUserData() {
   document.getElementById("analyses-count").textContent =
     currentUser.analysesThisMonth;
 
-  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  const plan = mockPlans.find((p) => p.key == currentUser.plan);
   const limit =
-    plan.monthlyLimit === Infinity
+    plan.monthlyLimit == Infinity
       ? t("plans.unlimited")
       : `${currentUser.analysesThisMonth}/${plan.monthlyLimit}`;
   document.getElementById("daily-limit").textContent = limit;
-
-  document.getElementById("member-since").textContent = "2 years";
-
-  loginBtn.textContent = "Sign Out";
-  mobileLoginBtn.textContent = "Sign Out";
 }
 
 // Update usage info
 function updateUsageInfo() {
-  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  const plan = mockPlans.find((p) => p.key == currentUser.plan);
   const lang = currentLanguage;
   const t = translations[lang].usageInfo;
 
-  if (currentUser.plan === "pro") {
+  if (currentUser.plan == "pro") {
     usageInfo.innerHTML = `<span class="usage-info-text">${t.pro}</span>`;
     usageInfo.className = "usage-info";
   } else {
@@ -761,7 +911,7 @@ function updateUsageInfo() {
 
 // Check if user can perform analysis
 function canAnalyze() {
-  const plan = mockPlans.find((p) => p.key === currentUser.plan);
+  const plan = mockPlans.find((p) => p.key == currentUser.plan);
   if (!plan) return false;
 
   if (
@@ -1006,10 +1156,15 @@ function renderPlans(plans) {
     const planCard = document.createElement("div");
     planCard.className = `plan-card ${plan.key === "premium" ? "popular" : ""}`;
 
-    const planLimit =
-      plan.monthlyLimit === Infinity
-        ? t("plans.unlimited")
-        : `${plan.monthlyLimit} ${t("plans.analysesPerMonth")}`;
+    let planLimit;
+
+    if (plan.monthlyLimit == Infinity) {
+      planLimit = t("proFeature1");
+    } else if (plan.monthlyLimit == 5) {
+      planLimit = t("freeFeature1");
+    } else if (plan.monthlyLimit == 400) {
+      planLimit = t("premiumFeature1");
+    }
 
     let planButtonHTML = "";
     if (currentUser && currentUser.plan === plan.key) {
@@ -1019,24 +1174,22 @@ function renderPlans(plans) {
         )}</button>`;
       } else {
         planButtonHTML = `
-                            <div class="subscription-status">
-                                ${t("plans.currentPlan")} • ${
-          currentUser.subscription?.status === "ACTIVE" ? "Active" : "Cancelled"
-        }
-                                ${
-                                  currentUser.subscription?.nextBillingDate
-                                    ? ` • Next billing: ${new Date(
-                                        currentUser.subscription.nextBillingDate
-                                      ).toLocaleDateString()}`
-                                    : ""
-                                }
-                            </div>
-                            <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
-                              plan.key
-                            }')">
-                                Cancel Subscription
-                            </button>
-                        `;
+          <div class="subscription-status">
+            ${t("plans.currentPlan")} • ${currentUser.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"}
+           ${
+            currentUser.subscription?.nextBillingDate
+              ? ` • Next billing: ${new Date(
+                  currentUser.subscription.nextBillingDate
+                ).toLocaleDateString()}`
+              : ""
+           }
+          </div>
+          <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
+              plan.key
+            }')">
+                Cancel Subscription
+          </button>
+        `;
       }
     } else if (plan.key === "free") {
       planButtonHTML = `<button class="plan-btn" data-plan="${
