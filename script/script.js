@@ -7,7 +7,7 @@ const translations = {
       plans: "Plans",
       history: "History",
     },
-    logoText: "BibleInsight",
+    logoText: "BibleEasy",
     heroTitle: "Deep Biblical Understanding",
     heroSubtitle:
       "Paste biblical text or enter a reference to receive AI-powered insights, practical applications, and personal reflections.",
@@ -118,7 +118,7 @@ const translations = {
       plans: "Planos",
       history: "Histórico",
     },
-    logoText: "BibleInsight",
+    logoText: "BibleEasy",
     heroTitle: "Compreensão Bíblica Profunda",
     heroSubtitle:
       "Cole texto bíblico ou insira uma referência para receber insights com IA, aplicações práticas e reflexões pessoais.",
@@ -229,7 +229,7 @@ const translations = {
       plans: "Planes",
       history: "Historial",
     },
-    logoText: "BibleInsight",
+    logoText: "BibleEasy",
     heroTitle: "Comprensión Bíblica Profunda",
     heroSubtitle:
       "Pegue texto bíblico o ingrese una referencia para recibir información impulsada por IA, aplicaciones prácticas y reflexiones personales.",
@@ -341,7 +341,7 @@ const translations = {
       plans: "Plans",
       history: "Historique",
     },
-    logoText: "BibleInsight",
+    logoText: "BibleEasy",
     heroTitle: "Compréhension Biblique Approfondie",
     heroSubtitle:
       "Collez du texte biblique ou entrez une référence pour recevoir des insights alimentés par l'IA, des applications pratiques et des réflexions personnelles.",
@@ -524,9 +524,122 @@ let currentUser = {
   },
 };
 
-let currentAnalysisType = "quick";
-let currentLanguage = "en";
-let selectedPlan = null;
+// Mock AI response data
+const mockAIResponse = {
+  summary:
+    "A passagem de Gênesis 1:1-10 descreve os primeiros dias da criação, começando com a famosa declaração de abertura: 'No princípio, Deus criou os céus e a terra.' O texto detalha como Deus trouxe ordem ao caos inicial, criando luz, separando águas e formando terra firme. Cada ato é precedido pelo comando divino 'Haja...' e é seguido pela observação divina de que 'era bom'. Isso estabelece Deus como o Criador soberano que traz ordem e propósito à existência. Espiritualmente, enfatiza a bondade inerente da criação e a autoridade de Deus sobre toda a criação. Historicamente, este texto foi fundamental para as cosmovisões judaico-cristãs, enfatizando a criação ex nihilo (do nada) e contrastando com as narrativas de criação pagãs onde os deuses emergem do caos. A criação por fiat (ordem falada) demonstra o poder e a autoridade da Palavra de Deus.",
+  context:
+    "Gênesis 1 é o início da Bíblia hebraica e serve como a narrativa de criação para as três religiões abraâmicas. É provavelmente escrito durante o exílio babilônico, servindo tanto como uma narrativa de origem quanto como uma refutação teológica das religiões politeístas circundantes. Em vez de deuses batalhando pelo controle, o Deus de Israel simplesmente fala e a criação vem à existência. A estrutura de 'tarde e manhã' refuta possíveis associações com rituais pagãos ocorrendo à noite. A criação por etapas mostra um Deus de ordem, não caos.",
+  practicalExample:
+    "Em um mundo que muitas vezes parece caótico e sem sentido, esta passagem lembra os crentes de que Deus é a fonte de toda a ordem, beleza e propósito. Quando se enfrenta o caos na vida - seja no trabalho, relacionamentos ou saúde mental - pode-se lembrar que o mesmo Deus que trouxe ordem ao universo pode trazer paz e propósito às nossas vidas. Isso pode se manifestar em escolher responder com calma a uma situação volátil, confiando que Deus está no controle, ou em organizar os próprios espaços e rotinas para melhor refletir a ordem de Deus. Em um nível prático, também nos chama a ser bons mordomos da criação, desde a redução de resíduos até o apoio a políticas que protegem o mundo natural.",
+  personalReflection:
+    "A profundidade de Gênesis 1 me atinge toda vez que eu o leio. A simplicidade com que Deus cria - 'Haja luz', e houve luz - é ao mesmo tempo humilhante e fortalecedor. Significa que nem mesmo o caos em minha vida está fora do controle de Deus. Ele pode trazer ordem ao meu caos com uma palavra. Mas também me lembra que, como parte da criação de Deus, sou chamado a refletir sua bondade e ordem em meu próprio life. Quando me sinto vazio ou sem forma, posso me apegar ao fato de que Deus ainda está formando e preenchendo-me, assim como Ele fez com a terra. O fato de que Ele chamou tudo de 'bom' me lembra que vejo a mim mesmo e aos outros de forma muito crítica, enquanto Deus vê a bondade inerente em Sua criação.",
+  test: [
+    {
+      question:
+        "Qual é a fonte primária de luz no primeiro dia antes da criação do sol?",
+      options: [
+        "A glória de Deus",
+        "A luz do próprio Criador",
+        "As estrelas distantes",
+        "A luz é um atributo de Deus, não necessariamente uma fonte física",
+      ],
+      correctAnswer: "d",
+    },
+    {
+      question: "Por que a separação da luz e das trevas é significativa?",
+      options: [
+        "Estabelece o ciclo do dia e da noite",
+        "Previne futuras heresias gnósticas",
+        "Mostra o domínio de Deus sobre ambos",
+        "Todas as acima",
+      ],
+      correctAnswer: "d",
+    },
+    {
+      question: "O que a repetição de 'e foi bom' sugere sobre a criação?",
+      options: [
+        "Deus é um perfeccionista",
+        "A criação é intrinsecamente boa",
+        "Deus estava cansado",
+        "A criação é apenas temporária",
+      ],
+      correctAnswer: "b",
+    },
+    {
+      question:
+        "O que a separação das águas acima e abaixo do firmamento representa?",
+      options: [
+        "A separação do caos primordial",
+        "A futura inundação de Noé",
+        "A divisão entre águas salgadas e doces",
+        "Uma preparação para a chuva",
+      ],
+      correctAnswer: "a",
+    },
+    {
+      question: "Qual é o significado de Deus nomeando os elementos?",
+      options: [
+        "Estabelece domínio humano",
+        "Reflete a tradição hebraica",
+        "Estabelece domínio e ordem divinos",
+        "Todas as acima",
+      ],
+      correctAnswer: "c",
+    },
+    {
+      question: "Como a estrutura de seis dias impacta a visão de mundo?",
+      options: [
+        "Refuta a evolução",
+        "Mostra Deus trabalhando em tempo real",
+        "Estabelece um padrão para a semana de trabalho",
+        "Todas as acima",
+      ],
+      correctAnswer: "d",
+    },
+    {
+      question: "Por que a criação da luz é primeiro?",
+      options: [
+        "É o mais importante",
+        "Para separar do caos espiritual",
+        "Para estabelecer o tempo",
+        "Todas as acima",
+      ],
+      correctAnswer: "d",
+    },
+    {
+      question: "O que a ausência de 'e foi bom' no segundo dia implica?",
+      options: [
+        "A criação do firmamento foi incompleta",
+        "Deus não estava satisfeito ainda",
+        "O julgamento está reservado",
+        "Nenhuma das acima",
+      ],
+      correctAnswer: "c",
+    },
+    {
+      question:
+        "Como a criação por fiat se compara à criação em outras religiões?",
+      options: [
+        "É mais violento",
+        "É mais rápido e ordenado",
+        "Envolve menos deuses",
+        "Todas as acima",
+      ],
+      correctAnswer: "d",
+    },
+    {
+      question: "Qual é a principal lição de Gênesis 1:1-10?",
+      options: [
+        "Deus é criador",
+        "A criação é boa",
+        "A ordem de Deus traz paz",
+        "Todas as acima",
+      ],
+      correctAnswer: "d",
+    },
+  ],
+};
 
 // DOM Elements
 const themeToggle = document.getElementById("theme-toggle");
@@ -667,9 +780,15 @@ function updateTextContent() {
   document.querySelector("#login-btn").textContent = t("btns.signIn");
   document.querySelector("#mobile-login-btn").textContent = t("btns.signIn");
   document.getElementById("menu-home").textContent = t("menu.home");
+  document.getElementById("mobile-menu-home").textContent = t("menu.home");
   document.getElementById("menu-profile").textContent = t("menu.profile");
+  document.getElementById("mobile-menu-profile").textContent =
+    t("menu.profile");
   document.getElementById("menu-plans").textContent = t("menu.plans");
+  document.getElementById("mobile-menu-plans").textContent = t("menu.plans");
   document.getElementById("menu-history").textContent = t("menu.history");
+  document.getElementById("mobile-menu-history").textContent =
+    t("menu.history");
 
   // Update usage info
   updateUsageInfo();
@@ -785,11 +904,17 @@ authModalClose.addEventListener("click", () => {
 
 // Close auth modal when clicking outside
 authModal.addEventListener("click", (e) => {
-  if (e.target === authModal) {
+  if (e.target == authModal) {
     authModal.classList.remove("active");
   }
 });
 
+
+
+
+
+
+/*------------------------------------backend------------------------------------*/
 // Switch between sign in and register
 switchToRegister.addEventListener("click", (e) => {
   e.preventDefault();
@@ -815,11 +940,11 @@ switchToRegister.addEventListener("click", (e) => {
 authForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const name = authName.value.trim();
   const email = authEmail.value.trim();
   const password = authPassword.value.trim();
-  const language = authLanguage.value;
 
-  if (!email || !password) {
+  if (!name ||!email || !password) {
     authError.style.display = "block";
     authError.textContent = "Please fill in all fields";
     return;
@@ -977,56 +1102,6 @@ analyzeBtn.addEventListener("click", () => {
   }, 2000);
 });
 
-// Mock AI response data
-const mockAIResponse = {
-  summary:
-    "God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life. This verse encapsulates the core message of Christianity: God's sacrificial love and the promise of eternal life through faith in Jesus Christ.",
-  context:
-    "John 3:16 appears in the Gospel of John, chapter 3, during Jesus' conversation with Nicodemus, a Pharisee who came to Jesus at night. This verse is part of Jesus' explanation about being 'born again' and represents one of the most famous and quoted verses in the entire Bible, summarizing the gospel message.",
-  practicalExample:
-    "This verse encourages us to demonstrate sacrificial love in our daily lives, just as God demonstrated His love through Jesus. We can apply this by showing unconditional love to others, sharing the message of hope with those around us, and living with the confidence that comes from knowing we have eternal life.",
-  personalReflection:
-    "When I reflect on John 3:16, I'm reminded that God's love is not based on my worthiness but on His character. This truth brings me comfort during difficult times and motivates me to love others more deeply, knowing that I've been loved so completely by God.",
-  test: [
-    {
-      question: "What is the main theme of John 3:16?",
-      options: [
-        "God's love",
-        "Eternal punishment",
-        "Religious rules",
-        "Worldly success",
-      ],
-      correctAnswer: "a",
-    },
-    {
-      question: "Who was Jesus speaking to when He said John 3:16?",
-      options: ["Peter", "Nicodemus", "Mary Magdalene", "The crowds"],
-      correctAnswer: "b",
-    },
-    {
-      question: "What does 'eternal life' refer to in this context?",
-      options: [
-        "Living forever on earth",
-        "Life after death in heaven",
-        "A relationship with God that begins now and continues forever",
-        "Immortality of the soul",
-      ],
-      correctAnswer: "c",
-    },
-    {
-      question:
-        "What is required to receive eternal life according to this verse?",
-      options: [
-        "Good works",
-        "Church membership",
-        "Believing in Jesus",
-        "Following the law",
-      ],
-      correctAnswer: "c",
-    },
-  ],
-};
-
 // Display results
 function displayResults(data) {
   document.getElementById("summary-content").textContent = data.summary;
@@ -1175,18 +1250,20 @@ function renderPlans(plans) {
       } else {
         planButtonHTML = `
           <div class="subscription-status">
-            ${t("plans.currentPlan")} • ${currentUser.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"}
+            ${t("plans.currentPlan")} • ${
+          currentUser.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"
+        }
            ${
-            currentUser.subscription?.nextBillingDate
-              ? ` • Next billing: ${new Date(
-                  currentUser.subscription.nextBillingDate
-                ).toLocaleDateString()}`
-              : ""
+             currentUser.subscription?.nextBillingDate
+               ? ` • Next billing: ${new Date(
+                   currentUser.subscription.nextBillingDate
+                 ).toLocaleDateString()}`
+               : ""
            }
           </div>
           <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
-              plan.key
-            }')">
+            plan.key
+          }')">
                 Cancel Subscription
           </button>
         `;
