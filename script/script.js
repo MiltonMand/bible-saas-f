@@ -57,23 +57,40 @@ const translations = {
       warning: "You've reached your monthly limit! Upgrade to continue.",
       upgrade: "Upgrade your plan to unlock more analyses this month!",
     },
-    auth: {
-      signIn: "Sign In",
-      register: "Register",
-      email: "Email Address",
-      password: "Password",
-      name: "Full Name",
-      language: "Language",
-      signInSubtitle: "Access your biblical insights and analysis history",
-      registerSubtitle:
-        "Join BibleInsight to save your analyses and access premium features",
-      signInButton: "Sign In",
-      registerButton: "Register",
-      noAccount: "Don't have an account?",
-      haveAccount: "Already have an account?",
-      registerNow: "Register now",
-      signInNow: "Sign in now",
-    },
+    authLoginModalTitle: "Sign In",
+    authLoginModalSubtitle:
+      "Access your biblical insights and analysis history",
+    authRegisterModalTitle: "Create Account",
+    authRegisterModalSubtitle:
+      "Join BibleInsight to save your analyses and access premium features",
+    authVerifyModalTitle: "Verify Your Account",
+    authVerifyModalSubtitle: "We've sent a verification code to your email",
+    authVerifyInstruction: "Enter the 6-digit code sent to your email",
+    authVerifyResend: "Didn't receive the code? Resend code",
+    authLoginEmail: "Email Address",
+    authLoginPassword: "Password",
+    authRegisterName: "Full Name",
+    authRegisterEmail: "Email Address",
+    authRegisterPassword: "Password",
+    authRegisterConfirmPassword: "Confirm Password",
+    authRegisterPhone: "Phone Number",
+    authRegisterTimezone: "Time Zone",
+    authRegisterLanguage: "Language",
+    authRegisterBio: "Bio",
+    authLoginSubmitBtn: "Sign In",
+    authRegisterSubmitBtn: "Register",
+    authVerifyBtn: "Verify Account",
+    authLoginCancelBtn: "Cancel",
+    authRegisterCancelBtn: "Cancel",
+    authVerifyCancelBtn: "Cancel",
+    switchToRegister: "Register now",
+    switchToLogin: "Sign in now",
+    authLoginError: "Invalid credentials",
+    authRegisterError: "Failed to create account",
+    authVerifyError: "Invalid verification code",
+    authLoginSuccess: "Signed in successfully!",
+    authRegisterSuccess: "Account created successfully!",
+    authVerifySuccess: "Account verified successfully!",
     plans: {
       currentPlan: "Current Plan",
       choosePlanBtn: "Choose {{plan}}",
@@ -168,23 +185,41 @@ const translations = {
       warning: "Você atingiu seu limite mensal! Atualize para continuar.",
       upgrade: "Atualize seu plano para desbloquear mais análises este mês!",
     },
-    auth: {
-      signIn: "Entrar",
-      register: "Registrar",
-      email: "Endereço de Email",
-      password: "Senha",
-      name: "Nome Completo",
-      language: "Idioma",
-      signInSubtitle: "Acesse seus insights bíblicos e histórico de análises",
-      registerSubtitle:
-        "Junte-se ao BibleInsight para salvar suas análises e acessar recursos premium",
-      signInButton: "Entrar",
-      registerButton: "Registrar",
-      noAccount: "Não tem uma conta?",
-      haveAccount: "Já tem uma conta?",
-      registerNow: "Registre-se agora",
-      signInNow: "Entre agora",
-    },
+    authLoginModalTitle: "Entrar",
+    authLoginModalSubtitle:
+      "Acesse seus insights bíblicos e histórico de análises",
+    authRegisterModalTitle: "Criar Conta",
+    authRegisterModalSubtitle:
+      "Junte-se ao BibleInsight para salvar suas análises e acessar recursos premium",
+    authVerifyModalTitle: "Verifique Sua Conta",
+    authVerifyModalSubtitle: "Enviamos um código de verificação para seu email",
+    authVerifyInstruction:
+      "Digite o código de 6 dígitos enviado para seu email",
+    authVerifyResend: "Não recebeu o código? Reenviar código",
+    authLoginEmail: "Endereço de Email",
+    authLoginPassword: "Senha",
+    authRegisterName: "Nome Completo",
+    authRegisterEmail: "Endereço de Email",
+    authRegisterPassword: "Senha",
+    authRegisterConfirmPassword: "Confirmar Senha",
+    authRegisterPhone: "Número de Telefone",
+    authRegisterTimezone: "Fuso Horário",
+    authRegisterLanguage: "Idioma",
+    authRegisterBio: "Biografia",
+    authLoginSubmitBtn: "Entrar",
+    authRegisterSubmitBtn: "Registrar",
+    authVerifyBtn: "Verificar Conta",
+    authLoginCancelBtn: "Cancelar",
+    authRegisterCancelBtn: "Cancelar",
+    authVerifyCancelBtn: "Cancelar",
+    switchToRegister: "Registrar agora",
+    switchToLogin: "Entrar agora",
+    authLoginError: "Credenciais inválidas",
+    authRegisterError: "Falha ao criar conta",
+    authVerifyError: "Código de verificação inválido",
+    authLoginSuccess: "Conectado com sucesso!",
+    authRegisterSuccess: "Conta criada com sucesso!",
+    authVerifySuccess: "Conta verificada com sucesso!",
     plans: {
       currentPlan: "Plano Atual",
       choosePlanBtn: "Escolher {{plan}}",
@@ -279,24 +314,42 @@ const translations = {
       warning: "¡Has alcanzado tu límite mensual! Actualiza para continuar.",
       upgrade: "¡Actualiza tu plan para desbloquear más análisis este mes!",
     },
-    auth: {
-      signIn: "Iniciar Sesión",
-      register: "Registrarse",
-      email: "Dirección de Email",
-      password: "Contraseña",
-      name: "Nombre Completo",
-      language: "Idioma",
-      signInSubtitle:
-        "Accede a tus conocimientos bíblicos e historial de análisis",
-      registerSubtitle:
-        "Únete a BibleInsight para guardar tus análisis y acceder a funciones premium",
-      signInButton: "Iniciar Sesión",
-      registerButton: "Registrarse",
-      noAccount: "¿No tienes una cuenta?",
-      haveAccount: "¿Ya tienes una cuenta?",
-      registerNow: "Regístrate ahora",
-      signInNow: "Inicia sesión ahora",
-    },
+    authLoginModalTitle: "Iniciar Sesión",
+    authLoginModalSubtitle:
+      "Acceda a sus conocimientos bíblicos e historial de análisis",
+    authRegisterModalTitle: "Crear Cuenta",
+    authRegisterModalSubtitle:
+      "Únase a BibleInsight para guardar sus análisis y acceder a funciones premium",
+    authVerifyModalTitle: "Verifica Tu Cuenta",
+    authVerifyModalSubtitle:
+      "Hemos enviado un código de verificación a tu correo electrónico",
+    authVerifyInstruction:
+      "Ingresa el código de 6 dígitos enviado a tu correo electrónico",
+    authVerifyResend: "¿No recibiste el código? Reenviar código",
+    authLoginEmail: "Dirección de Correo Electrónico",
+    authLoginPassword: "Contraseña",
+    authRegisterName: "Nombre Completo",
+    authRegisterEmail: "Dirección de Correo Electrónico",
+    authRegisterPassword: "Contraseña",
+    authRegisterConfirmPassword: "Confirmar Contraseña",
+    authRegisterPhone: "Número de Teléfono",
+    authRegisterTimezone: "Zona Horaria",
+    authRegisterLanguage: "Idioma",
+    authRegisterBio: "Biografía",
+    authLoginSubmitBtn: "Iniciar Sesión",
+    authRegisterSubmitBtn: "Registrar",
+    authVerifyBtn: "Verificar Cuenta",
+    authLoginCancelBtn: "Cancelar",
+    authRegisterCancelBtn: "Cancelar",
+    authVerifyCancelBtn: "Cancelar",
+    switchToRegister: "Registrarse ahora",
+    switchToLogin: "Iniciar sesión ahora",
+    authLoginError: "Credenciales inválidas",
+    authRegisterError: "Error al crear cuenta",
+    authVerifyError: "Código de verificación inválido",
+    authLoginSuccess: "¡Sesión iniciada con éxito!",
+    authRegisterSuccess: "¡Cuenta creada con éxito!",
+    authVerifySuccess: "¡Cuenta verificada con éxito!",
     plans: {
       currentPlan: "Plan Actual",
       choosePlanBtn: "Elegir {{plan}}",
@@ -394,24 +447,42 @@ const translations = {
       upgrade:
         "Mettez à niveau votre forfait pour débloquer plus d'analyses ce mois-ci!",
     },
-    auth: {
-      signIn: "Se Connecter",
-      register: "S'Inscrire",
-      email: "Adresse Email",
-      password: "Mot de Passe",
-      name: "Nom Complet",
-      language: "Langue",
-      signInSubtitle:
-        "Accédez à vos insights bibliques et à l'historique d'analyse",
-      registerSubtitle:
-        "Rejoignez BibleInsight pour enregistrer vos analyses et accéder aux fonctionnalités premium",
-      signInButton: "Se Connecter",
-      registerButton: "S'Inscrire",
-      noAccount: "Vous n'avez pas de compte?",
-      haveAccount: "Vous avez déjà un compte?",
-      registerNow: "Inscrivez-vous maintenant",
-      signInNow: "Connectez-vous maintenant",
-    },
+    authLoginModalTitle: "Se Connecter",
+    authLoginModalSubtitle:
+      "Accédez à vos insights bibliques et à votre historique d'analyse",
+    authRegisterModalTitle: "Créer un compte",
+    authRegisterModalSubtitle:
+      "Rejoignez BibleInsight pour enregistrer vos analyses et accéder aux fonctionnalités premium",
+    authVerifyModalTitle: "Vérifiez votre compte",
+    authVerifyModalSubtitle:
+      "Nous avons envoyé un code de vérification à votre adresse e-mail",
+    authVerifyInstruction:
+      "Entrez le code à 6 chiffres envoyé à votre adresse e-mail",
+    authVerifyResend: "Vous n'avez pas reçu le code ? Renvoyer le code",
+    authLoginEmail: "Adresse email",
+    authLoginPassword: "Mot de passe",
+    authRegisterName: "Nom complet",
+    authRegisterEmail: "Adresse email",
+    authRegisterPassword: "Mot de passe",
+    authRegisterConfirmPassword: "Confirmer le mot de passe",
+    authRegisterPhone: "Numéro de téléphone",
+    authRegisterTimezone: "Fuseau horaire",
+    authRegisterLanguage: "Langue",
+    authRegisterBio: "Biographie",
+    authLoginSubmitBtn: "Se Connecter",
+    authRegisterSubmitBtn: "S'inscrire",
+    authVerifyBtn: "Vérifier le compte",
+    authLoginCancelBtn: "Annuler",
+    authRegisterCancelBtn: "Annuler",
+    authVerifyCancelBtn: "Annuler",
+    switchToRegister: "S'inscrire maintenant",
+    switchToLogin: "Se connecter maintenant",
+    authLoginError: "Identifiants invalides",
+    authRegisterError: "Échec de la création du compte",
+    authVerifyError: "Code de vérification invalide",
+    authLoginSuccess: "Connecté avec succès !",
+    authRegisterSuccess: "Compte créé avec succès !",
+    authVerifySuccess: "Compte vérifié avec succès !",
     plans: {
       currentPlan: "Forfait Actuel",
       choosePlanBtn: "Choisir {{plan}}",
@@ -485,7 +556,7 @@ const mockPlans = [
       export: false,
       priorityProcessing: false,
     },
-    paypalPlanId: "premium-paypal-id",
+    paypalPlanId: "P-9VV64429E22600438M73KLKY",
   },
   {
     id: "pro",
@@ -502,7 +573,7 @@ const mockPlans = [
       export: true,
       priorityProcessing: true,
     },
-    paypalPlanId: "pro-paypal-id",
+    paypalPlanId: "P-9VV64429E22600438M73KLKY",
   },
 ];
 
@@ -672,17 +743,6 @@ const deepBtn = document.getElementById("deep-btn");
 const childBtn = document.getElementById("child-btn");
 const loginBtn = document.getElementById("login-btn");
 const mobileLoginBtn = document.getElementById("mobile-login-btn");
-const authModal = document.getElementById("auth-modal");
-const authModalClose = document.getElementById("auth-modal-close");
-const authForm = document.getElementById("auth-form");
-const authEmail = document.getElementById("auth-email");
-const authPassword = document.getElementById("auth-password");
-const authLanguage = document.getElementById("auth-language");
-const authSubmitBtn = document.getElementById("auth-submit-btn");
-const switchToRegister = document.getElementById("switch-to-register");
-const authModalTitle = document.getElementById("auth-modal-title");
-const authModalSubtitle = document.getElementById("auth-modal-subtitle");
-const authError = document.getElementById("auth-error");
 const profileError = document.getElementById("profile-error");
 const plansGrid = document.getElementById("plans-grid");
 const paypalModal = document.getElementById("paypal-modal");
@@ -691,6 +751,31 @@ const paypalError = document.getElementById("paypal-error");
 const paypalButtonContainer = document.getElementById(
   "paypal-button-container"
 );
+
+const authLoginModal = document.getElementById("auth-login-modal");
+const authRegisterModal = document.getElementById("auth-register-modal");
+const authVerifyModal = document.getElementById("auth-verify-modal");
+const authLoginModalClose = document.getElementById("auth-login-modal-close");
+const authRegisterModalClose = document.getElementById(
+  "auth-register-modal-close"
+);
+const authVerifyModalClose = document.getElementById("auth-verify-modal-close");
+const authLoginForm = document.getElementById("auth-login-form");
+const authRegisterForm = document.getElementById("auth-register-form");
+const switchToRegister = document.getElementById("switch-to-register");
+const switchToLogin = document.getElementById("switch-to-login");
+const authLoginSubmitBtn = document.getElementById("auth-login-submit-btn");
+const authRegisterSubmitBtn = document.getElementById(
+  "auth-register-submit-btn"
+);
+const authVerifyBtn = document.getElementById("auth-verify-btn");
+const authLoginCancelBtn = document.getElementById("auth-login-cancel-btn");
+const authRegisterCancelBtn = document.getElementById(
+  "auth-register-cancel-btn"
+);
+const authVerifyCancelBtn = document.getElementById("auth-verify-cancel-btn");
+const authResendCode = document.getElementById("auth-resend-code");
+const authCodeDigits = document.querySelectorAll(".auth-code-digit");
 
 // Translation function
 function t(key) {
@@ -710,8 +795,6 @@ function t(key) {
 
 // Update all text content
 function updateTextContent() {
-  document.getElementById("logo-text").textContent = t("logoText");
-  document.getElementById("mobile-logo-text").textContent = t("logoText");
   document.getElementById("hero-title").textContent = t("heroTitle");
   document.getElementById("hero-subtitle").textContent = t("heroSubtitle");
   document.getElementById("input-label-text").textContent = t("inputLabelText");
@@ -732,21 +815,10 @@ function updateTextContent() {
   document.getElementById("history-title").textContent = t("historyTitle");
   document.getElementById("history-subtitle").textContent =
     t("historySubtitle");
-  document.getElementById("profile-name").textContent = t("profileName");
-  document.getElementById("profile-email").textContent = t("profileEmail");
   document.getElementById("analyses-label").textContent = t("analysesLabel");
   document.getElementById("plan-label").textContent = t("planLabel");
   document.getElementById("limit-label").textContent = t("limitLabel");
-  document.getElementById("auth-modal-title").textContent = t("auth.signIn");
-  document.getElementById("auth-modal-subtitle").textContent = t(
-    "auth.signInSubtitle"
-  );
-  document.getElementById("auth-email").placeholder = t("auth.email");
-  document.getElementById("auth-password").placeholder = t("auth.password");
-  document.getElementById("auth-submit-btn").textContent =
-    t("auth.signInButton");
-  document.getElementById("switch-to-register").textContent =
-    t("auth.registerNow");
+
   document.getElementById("bible-input").placeholder = t(
     "placeholders.bibleInput"
   );
@@ -790,11 +862,66 @@ function updateTextContent() {
   document.getElementById("mobile-menu-history").textContent =
     t("menu.history");
 
-  // Update usage info
-  updateUsageInfo();
+  document.getElementById("logo-text").textContent = t("logoText");
+  document.getElementById("hero-title").textContent = t("heroTitle");
+  document.getElementById("hero-subtitle").textContent = t("heroSubtitle");
+  document.getElementById("auth-login-modal-title").textContent = t(
+    "authLoginModalTitle"
+  );
+  document.getElementById("auth-login-modal-subtitle").textContent = t(
+    "authLoginModalSubtitle"
+  );
+  document.getElementById("auth-register-modal-title").textContent = t(
+    "authRegisterModalTitle"
+  );
+  document.getElementById("auth-register-modal-subtitle").textContent = t(
+    "authRegisterModalSubtitle"
+  );
+  document.getElementById("auth-verify-modal-title").textContent = t(
+    "authVerifyModalTitle"
+  );
+  document.getElementById("auth-verify-modal-subtitle").textContent = t(
+    "authVerifyModalSubtitle"
+  );
+  document.getElementById("auth-verify-instruction").textContent = t(
+    "authVerifyInstruction"
+  );
+  document.getElementById("auth-verify-resend").innerHTML =
+    t("authVerifyResend");
+  document.querySelector('[for="auth-login-email"]').textContent =
+    t("authLoginEmail");
+  document.querySelector('[for="auth-login-password"]').textContent =
+    t("authLoginPassword");
+  document.querySelector('[for="auth-register-name"]').textContent =
+    t("authRegisterName");
+  document.querySelector('[for="auth-register-email"]').textContent =
+    t("authRegisterEmail");
+  document.querySelector('[for="auth-register-password"]').textContent = t(
+    "authRegisterPassword"
+  );
+  document.querySelector('[for="auth-register-confirm-password"]').textContent =
+    t("authRegisterConfirmPassword");
+  document.getElementById("auth-login-submit-btn").textContent =
+    t("authLoginSubmitBtn");
+  document.getElementById("auth-register-submit-btn").textContent = t(
+    "authRegisterSubmitBtn"
+  );
+  document.getElementById("auth-verify-btn").textContent = t("authVerifyBtn");
+  document.getElementById("auth-login-cancel-btn").textContent =
+    t("authLoginCancelBtn");
+  document.getElementById("auth-register-cancel-btn").textContent = t(
+    "authRegisterCancelBtn"
+  );
+  document.getElementById("auth-verify-cancel-btn").textContent = t(
+    "authVerifyCancelBtn"
+  );
+  document.getElementById("switch-to-register").textContent =
+    t("switchToRegister");
+  document.getElementById("switch-to-login").textContent = t("switchToLogin");
 
-  // Update plans
-  renderPlans(mockPlans);
+  updateUsageInfo();
+  updateUIWithUserData();
+  renderPlans();
 }
 
 // Theme toggle
@@ -848,26 +975,21 @@ rangeBtn.addEventListener("click", () => {
 });
 
 // Analysis type selector
-quickBtn.addEventListener("click", () => {
-  quickBtn.classList.add("active");
-  deepBtn.classList.remove("active");
-  childBtn.classList.remove("active");
-  currentAnalysisType = "quick";
-});
-
-deepBtn.addEventListener("click", () => {
-  deepBtn.classList.add("active");
-  quickBtn.classList.remove("active");
-  childBtn.classList.remove("active");
-  currentAnalysisType = "deep";
-});
-
-childBtn.addEventListener("click", () => {
-  childBtn.classList.add("active");
+function setAnalysisType(type) {
   quickBtn.classList.remove("active");
   deepBtn.classList.remove("active");
-  currentAnalysisType = "child";
-});
+  childBtn.classList.remove("active");
+
+  if (type == "deep") deepBtn.classList.add("active");
+  else if (type == "child") childBtn.classList.add("active");
+  else quickBtn.classList.add("active");
+
+  localStorage.setItem("analysisType", type);
+}
+
+quickBtn.addEventListener("click", () => setAnalysisType("quick"));
+deepBtn.addEventListener("click", () => setAnalysisType("deep"));
+childBtn.addEventListener("click", () => setAnalysisType("child"));
 
 // Mobile menu
 mobileMenuBtn.addEventListener("click", () => {
@@ -889,218 +1011,493 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Auth modal
-loginBtn.addEventListener("click", () => {
-  authModal.classList.add("active");
+// Função para salvar o modal atual
+function saveCurrentModal(name) {
+  localStorage.setItem("currentModal", name);
+}
+
+// Função para limpar o modal salvo
+function clearSavedModal() {
+  localStorage.removeItem("currentModal");
+}
+
+// Mostrar modais e salvar o nome
+function showLoginModal() {
+  closeAllAuthModals();
+  authLoginModal.classList.add("active");
+  saveCurrentModal("login");
+}
+
+function showRegisterModal() {
+  closeAllAuthModals();
+  authRegisterModal.classList.add("active");
+  saveCurrentModal("register");
+}
+
+function showVerificationModal() {
+  closeAllAuthModals();
+  authVerifyModal.classList.add("active");
+  saveCurrentModal("verify");
+}
+
+// Fechar todos e limpar o localStorage
+function closeAllAuthModals() {
+  authLoginModal.classList.remove("active");
+  authRegisterModal.classList.remove("active");
+  authVerifyModal.classList.remove("active");
+  clearSavedModal();
+}
+
+// === Seus listeners permanecem iguais ===
+loginBtn.addEventListener("click", showLoginModal);
+mobileLoginBtn.addEventListener("click", showLoginModal);
+authLoginModalClose.addEventListener("click", closeAllAuthModals);
+authRegisterModalClose.addEventListener("click", closeAllAuthModals);
+authVerifyModalClose.addEventListener("click", closeAllAuthModals);
+authLoginCancelBtn.addEventListener("click", closeAllAuthModals);
+authRegisterCancelBtn.addEventListener("click", closeAllAuthModals);
+authVerifyCancelBtn.addEventListener("click", closeAllAuthModals);
+
+authLoginModal.addEventListener("click", (e) => {
+  if (e.target == authLoginModal) closeAllAuthModals();
+});
+authRegisterModal.addEventListener("click", (e) => {
+  if (e.target == authRegisterModal) closeAllAuthModals();
+});
+authVerifyModal.addEventListener("click", (e) => {
+  if (e.target == authVerifyModal) closeAllAuthModals();
 });
 
-mobileLoginBtn.addEventListener("click", () => {
-  authModal.classList.add("active");
-});
-
-authModalClose.addEventListener("click", () => {
-  authModal.classList.remove("active");
-});
-
-// Close auth modal when clicking outside
-authModal.addEventListener("click", (e) => {
-  if (e.target == authModal) {
-    authModal.classList.remove("active");
-  }
-});
-
-
-
-
-
-
-/*------------------------------------backend------------------------------------*/
-// Switch between sign in and register
 switchToRegister.addEventListener("click", (e) => {
   e.preventDefault();
-  const isRegister = authModalTitle.textContent === t("auth.register");
-  if (isRegister) {
-    authModalTitle.textContent = t("auth.signIn");
-    authModalSubtitle.textContent = t("auth.signInSubtitle");
-    authSubmitBtn.textContent = t("auth.signInButton");
-    switchToRegister.textContent = t("auth.registerNow");
-  } else {
-    authModalTitle.textContent = t("auth.register");
-    authModalSubtitle.textContent = t("auth.registerSubtitle");
-    authSubmitBtn.textContent = t("auth.registerButton");
-    switchToRegister.textContent = t("auth.signInNow");
-  }
-  authError.style.display = "none";
-  authEmail.value = "";
-  authPassword.value = "";
-  authLanguage.value = currentLanguage;
+  showRegisterModal();
+});
+switchToLogin.addEventListener("click", (e) => {
+  e.preventDefault();
+  showLoginModal();
 });
 
-// Auth form submission
-authForm.addEventListener("submit", (e) => {
+// Code digit input handling
+authCodeDigits.forEach((digit, index) => {
+  digit.addEventListener("input", () => {
+    if (digit.value.length === 1 && index < authCodeDigits.length - 1) {
+      authCodeDigits[index + 1].focus();
+    }
+  });
+
+  digit.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && digit.value === "" && index > 0) {
+      authCodeDigits[index - 1].focus();
+    }
+  });
+});
+
+function showMessage(type = "success", message) {
+  const existingToasts = document.querySelectorAll(".toast");
+  existingToasts.forEach((toast) => toast.remove());
+
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+
+  const icon = type === "success" ? "check-circle" : "exclamation-circle";
+
+  toast.innerHTML = `
+        <i class="fas fa-${icon}"></i>
+        <span>${message}</span>
+    `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "fadeOut 0.3s ease-out forwards";
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function error(msg) {
+  showMessage("error", msg);
+}
+function success(msg) {
+  showMessage("success", msg);
+}
+
+/*------------------------------------backend------------------------------------*/
+/*------------------------------------backend------------------------------------*/
+/*------------------------------------backend------------------------------------*/
+/*------------------------------------backend------------------------------------*/
+/*------------------------------------backend------------------------------------*/
+/*------------------------------------backend------------------------------------*/
+
+const api = axios.create({
+  baseURL: `http://localhost:5000/api`,
+  withCredentials: true,
+});
+
+function errorMsg(error) {
+  if (error.response) {
+    const status = error.response.status;
+
+    if (status == 401) {
+      showMessage("error", "Sessão expirada. Faça login novamente.");
+    } else {
+      showMessage(
+        "error",
+        error.response.data?.error_msg || "Erro inesperado."
+      );
+    }
+  } else {
+    console.error("Error fetching client data:", error);
+    showMessage("error", "Erro de conexão com o servidor.");
+  }
+}
+
+// Auth Login Form Submission
+authLoginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = authName.value.trim();
-  const email = authEmail.value.trim();
-  const password = authPassword.value.trim();
+  const email = document.getElementById("auth-login-email").value.trim();
+  const password = document.getElementById("auth-login-password").value;
 
-  if (!name ||!email || !password) {
-    authError.style.display = "block";
-    authError.textContent = "Please fill in all fields";
+  if (!email || !password) {
+    showMessage("error", `${translations[currentLanguage].authLoginError}`);
     return;
   }
 
-  authError.style.display = "none";
-  authSubmitBtn.disabled = true;
-  authSubmitBtn.textContent = "Processing...";
+  authLoginSubmitBtn.disabled = true;
+  authLoginSubmitBtn.textContent = "Signing In...";
 
-  // Simulate API call
-  setTimeout(() => {
-    authModal.classList.remove("active");
-    authSubmitBtn.disabled = false;
-    authSubmitBtn.textContent = t("auth.signInButton");
-    updateUIWithUserData();
-    updateUsageInfo();
-    alert("Signed in successfully!");
-  }, 1500);
+  try {
+    const res = await api.post("/auth/login", { email, password });
+    const data = res.data;
+
+    if (data.error_msg) return error(data.error_msg);
+    if (data.client.isVerified == false) {
+      localStorage.setItem("email", data.client.email);
+      showVerificationModal();
+    }
+  } catch (error) {
+    errorMsg(error);
+  } finally {
+    authLoginSubmitBtn.disabled = false;
+    authLoginSubmitBtn.textContent =
+      translations[currentLanguage].authLoginSubmitBtn;
+  }
+});
+
+// Auth Register Form Submission
+authRegisterForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("auth-register-name").value.trim();
+  const email = document.getElementById("auth-register-email").value.trim();
+  const password = document.getElementById("auth-register-password").value;
+  const confirmPassword = document.getElementById(
+    "auth-register-confirm-password"
+  ).value;
+
+  // Validation
+  if (!name || !email || !password || !confirmPassword) {
+    showMessage("error", `${translations[currentLanguage].authRegisterError}`);
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showMessage("error", `Passwords do not match`);
+    return;
+  }
+
+  if (password.length < 6) {
+    showMessage("error", "Password must be at least 6 characters");
+    return;
+  }
+
+  authRegisterSubmitBtn.disabled = true;
+  authRegisterSubmitBtn.textContent = "Creating Account...";
+
+  try {
+    const res = await api.post("auth/register", { name, email, password });
+    const data = res.data;
+
+    if (data.error_msg) return error(data.error_msg);
+    localStorage.setItem("email", data.client.email);
+
+    showVerificationModal();
+  } catch (error) {
+    errorMsg(error);
+  } finally {
+    authRegisterSubmitBtn.disabled = false;
+    authRegisterSubmitBtn.textContent =
+      translations[currentLanguage].authRegisterSubmitBtn;
+  }
+});
+
+// Auth Verification Form Submission
+authVerifyBtn.addEventListener("click", async () => {
+  const email = localStorage.getItem("email");
+
+  const enteredCode = Array.from(authCodeDigits)
+    .map((digit) => digit.value)
+    .join("");
+
+  authVerifyBtn.disabled = true;
+  authVerifyBtn.textContent = "Verifying...";
+
+  try {
+    const res = await api.post("/auth/verify", { email, code: enteredCode });
+    const data = res.data;
+
+    if (data.error_msg) return error(data.error_msg);
+    authCodeDigits.forEach((digit) => (digit.value = ""));
+    authCodeDigits[0].focus();
+
+    closeAllAuthModals();
+    localStorage.removeItem("email");
+  } catch (error) {
+    errorMsg(error);
+  } finally {
+    authVerifyBtn.disabled = false;
+    authVerifyBtn.textContent = translations[currentLanguage].authVerifyBtn;
+  }
+});
+
+// Resend verification code
+authResendCode.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Simulate resending code
+  verificationCode = generateVerificationCode();
+  console.log("New verification code (for demo):", verificationCode);
+
+  authVerifySuccess.style.display = "block";
+  authVerifySuccess.textContent = "Verification code resent successfully!";
+
+  // Clear code inputs
+  authCodeDigits.forEach((digit) => (digit.value = ""));
+  authCodeDigits[0].focus();
 });
 
 // Profile editing
-editProfileBtn.addEventListener("click", () => {
-  document.getElementById("full-name").value = currentUser.name;
-  document.getElementById("email").value = currentUser.email;
-  document.getElementById("phone").value = "+1 (555) 123-4567";
-  document.getElementById("timezone").value = "UTC-5";
-  document.getElementById("bio").value =
-    "Passionate about biblical studies and spiritual growth. I love exploring the deeper meanings of scripture and applying them to daily life.";
-  profileForm.classList.add("active");
+editProfileBtn.addEventListener("click", async () => {
+  try {
+    const resClient = await api.get("/users/me");
+    const user = resClient.data.user;
+    document.getElementById("full-name").value = user.name;
+    profileForm.classList.add("active");
+  } catch (error) {
+    errorMsg(error);
+  }
 });
 
 cancelProfileBtn.addEventListener("click", () => {
   profileForm.classList.remove("active");
 });
 
-saveProfileBtn.addEventListener("click", () => {
-  profileForm.classList.remove("active");
-  alert("Profile updated successfully!");
+saveProfileBtn.addEventListener("click", async () => {
+  const name = document.getElementById("full-name").value.trim();
+
+  try {
+    const res = await api.put("/users/me", { name });
+    const data = res.data;
+
+    updateUIWithUserData();
+    profileForm.classList.remove("active");
+    if (data.error_msg) return error(error_msg);
+    if (data.success_msg) return success(success_msg);
+  } catch (error) {
+    profileForm.classList.remove("active");
+    errorMsg(error);
+  }
 });
 
-// Update UI with user data
-function updateUIWithUserData() {
-  document.getElementById("profile-name").textContent = currentUser.name;
-  document.getElementById("profile-email").textContent = currentUser.email;
-  document.getElementById("plan-type").textContent =
-    currentUser.plan.charAt(0).toUpperCase() + currentUser.plan.slice(1);
-  document.getElementById("analyses-count").textContent =
-    currentUser.analysesThisMonth;
+async function updateUIWithUserData() {
+  const res = await api.get("/plans");
+  const plans = res.data.plans;
 
-  const plan = mockPlans.find((p) => p.key == currentUser.plan);
+  const resClient = await api.get("/users/me");
+  const user = resClient.data.user;
+
+  const userPlan = plans.find((p) => p.key == user.plan);
+
+  document.getElementById("profile-name").textContent = user.name;
+  document.getElementById("profile-email").textContent = user.email;
+  document.getElementById("plan-type").textContent =
+    userPlan.name.toUpperCase();
+  document.getElementById("analyses-count").textContent =
+    user.analysesThisMonth;
+
   const limit =
-    plan.monthlyLimit == Infinity
+    userPlan.key == "pro"
       ? t("plans.unlimited")
-      : `${currentUser.analysesThisMonth}/${plan.monthlyLimit}`;
+      : `${user.analysesThisMonth}/${userPlan.monthlyLimit}`;
   document.getElementById("daily-limit").textContent = limit;
 }
 
-// Update usage info
-function updateUsageInfo() {
-  const plan = mockPlans.find((p) => p.key == currentUser.plan);
-  const lang = currentLanguage;
-  const t = translations[lang].usageInfo;
+async function updateUsageInfo() {
+  try {
+    // Buscar planos e dados do usuário
+    const [resPlans, resUser] = await Promise.all([
+      api.get("/plans"),
+      api.get("/users/me"),
+    ]);
 
-  if (currentUser.plan == "pro") {
-    usageInfo.innerHTML = `<span class="usage-info-text">${t.pro}</span>`;
-    usageInfo.className = "usage-info";
-  } else {
-    const used = currentUser.analysesThisMonth;
-    const total = plan.monthlyLimit;
-    const usageText = t[currentUser.plan]
+    const plans = resPlans.data.plans;
+    const user = resUser.data.user;
+    const userPlan = plans.find((p) => p.key == user.plan);
+
+    if (!userPlan) {
+      usageInfo.innerHTML = `<span class="usage-warning">Plano do usuário não encontrado.</span>`;
+      return;
+    }
+
+    const lang = localStorage.getItem("language") || "en";
+    const t = translations[lang].usageInfo;
+
+    const used = user.analysesThisMonth ?? 0;
+
+    // Corrigir detecção de plano ilimitado
+    const isUnlimited =
+      userPlan.monthlyLimit === Infinity ||
+      userPlan.monthlyLimit === "Infinity" ||
+      userPlan.monthlyLimit === null ||
+      user.plan === "pro";
+
+    // Plano Pro (ilimitado)
+    if (isUnlimited) {
+      usageInfo.innerHTML = `<span class="usage-info-text">${t.pro}</span>`;
+      usageInfo.className = "usage-info";
+      analyzeBtn.disabled = false;
+      return;
+    }
+
+    // Planos com limite
+    const total = userPlan.monthlyLimit ?? 0;
+    const usageText = t[user.plan]
       .replace("{{used}}", used)
       .replace("{{total}}", total);
 
     if (used >= total) {
-      usageInfo.innerHTML = `<span class="usage-limit">${t.warning}</span><br><button class="upgrade-btn" onclick="showPage('plans')">Upgrade Now</button>`;
-      usageInfo.className = "usage-info";
+      usageInfo.innerHTML = `
+        <span class="usage-limit">${t.warning}</span><br>
+        <button class="upgrade-btn" onclick="showPage('plans')">Upgrade Now</button>`;
+      usageInfo.className = "usage-info limit-reached";
     } else if (used >= total * 0.8) {
-      usageInfo.innerHTML = `<span class="usage-warning">${usageText}</span><br><span class="usage-info-text">${t.upgrade}</span>`;
-      usageInfo.className = "usage-info";
+      usageInfo.innerHTML = `
+        <span class="usage-warning">${usageText}</span><br>
+        <span class="usage-info-text">${t.upgrade}</span>`;
+      usageInfo.className = "usage-info near-limit";
     } else {
       usageInfo.innerHTML = `<span class="usage-info-text">${usageText}</span>`;
-      usageInfo.className = "usage-info";
+      usageInfo.className = "usage-info normal";
     }
-  }
 
-  // Enable/disable analyze button
-  analyzeBtn.disabled = !canAnalyze();
+    analyzeBtn.disabled = used >= total;
+  } catch (error) {
+    console.error("Erro ao atualizar informações de uso:", error);
+    usageInfo.innerHTML = `<span class="usage-warning">Erro ao carregar informações de uso.</span>`;
+  }
 }
 
-// Check if user can perform analysis
-function canAnalyze() {
-  const plan = mockPlans.find((p) => p.key == currentUser.plan);
-  if (!plan) return false;
+analyzeBtn.addEventListener("click", async () => {
+  const analysisType = localStorage.getItem("analysisType") || "quick";
+  const languageCode = localStorage.getItem("language") || "pt";
 
-  if (
-    plan.monthlyLimit !== Infinity &&
-    currentUser.analysesThisMonth >= plan.monthlyLimit
-  ) {
-    return false;
-  }
+  // Mapeamento do código para nome da língua em inglês
+  const languageMap = {
+    pt: "Portuguese",
+    en: "English",
+    es: "Spanish",
+    fr: "French",
+  };
 
-  return true;
-}
+  const analysisLanguage = languageMap[languageCode] || "English";
+  let referenceData = {};
 
-// Analyze function
-analyzeBtn.addEventListener("click", () => {
-  if (!canAnalyze()) {
-    alert(
-      "You have reached your monthly analysis limit. Please upgrade your plan to continue."
-    );
-    showPage("plans");
-    return;
-  }
-
-  let input = "";
   if (textTab.classList.contains("active")) {
-    input = bibleInput.value.trim();
+    const text = bibleInput.value.trim();
+    if (!text) {
+      alert("Por favor, insira um texto bíblico para análise.");
+      return;
+    }
+    referenceData = {
+      referenceType: "text",
+      analysisType,
+      analysisLanguage,
+      text,
+    };
   } else {
     const book = document.getElementById("book-input").value.trim();
     const chapter = document.getElementById("chapter-input").value.trim();
+
+    if (!book || !chapter) {
+      alert("Por favor, preencha o livro e o capítulo.");
+      return;
+    }
+
     if (singleBtn.classList.contains("active")) {
       const verse = document.getElementById("verse-single").value.trim();
-      if (book && chapter && verse) {
-        input = `${book} ${chapter}:${verse}`;
+      if (!verse) {
+        alert("Por favor, insira o versículo.");
+        return;
       }
+      referenceData = {
+        referenceType: "single",
+        analysisType,
+        analysisLanguage,
+        book,
+        chapter: Number(chapter),
+        verse: Number(verse),
+      };
     } else {
       const verseStart = document.getElementById("verse-start").value.trim();
       const verseEnd = document.getElementById("verse-end").value.trim();
-      if (book && chapter && verseStart && verseEnd) {
-        input = `${book} ${chapter}:${verseStart}-${verseEnd}`;
+      if (!verseStart || !verseEnd) {
+        alert("Por favor, insira o intervalo de versículos.");
+        return;
       }
+      referenceData = {
+        referenceType: "range",
+        analysisType,
+        analysisLanguage,
+        book,
+        chapter: Number(chapter),
+        verseStart: Number(verseStart),
+        verseEnd: Number(verseEnd),
+      };
     }
   }
 
-  if (!input) {
-    alert("Please enter biblical text or complete reference information.");
-    return;
-  }
-
-  // Show loading
   loading.style.display = "block";
   resultsSection.style.display = "none";
 
-  // Simulate API call delay
-  setTimeout(() => {
-    loading.style.display = "none";
-    displayResults(mockAIResponse);
-    resultsSection.style.display = "grid";
-    resultsSection.style.gridTemplateColumns =
-      "repeat(auto-fit, minmax(300px, 1fr))";
+  console.log("Dados enviados:", referenceData);
 
-    // Update usage count
-    currentUser.analysesThisMonth++;
-    updateUsageInfo();
-  }, 2000);
+  try {
+    const response = await api.post("/analyze/reference", referenceData);
+    const result = response.data;
+
+    // Mostra mensagens do backend, se existirem
+    if (result.success_msg) {
+      console.log("✅", result.success_msg);
+    } else if (result.error_msg) {
+      console.warn("⚠️", result.error_msg);
+    }
+
+    // Se houver resultado de análise
+    if (result.result) {
+      displayResults(result.result);
+      resultsSection.style.display = "block";
+    }
+  } catch (error) {
+    console.error("❌ Erro ao enviar análise:", error);
+    const backendError =
+      error.response?.data?.error_msg ||
+      "Ocorreu um erro ao analisar. Tente novamente mais tarde.";
+    alert(backendError);
+  } finally {
+    loading.style.display = "none";
+  }
 });
+
 
 // Display results
 function displayResults(data) {
@@ -1143,9 +1540,9 @@ function displayResults(data) {
     const questionDiv = document.createElement("div");
     questionDiv.className = "quiz-container";
     questionDiv.innerHTML = `
-                    <div class="quiz-question">${question.question}</div>
-                    <div class="quiz-options" id="quiz-options"></div>
-                `;
+      <div class="quiz-question">${question.question}</div>
+      <div class="quiz-options" id="quiz-options"></div>
+    `;
     quizSection.appendChild(questionDiv);
 
     const optionsContainer = document.getElementById("quiz-options");
@@ -1200,23 +1597,19 @@ function displayResults(data) {
     const resultsDiv = document.createElement("div");
     resultsDiv.className = "results-summary";
     resultsDiv.innerHTML = `
-                    <h3>Quiz Results</h3>
-                    <div class="results-score">${score}/${
-      data.test.length
-    }</div>
-                    <p>You scored ${((score / data.test.length) * 100).toFixed(
-                      0
-                    )}%!</p>
-                    <p style="margin-top: 16px; color: var(--text-light);">
-                        ${
-                          score === data.test.length
-                            ? "Excellent work! You have a deep understanding of this passage."
-                            : score >= data.test.length / 2
-                            ? "Good job! You have a solid understanding of this passage."
-                            : "Keep studying! Review the passage and try again."
-                        }
-                    </p>
-                `;
+      <h3>Quiz Results</h3>
+      <div class="results-score">${score}/${data.test.length}</div>
+        <p>You scored ${((score / data.test.length) * 100).toFixed(0)}%!</p>
+        <p style="margin-top: 16px; color: var(--text-light);">
+          ${
+            score === data.test.length
+              ? "Excellent work! You have a deep understanding of this passage."
+              : score >= data.test.length / 2
+              ? "Good job! You have a solid understanding of this passage."
+              : "Keep studying! Review the passage and try again."
+          }
+        </p>
+      `;
     quizSection.appendChild(resultsDiv);
   }
 
@@ -1224,111 +1617,129 @@ function displayResults(data) {
 }
 
 // Render plans
-function renderPlans(plans) {
-  plansGrid.innerHTML = "";
+async function renderPlans() {
+  try {
+    const res = await api.get("/plans");
+    const plans = res.data.plans;
 
-  plans.forEach((plan) => {
-    const planCard = document.createElement("div");
-    planCard.className = `plan-card ${plan.key === "premium" ? "popular" : ""}`;
+    const resClient = await api.get("/users/me");
+    const user = resClient.data.user;
 
-    let planLimit;
+    plansGrid.innerHTML = "";
 
-    if (plan.monthlyLimit == Infinity) {
-      planLimit = t("proFeature1");
-    } else if (plan.monthlyLimit == 5) {
-      planLimit = t("freeFeature1");
-    } else if (plan.monthlyLimit == 400) {
-      planLimit = t("premiumFeature1");
-    }
+    plans.forEach((plan) => {
+      const planCard = document.createElement("div");
+      planCard.className = `plan-card ${
+        plan.key == "premium" ? "popular" : ""
+      }`;
 
-    let planButtonHTML = "";
-    if (currentUser && currentUser.plan === plan.key) {
-      if (plan.key === "free") {
-        planButtonHTML = `<button class="plan-btn" disabled>${t(
-          "plans.currentPlan"
-        )}</button>`;
-      } else {
-        planButtonHTML = `
-          <div class="subscription-status">
-            ${t("plans.currentPlan")} • ${
-          currentUser.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"
+      // Definir descrição do limite
+      let planLimit;
+      if (plan.key == "pro") planLimit = t("proFeature1");
+      else if (plan.monthlyLimit == 20) planLimit = t("freeFeature1");
+      else if (plan.monthlyLimit == 400) planLimit = t("premiumFeature1");
+
+      let planButtonHTML = "";
+
+      // 🔹 Usuário autenticado
+      if (user) {
+        const isCurrentPlan = user.plan == plan.key;
+
+        if (isCurrentPlan) {
+          // ✅ Caso seja o plano atual
+          planButtonHTML = `<button class="plan-btn" disabled>${t(
+            "plans.currentPlan"
+          )}</button>`;
+
+          // Se for plano pago, mostrar opção de cancelar
+          if (["premium", "pro"].includes(plan.key)) {
+            planButtonHTML += `
+              <div class="subscription-status">
+                ${t("plans.currentPlan")} • ${
+              user.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"
+            }
+                ${
+                  user.subscription?.nextBillingDate
+                    ? ` • Próxima cobrança: ${new Date(
+                        user.subscription.nextBillingDate
+                      ).toLocaleDateString()}`
+                    : ""
+                }
+              </div>
+              <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
+                plan.key
+              }')">
+                Cancelar Assinatura
+              </button>
+            `;
+          }
+        } else {
+          // ✅ Caso não seja o plano atual — permitir mudança
+          if (plan.key == "free") {
+            planButtonHTML = `<button class="plan-btn" onclick="handlePlanSelection('${
+              plan.key
+            }')">
+              ${t("plans.choosePlanBtn").replace(
+                "{{plan}}",
+                t(`${plan.key}Plan`)
+              )}
+            </button>`;
+          } else {
+            planButtonHTML = `<button class="plan-btn" onclick="handlePayPalSubscription('${
+              plan.key
+            }', '${plan.paypalPlanId}')">
+              ${t("plans.choosePlanBtn").replace(
+                "{{plan}}",
+                t(`${plan.key}Plan`)
+              )}
+            </button>`;
+          }
         }
-           ${
-             currentUser.subscription?.nextBillingDate
-               ? ` • Next billing: ${new Date(
-                   currentUser.subscription.nextBillingDate
-                 ).toLocaleDateString()}`
-               : ""
-           }
-          </div>
-          <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
-            plan.key
-          }')">
-                Cancel Subscription
-          </button>
-        `;
       }
-    } else if (plan.key === "free") {
-      planButtonHTML = `<button class="plan-btn" data-plan="${
-        plan.key
-      }" onclick="handlePlanSelection('${plan.key}')">${t(
-        "plans.choosePlanBtn"
-      ).replace("{{plan}}", t(`${plan.key}Plan`))}</button>`;
-    } else {
-      planButtonHTML = `<button class="plan-btn" data-plan="${
-        plan.key
-      }" onclick="handlePayPalSubscription('${plan.key}', '${
-        plan.paypalPlanId
-      }')">${t("plans.choosePlanBtn").replace(
-        "{{plan}}",
-        t(`${plan.key}Plan`)
-      )}</button>`;
-    }
 
-    planCard.innerHTML = `
-                    <div class="plan-name">${t(`${plan.key}Plan`)}</div>
-                    <div class="plan-price">$${plan.price}<span>${t(
-      "plans.perMonth"
-    )}</span></div>
-                    <div class="plan-features">
-                        <div class="plan-feature">
-                            <i class="fas fa-check"></i>
-                            <span>${planLimit}</span>
-                        </div>
-                        <div class="plan-feature">
-                            <i class="fas fa-check"></i>
-                            <span>${
-                              plan.features.advancedInsights
-                                ? t("plans.advancedInsights")
-                                : t("plans.basicInsights")
-                            }</span>
-                        </div>
-                        <div class="plan-feature ${
-                          plan.features.conceptMaps ? "" : "locked"
-                        }">
-                            <i class="fas ${
-                              plan.features.conceptMaps ? "fa-check" : "fa-lock"
-                            }"></i>
-                            <span>${t("plans.conceptMaps")}</span>
-                        </div>
-                        <div class="plan-feature ${
-                          plan.features.fullHistory ? "" : "locked"
-                        }">
-                            <i class="fas ${
-                              plan.features.fullHistory ? "fa-check" : "fa-lock"
-                            }"></i>
-                            <span>${t("plans.fullHistory")}</span>
-                        </div>
-                    </div>
-                    ${planButtonHTML}
-                `;
-    plansGrid.appendChild(planCard);
-  });
+      // Renderização final
+      planCard.innerHTML = `
+        <div class="plan-name">${t(`${plan.key}Plan`)}</div>
+        <div class="plan-price">$${plan.price}<span>${t(
+        "plans.perMonth"
+      )}</span></div>
+        <div class="plan-features">
+          <div class="plan-feature"><i class="fas fa-check"></i><span>${planLimit}</span></div>
+          <div class="plan-feature"><i class="fas fa-check"></i><span>${
+            plan.features.advancedInsights
+              ? t("plans.advancedInsights")
+              : t("plans.basicInsights")
+          }</span></div>
+          <div class="plan-feature ${
+            plan.features.conceptMaps ? "" : "locked"
+          }">
+            <i class="fas ${
+              plan.features.conceptMaps ? "fa-check" : "fa-lock"
+            }"></i>
+            <span>${t("plans.conceptMaps")}</span>
+          </div>
+          <div class="plan-feature ${
+            plan.features.fullHistory ? "" : "locked"
+          }">
+            <i class="fas ${
+              plan.features.fullHistory ? "fa-check" : "fa-lock"
+            }"></i>
+            <span>${t("plans.fullHistory")}</span>
+          </div>
+        </div>
+        ${planButtonHTML}
+      `;
+
+      plansGrid.appendChild(planCard);
+    });
+  } catch (err) {
+    console.error("Erro ao renderizar planos:", err);
+  }
 }
 
 // Handle plan selection
 function handlePlanSelection(planKey) {
-  if (planKey === "free") {
+  if (planKey == "free") {
     currentUser.plan = "free";
     updateUIWithUserData();
     updateUsageInfo();
@@ -1360,7 +1771,7 @@ function handlePayPalSubscription(planKey, planId) {
 
 // Initialize PayPal buttons
 function initializePayPalButtons(planId) {
-  if (typeof paypal === "undefined") {
+  if (typeof paypal == "undefined") {
     console.error("PayPal SDK not loaded");
     return;
   }
@@ -1370,9 +1781,9 @@ function initializePayPalButtons(planId) {
   paypal
     .Buttons({
       style: {
+        shape: "pill",
+        color: "blue",
         layout: "vertical",
-        color: "gold",
-        shape: "rect",
         label: "subscribe",
       },
       createSubscription: function (data, actions) {
@@ -1447,7 +1858,7 @@ function showPage(pageId) {
   mobileMenu.classList.remove("active");
 
   // Populate history if needed
-  if (pageId === "history") {
+  if (pageId == "history") {
     populateHistory();
   }
 
@@ -1484,12 +1895,12 @@ function populateHistory() {
     const historyItem = document.createElement("div");
     historyItem.className = "history-item";
     historyItem.innerHTML = `
-                    <div class="history-header">
-                        <div class="history-reference">${item.reference}</div>
-                        <div class="history-date">${item.date}</div>
-                    </div>
-                    <div class="history-summary">${item.summary}</div>
-                `;
+      <div class="history-header">
+          <div class="history-reference">${item.reference}</div>
+          <div class="history-date">${item.date}</div>
+      </div>
+      <div class="history-summary">${item.summary}</div>
+    `;
     historyItem.addEventListener("click", () =>
       showHistoryAnalysis(item.reference)
     );
@@ -1513,11 +1924,32 @@ function showHistoryAnalysis(reference) {
   }, 1500);
 }
 
+async function checkLoginStatus() {
+  const hero = document.querySelector(".hero");
+  try {
+    const response = await api.get("/auth/me");
+
+    if (response.data && response.data.success) {
+      loginBtn.style.display = "none";
+      mobileLoginBtn.style.display = "none";
+      hero.style.display = "none";
+    } else {
+      console.log("Usuário não está logado.");
+    }
+  } catch (error) {
+    console.log("Usuário não está logado.");
+  }
+}
+
 // Initialize
-function init() {
+async function init() {
+  const resClient = await api.get("/users/me");
+  const user = resClient.data.user;
+  const plan = mockPlans.find((p) => p.key == currentUser.plan);
+
   // Set theme
   const savedTheme = localStorage.getItem("theme") || "light";
-  if (savedTheme === "dark") {
+  if (savedTheme == "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
     mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -1541,13 +1973,19 @@ function init() {
     updateLanguage(e.target.value);
   });
 
+  const savedModal = localStorage.getItem("currentModal");
+  if (savedModal == "login") showLoginModal();
+  else if (savedModal == "register") showRegisterModal();
+  else if (savedModal == "verify") showVerificationModal();
+
   // Initialize UI
   updateTextContent();
   updateUIWithUserData();
   updateUsageInfo();
-  renderPlans(mockPlans);
+  renderPlans();
   populateHistory();
+  checkLoginStatus();
 }
 
 // Initialize the app
-init();
+document.addEventListener("DOMContentLoaded", init());

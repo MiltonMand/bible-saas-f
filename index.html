@@ -10,7 +10,9 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
       rel="stylesheet" />
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription"></script>
+    <script
+      src="https://www.paypal.com/sdk/js?client-id=AcZpufr4Xnz6XLISUd1USE--L-Iy8Xa7IadQGf4e6HVJKcZAOy28mPh3eIoJkHPfJHA_3bhLvcvthbgw&vault=true&intent=subscription"
+      data-sdk-integration-source="button-factory"></script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -86,16 +88,32 @@
         </button>
       </div>
       <div class="mobile-nav-links">
-        <a href="#" class="mobile-nav-link active" id="mobile-menu-home" onclick="showPage('home')"
+        <a
+          href="#"
+          class="mobile-nav-link active"
+          id="mobile-menu-home"
+          onclick="showPage('home')"
           >Home</a
         >
-        <a href="#" class="mobile-nav-link" id="mobile-menu-profile" onclick="showPage('profile')"
+        <a
+          href="#"
+          class="mobile-nav-link"
+          id="mobile-menu-profile"
+          onclick="showPage('profile')"
           >Profile</a
         >
-        <a href="#" class="mobile-nav-link" id="mobile-menu-plans" onclick="showPage('plans')"
+        <a
+          href="#"
+          class="mobile-nav-link"
+          id="mobile-menu-plans"
+          onclick="showPage('plans')"
           >Plans</a
         >
-        <a href="#" class="mobile-nav-link" id="mobile-menu-history" onclick="showPage('history')"
+        <a
+          href="#"
+          class="mobile-nav-link"
+          id="mobile-menu-history"
+          onclick="showPage('history')"
           >History</a
         >
       </div>
@@ -118,59 +136,204 @@
       </div>
     </div>
 
-    <!-- Auth Modal -->
-    <div class="auth-modal" id="auth-modal">
+    <!-- Login Auth Modal -->
+    <div class="auth-modal" id="auth-login-modal">
       <div class="auth-modal-content">
-        <button class="auth-modal-close" id="auth-modal-close">
+        <button class="auth-modal-close" id="auth-login-modal-close">
           <i class="fas fa-times"></i>
         </button>
         <div class="auth-modal-header">
-          <h2 id="auth-modal-title">Sign In</h2>
-          <p id="auth-modal-subtitle">
+          <h2 id="auth-login-modal-title">Sign In</h2>
+          <p id="auth-login-modal-subtitle">
             Access your biblical insights and analysis history
           </p>
         </div>
-        <div class="error-message" id="auth-error"></div>
-        <form id="auth-form">
-          <div class="auth-form-group">
-            <label for="auth-email">Email Address</label>
-            <input
-              type="email"
-              id="auth-email"
-              placeholder="Enter your email"
-              required />
+        <div class="auth-modal-body">
+          <form id="auth-login-form">
+            <div class="auth-form-group">
+              <label for="auth-login-email">Email Address</label>
+              <input
+                type="email"
+                id="auth-login-email"
+                placeholder="Enter your email"
+                required />
+            </div>
+            <div class="auth-form-group">
+              <label for="auth-login-password">Password</label>
+              <input
+                type="password"
+                id="auth-login-password"
+                placeholder="Enter your password"
+                required />
+            </div>
+            <div class="auth-form-actions">
+              <button
+                type="submit"
+                class="auth-form-btn auth-save-btn"
+                id="auth-login-submit-btn">
+                Sign In
+              </button>
+              <button
+                type="button"
+                class="auth-form-btn auth-cancel-btn"
+                id="auth-login-cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+          <div class="auth-toggle">
+            <p>
+              Don't have an account?
+              <a href="#" id="switch-to-register">Register now</a>
+            </p>
           </div>
-          <div class="auth-form-group">
-            <label for="auth-password">Password</label>
-            <input
-              type="password"
-              id="auth-password"
-              placeholder="Enter your password"
-              required />
-          </div>
-          <div class="auth-form-group">
-            <label for="auth-language">Language</label>
-            <select id="auth-language">
-              <option value="en" selected>English</option>
-              <option value="pt">Português</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-            </select>
-          </div>
-          <div class="auth-form-actions">
-            <button
-              type="submit"
-              class="auth-btn auth-save-btn"
-              id="auth-submit-btn">
-              Sign In
-            </button>
-          </div>
-        </form>
-        <div class="auth-toggle">
-          <p>
-            Don't have an account?
-            <a href="#" id="switch-to-register">Register now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Auth Modal -->
+    <div class="auth-register-modal" id="auth-register-modal">
+      <div class="auth-register-modal-content">
+        <button
+          class="auth-register-modal-close"
+          id="auth-register-modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="auth-register-modal-header">
+          <h2 id="auth-register-modal-title">Create Account</h2>
+          <p id="auth-register-modal-subtitle">
+            Join BibleInsight to save your analyses and access premium features
           </p>
+        </div>
+        <div class="auth-register-modal-body">
+          <form id="auth-register-form">
+            <div class="auth-register-form-group">
+              <label for="auth-register-name">Full Name</label>
+              <input
+                type="text"
+                id="auth-register-name"
+                placeholder="Enter your full name"
+                required />
+            </div>
+            <div class="auth-register-form-group">
+              <label for="auth-register-email">Email Address</label>
+              <input
+                type="email"
+                id="auth-register-email"
+                placeholder="Enter your email"
+                required />
+            </div>
+            <div class="auth-register-form-group">
+              <label for="auth-register-password">Password</label>
+              <input
+                type="password"
+                id="auth-register-password"
+                placeholder="Create a password"
+                required />
+            </div>
+            <div class="auth-register-form-group">
+              <label for="auth-register-confirm-password"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="auth-register-confirm-password"
+                placeholder="Confirm your password"
+                required />
+            </div>
+            <div class="auth-register-form-actions">
+              <button
+                type="submit"
+                class="auth-register-form-btn auth-register-save-btn"
+                id="auth-register-submit-btn">
+                Register
+              </button>
+              <button
+                type="button"
+                class="auth-register-form-btn auth-register-cancel-btn"
+                id="auth-register-cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+          <div class="auth-register-toggle">
+            <p>
+              Already have an account?
+              <a href="#" id="switch-to-login">Sign in now</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verify Auth Modal -->
+    <div class="auth-verify-modal" id="auth-verify-modal">
+      <div class="auth-verify-modal-content">
+        <button class="auth-verify-modal-close" id="auth-verify-modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="auth-verify-modal-header">
+          <h2 id="auth-verify-modal-title">Verify Your Account</h2>
+          <p id="auth-verify-modal-subtitle">
+            We've sent a verification code to your email
+          </p>
+        </div>
+        <div class="auth-verify-modal-body">
+          <div class="auth-verify-section">
+            <p class="auth-verify-instruction" id="auth-verify-instruction">
+              Enter the 6-digit code sent to your email
+            </p>
+            <div class="auth-verify-code">
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="0" />
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="1" />
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="2" />
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="3" />
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="4" />
+              <input
+                type="text"
+                class="auth-code-digit"
+                maxlength="1"
+                data-index="5" />
+            </div>
+            <p id="auth-verify-resend">
+              Didn't receive the code?
+              <a href="#" class="auth-resend-code" id="auth-resend-code"
+                >Resend code</a
+              >
+            </p>
+            <div class="auth-verify-form-actions">
+              <button
+                class="auth-verify-form-btn auth-verify-btn"
+                id="auth-verify-btn">
+                Verify Account
+              </button>
+              <button
+                class="auth-verify-form-btn auth-verify-cancel-btn"
+                id="auth-verify-cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -420,33 +583,9 @@
 
           <!-- Profile Form -->
           <div class="profile-form" id="profile-form">
-            <div class="error-message" id="profile-error"></div>
             <div class="form-group">
               <label for="full-name">Full Name</label>
               <input type="text" id="full-name" value="John Doe" />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" value="john.doe@example.com" />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" value="+1 (555) 123-4567" />
-            </div>
-            <div class="form-group">
-              <label for="timezone">Time Zone</label>
-              <select id="timezone">
-                <option value="UTC-5">Eastern Time (UTC-5)</option>
-                <option value="UTC-6">Central Time (UTC-6)</option>
-                <option value="UTC-7">Mountain Time (UTC-7)</option>
-                <option value="UTC-8">Pacific Time (UTC-8)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bio">Bio</label>
-              <textarea id="bio" rows="4">
-Passionate about biblical studies and spiritual growth. I love exploring the deeper meanings of scripture and applying them to daily life.</textarea
-              >
             </div>
             <div class="form-actions">
               <button class="form-btn save-btn" id="save-profile-btn">
@@ -460,18 +599,17 @@ Passionate about biblical studies and spiritual growth. I love exploring the dee
 
           <div class="profile-stats">
             <div class="stat-card">
-              <div class="stat-value" id="analyses-count">12</div>
+              <div class="stat-value" id="analyses-count"></div>
               <div class="stat-label" id="analyses-label">
-                Analyses This Month
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="plan-type">Premium</div>
-              <div class="stat-label" id="plan-label">Current Plan</div>
+              <div class="stat-value" id="plan-type"></div>
+              <div class="stat-label" id="plan-label"></div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="daily-limit">28/30</div>
-              <div class="stat-label" id="limit-label">Daily Limit</div>
+              <div class="stat-value" id="daily-limit"></div>
+              <div class="stat-label" id="limit-label"></div>
             </div>
           </div>
         </div>
@@ -506,6 +644,7 @@ Passionate about biblical studies and spiritual growth. I love exploring the dee
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script/script.js"></script>
   </body>
 </html>
