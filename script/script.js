@@ -577,23 +577,6 @@ const mockPlans = [
   },
 ];
 
-// State management
-let currentUser = {
-  id: "user123",
-  name: "John Doe",
-  email: "john.doe@example.com",
-  plan: "free",
-  analysesThisMonth: 2,
-  monthlyLimit: 5,
-  language: "en",
-  subscription: {
-    id: "sub-123",
-    status: "ACTIVE",
-    planId: "premium-paypal-id",
-    startDate: new Date(),
-    nextBillingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-  },
-};
 
 // Mock AI response data
 const mockAIResponse = {
@@ -1301,8 +1284,8 @@ saveProfileBtn.addEventListener("click", async () => {
 
     updateUIWithUserData();
     profileForm.classList.remove("active");
-    if (data.error_msg) return error(error_msg);
-    if (data.success_msg) return success(success_msg);
+    if (data.error_msg) return error(data.error_msg);
+    if (data.success_msg) return success(data.success_msg);
   } catch (error) {
     profileForm.classList.remove("active");
     errorMsg(error);
@@ -1392,7 +1375,7 @@ async function updateUsageInfo() {
 
     analyzeBtn.disabled = used >= total;
   } catch (error) {
-    console.error("Erro ao atualizar informações de uso:", error);
+    errorMsg(error);
     usageInfo.innerHTML = `<span class="usage-warning">Erro ao carregar informações de uso.</span>`;
   }
 }
@@ -1484,29 +1467,26 @@ analyzeBtn.addEventListener("click", async () => {
 
     // Se houver resultado de análise
     if (result.result) {
+      updateUsageInfo();
+      updateUIWithUserData();
+      resultsSection.classList.remove("hidden");
+      resultsSection.classList.add("results-grid-active");
+      resultsSection.style.display = "grid";
       displayResults(result.result);
-      resultsSection.style.display = "block";
     }
   } catch (error) {
-    console.error("❌ Erro ao enviar análise:", error);
-    const backendError =
-      error.response?.data?.error_msg ||
-      "Ocorreu um erro ao analisar. Tente novamente mais tarde.";
-    alert(backendError);
+    errorMsg(error);
   } finally {
     loading.style.display = "none";
   }
 });
 
-
-// Display results
 function displayResults(data) {
   document.getElementById("summary-content").textContent = data.summary;
   document.getElementById("context-content").textContent = data.context;
   document.getElementById("practical-content").textContent =
     data.practicalExample;
-  document.getElementById("reflection-content").textContent =
-    data.personalReflection;
+  document.getElementById("reflection-content").textContent = data.reflection;
 
   // Quiz - sequential questions with auto-progression
   const quizSection = document.getElementById("quiz-section");
@@ -1557,7 +1537,7 @@ function displayResults(data) {
         userAnswers[questionIndex] = this.dataset.answer;
 
         // Check if correct
-        const isCorrect = this.dataset.answer === question.correctAnswer;
+        const isCorrect = this.dataset.answer == question.correctAnswer;
         if (isCorrect) score++;
 
         // Show feedback
@@ -1602,7 +1582,7 @@ function displayResults(data) {
         <p>You scored ${((score / data.test.length) * 100).toFixed(0)}%!</p>
         <p style="margin-top: 16px; color: var(--text-light);">
           ${
-            score === data.test.length
+            score == data.test.length
               ? "Excellent work! You have a deep understanding of this passage."
               : score >= data.test.length / 2
               ? "Good job! You have a solid understanding of this passage."
@@ -1619,11 +1599,13 @@ function displayResults(data) {
 // Render plans
 async function renderPlans() {
   try {
-    const res = await api.get("/plans");
-    const plans = res.data.plans;
+    const [resPlans, resUser] = await Promise.all([
+      api.get("/plans"),
+      api.get("/users/me"),
+    ]);
 
-    const resClient = await api.get("/users/me");
-    const user = resClient.data.user;
+    const user = resUser.data.user;
+    const plans = resPlans.data.plans;
 
     plansGrid.innerHTML = "";
 
@@ -1840,6 +1822,7 @@ paypalModal.addEventListener("click", (e) => {
 
 // Page navigation
 function showPage(pageId) {
+  localStorage.setItem("page", pageId);
   document.querySelectorAll(".page").forEach((page) => {
     page.classList.remove("active");
   });
@@ -1863,65 +1846,111 @@ function showPage(pageId) {
   }
 
   // Populate plans if needed
-  if (pageId === "plans") {
+  if (pageId == "plans") {
     renderPlans(mockPlans);
   }
 }
 
 // Populate history
-function populateHistory() {
+async function populateHistory() {
   historyList.innerHTML = "";
 
-  const historyItems = [
-    {
-      reference: "John 3:16",
-      date: "Today, 2:30 PM",
-      summary: "God so loved the world that he gave his one and only Son...",
-    },
-    {
-      reference: "Psalm 23",
-      date: "Yesterday, 10:15 AM",
-      summary: "The Lord is my shepherd; I shall not want...",
-    },
-    {
-      reference: "Matthew 5:1-12",
-      date: "Oct 15, 2024",
-      summary:
-        "Blessed are the poor in spirit, for theirs is the kingdom of heaven...",
-    },
-  ];
+  try {
+    const res = await api.get("/analyses");
+    const historyItems = res.data.analyses;
 
-  historyItems.forEach((item) => {
-    const historyItem = document.createElement("div");
-    historyItem.className = "history-item";
-    historyItem.innerHTML = `
-      <div class="history-header">
-          <div class="history-reference">${item.reference}</div>
-          <div class="history-date">${item.date}</div>
-      </div>
-      <div class="history-summary">${item.summary}</div>
-    `;
-    historyItem.addEventListener("click", () =>
-      showHistoryAnalysis(item.reference)
-    );
-    historyList.appendChild(historyItem);
+    historyItems.forEach((item) => {
+      const historyItem = document.createElement("div");
+      historyItem.className = "history-item";
+
+      // 🔹 Montar o título dependendo do tipo de entrada
+      let referenceText = "";
+      if (item.inputType == "reference") {
+        const bookName = capitalizeFirstLetter(item.book);
+        if (item.verseOne && !item.verseStart && !item.verseEnd) {
+          referenceText = `${bookName} ${item.chapter}:${item.verseOne}`;
+        } else if (item.verseStart && item.verseEnd) {
+          referenceText = `${bookName} ${item.chapter}:${item.verseStart}-${item.verseEnd}`;
+        } else {
+          referenceText = `${bookName} ${item.chapter}`;
+        }
+      } else {
+        // Mostrar apenas as primeiras palavras do texto digitado
+        referenceText = truncateText(item.inputText, 80);
+      }
+
+      // 🔹 Formatar data
+      const formattedDate = formatDate(item.createdAt);
+
+      // 🔹 Montar o HTML
+      historyItem.innerHTML = `
+        <div class="history-header">
+          <div class="history-reference">${referenceText}</div>
+          <div class="history-date">${formattedDate}</div>
+        </div>
+        <div class="history-summary">${truncateText(
+          item.result?.summary || "",
+          150
+        )}</div>
+      `;
+
+      historyItem.addEventListener("click", () => {
+        resultsSection.classList.remove("hidden");
+        resultsSection.classList.add("results-grid-active");
+        resultsSection.style.display = "grid";
+        showHistoryAnalysis(item._id);
+      });
+
+      historyList.appendChild(historyItem);
+    });
+  } catch (err) {
+    console.error("Erro ao carregar histórico:", err);
+  }
+}
+
+function formatDate(isoDate) {
+  if (!isoDate) return "";
+  const date = new Date(isoDate);
+  return date.toLocaleDateString("pt-BR", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 }
 
+function truncateText(text, maxLength) {
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+}
+
+function capitalizeFirstLetter(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 // Show history analysis
-function showHistoryAnalysis(reference) {
+async function showHistoryAnalysis(itemId) {
   showPage("home");
-  // Simulate loading the analysis
   loading.style.display = "block";
   resultsSection.style.display = "none";
 
-  setTimeout(() => {
+  try {
+    const response = await api.get(`/analyze/${itemId}`);
+    const data = response.data;
+
+    if (data.error_msg) return error(data.error_msg);
+
+    if (data.result) {
+      displayResults(data.result);
+      resultsSection.style.display = "block";
+    }
+  } catch (error) {
+    errorMsg(error);
+  } finally {
     loading.style.display = "none";
-    displayResults(mockAIResponse);
-    resultsSection.style.display = "grid";
-    resultsSection.style.gridTemplateColumns =
-      "repeat(auto-fit, minmax(300px, 1fr))";
-  }, 1500);
+  }
 }
 
 async function checkLoginStatus() {
@@ -1943,9 +1972,9 @@ async function checkLoginStatus() {
 
 // Initialize
 async function init() {
-  const resClient = await api.get("/users/me");
-  const user = resClient.data.user;
-  const plan = mockPlans.find((p) => p.key == currentUser.plan);
+  // Set page
+  const savedPage = localStorage.getItem("page") || "home";
+  showPage(savedPage);
 
   // Set theme
   const savedTheme = localStorage.getItem("theme") || "light";

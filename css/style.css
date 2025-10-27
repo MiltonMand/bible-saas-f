@@ -632,6 +632,11 @@ header {
   margin-top: 40px;
 }
 
+.results-grid-active {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 .result-card {
   background: var(--card-bg);
   border-radius: var(--border-radius);
@@ -1147,6 +1152,11 @@ header {
   font-weight: 700;
   color: var(--primary);
   font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .history-date {
@@ -1157,6 +1167,11 @@ header {
 .history-summary {
   color: var(--text-light);
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Upgrade Banner */
