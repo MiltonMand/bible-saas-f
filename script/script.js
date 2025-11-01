@@ -522,177 +522,51 @@ const translations = {
   },
 };
 
-// Mock data for demonstration
-const mockPlans = [
-  {
-    id: "free",
-    name: "Free",
-    key: "free",
-    price: 0,
-    monthlyLimit: 5,
-    aiModel: "meta-llama/llama-3.2-3b-instruct:free",
-    features: {
-      basicInsights: true,
-      advancedInsights: false,
-      conceptMaps: false,
-      fullHistory: false,
-      export: false,
-      priorityProcessing: false,
-    },
-    paypalPlanId: null,
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    key: "premium",
-    price: 9,
-    monthlyLimit: 400,
-    aiModel: "google/gemini-pro-1.5",
-    features: {
-      basicInsights: true,
-      advancedInsights: true,
-      conceptMaps: true,
-      fullHistory: true,
-      export: false,
-      priorityProcessing: false,
-    },
-    paypalPlanId: "P-9VV64429E22600438M73KLKY",
-  },
-  {
-    id: "pro",
-    name: "Pro",
-    key: "pro",
-    price: 19,
-    monthlyLimit: Infinity,
-    aiModel: "anthropic/claude-3.5-sonnet",
-    features: {
-      basicInsights: true,
-      advancedInsights: true,
-      conceptMaps: true,
-      fullHistory: true,
-      export: true,
-      priorityProcessing: true,
-    },
-    paypalPlanId: "P-9VV64429E22600438M73KLKY",
-  },
-];
-
-
-// Mock AI response data
-const mockAIResponse = {
-  summary:
-    "A passagem de Gênesis 1:1-10 descreve os primeiros dias da criação, começando com a famosa declaração de abertura: 'No princípio, Deus criou os céus e a terra.' O texto detalha como Deus trouxe ordem ao caos inicial, criando luz, separando águas e formando terra firme. Cada ato é precedido pelo comando divino 'Haja...' e é seguido pela observação divina de que 'era bom'. Isso estabelece Deus como o Criador soberano que traz ordem e propósito à existência. Espiritualmente, enfatiza a bondade inerente da criação e a autoridade de Deus sobre toda a criação. Historicamente, este texto foi fundamental para as cosmovisões judaico-cristãs, enfatizando a criação ex nihilo (do nada) e contrastando com as narrativas de criação pagãs onde os deuses emergem do caos. A criação por fiat (ordem falada) demonstra o poder e a autoridade da Palavra de Deus.",
-  context:
-    "Gênesis 1 é o início da Bíblia hebraica e serve como a narrativa de criação para as três religiões abraâmicas. É provavelmente escrito durante o exílio babilônico, servindo tanto como uma narrativa de origem quanto como uma refutação teológica das religiões politeístas circundantes. Em vez de deuses batalhando pelo controle, o Deus de Israel simplesmente fala e a criação vem à existência. A estrutura de 'tarde e manhã' refuta possíveis associações com rituais pagãos ocorrendo à noite. A criação por etapas mostra um Deus de ordem, não caos.",
-  practicalExample:
-    "Em um mundo que muitas vezes parece caótico e sem sentido, esta passagem lembra os crentes de que Deus é a fonte de toda a ordem, beleza e propósito. Quando se enfrenta o caos na vida - seja no trabalho, relacionamentos ou saúde mental - pode-se lembrar que o mesmo Deus que trouxe ordem ao universo pode trazer paz e propósito às nossas vidas. Isso pode se manifestar em escolher responder com calma a uma situação volátil, confiando que Deus está no controle, ou em organizar os próprios espaços e rotinas para melhor refletir a ordem de Deus. Em um nível prático, também nos chama a ser bons mordomos da criação, desde a redução de resíduos até o apoio a políticas que protegem o mundo natural.",
-  personalReflection:
-    "A profundidade de Gênesis 1 me atinge toda vez que eu o leio. A simplicidade com que Deus cria - 'Haja luz', e houve luz - é ao mesmo tempo humilhante e fortalecedor. Significa que nem mesmo o caos em minha vida está fora do controle de Deus. Ele pode trazer ordem ao meu caos com uma palavra. Mas também me lembra que, como parte da criação de Deus, sou chamado a refletir sua bondade e ordem em meu próprio life. Quando me sinto vazio ou sem forma, posso me apegar ao fato de que Deus ainda está formando e preenchendo-me, assim como Ele fez com a terra. O fato de que Ele chamou tudo de 'bom' me lembra que vejo a mim mesmo e aos outros de forma muito crítica, enquanto Deus vê a bondade inerente em Sua criação.",
-  test: [
-    {
-      question:
-        "Qual é a fonte primária de luz no primeiro dia antes da criação do sol?",
-      options: [
-        "A glória de Deus",
-        "A luz do próprio Criador",
-        "As estrelas distantes",
-        "A luz é um atributo de Deus, não necessariamente uma fonte física",
-      ],
-      correctAnswer: "d",
-    },
-    {
-      question: "Por que a separação da luz e das trevas é significativa?",
-      options: [
-        "Estabelece o ciclo do dia e da noite",
-        "Previne futuras heresias gnósticas",
-        "Mostra o domínio de Deus sobre ambos",
-        "Todas as acima",
-      ],
-      correctAnswer: "d",
-    },
-    {
-      question: "O que a repetição de 'e foi bom' sugere sobre a criação?",
-      options: [
-        "Deus é um perfeccionista",
-        "A criação é intrinsecamente boa",
-        "Deus estava cansado",
-        "A criação é apenas temporária",
-      ],
-      correctAnswer: "b",
-    },
-    {
-      question:
-        "O que a separação das águas acima e abaixo do firmamento representa?",
-      options: [
-        "A separação do caos primordial",
-        "A futura inundação de Noé",
-        "A divisão entre águas salgadas e doces",
-        "Uma preparação para a chuva",
-      ],
-      correctAnswer: "a",
-    },
-    {
-      question: "Qual é o significado de Deus nomeando os elementos?",
-      options: [
-        "Estabelece domínio humano",
-        "Reflete a tradição hebraica",
-        "Estabelece domínio e ordem divinos",
-        "Todas as acima",
-      ],
-      correctAnswer: "c",
-    },
-    {
-      question: "Como a estrutura de seis dias impacta a visão de mundo?",
-      options: [
-        "Refuta a evolução",
-        "Mostra Deus trabalhando em tempo real",
-        "Estabelece um padrão para a semana de trabalho",
-        "Todas as acima",
-      ],
-      correctAnswer: "d",
-    },
-    {
-      question: "Por que a criação da luz é primeiro?",
-      options: [
-        "É o mais importante",
-        "Para separar do caos espiritual",
-        "Para estabelecer o tempo",
-        "Todas as acima",
-      ],
-      correctAnswer: "d",
-    },
-    {
-      question: "O que a ausência de 'e foi bom' no segundo dia implica?",
-      options: [
-        "A criação do firmamento foi incompleta",
-        "Deus não estava satisfeito ainda",
-        "O julgamento está reservado",
-        "Nenhuma das acima",
-      ],
-      correctAnswer: "c",
-    },
-    {
-      question:
-        "Como a criação por fiat se compara à criação em outras religiões?",
-      options: [
-        "É mais violento",
-        "É mais rápido e ordenado",
-        "Envolve menos deuses",
-        "Todas as acima",
-      ],
-      correctAnswer: "d",
-    },
-    {
-      question: "Qual é a principal lição de Gênesis 1:1-10?",
-      options: [
-        "Deus é criador",
-        "A criação é boa",
-        "A ordem de Deus traz paz",
-        "Todas as acima",
-      ],
-      correctAnswer: "d",
-    },
+const bibleBooks = {
+  pt: [
+    "Gênesis","Êxodo","Levítico","Números","Deuteronômio","Josué","Juízes","Rute",
+    "1 Samuel","2 Samuel","1 Reis","2 Reis","1 Crônicas","2 Crônicas","Esdras","Neemias",
+    "Ester","Jó","Salmos","Provérbios","Eclesiastes","Cantares","Isaías","Jeremias",
+    "Lamentações","Ezequiel","Daniel","Oséias","Joel","Amós","Obadias","Jonas",
+    "Miquéias","Naum","Habacuque","Sofonias","Ageu","Zacarias","Malaquias",
+    "Mateus","Marcos","Lucas","João","Atos","Romanos","1 Coríntios","2 Coríntios",
+    "Gálatas","Efésios","Filipenses","Colossenses","1 Tessalonicenses","2 Tessalonicenses",
+    "1 Timóteo","2 Timóteo","Tito","Filemom","Hebreus","Tiago","1 Pedro","2 Pedro",
+    "1 João","2 João","3 João","Judas","Apocalipse"
   ],
+  en: [
+    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth",
+    "1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah",
+    "Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah",
+    "Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah",
+    "Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi",
+    "Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians",
+    "Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians",
+    "1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter",
+    "1 John","2 John","3 John","Jude","Revelation"
+  ],
+  es: [
+    "Génesis","Éxodo","Levítico","Números","Deuteronomio","Josué","Jueces","Rut",
+    "1 Samuel","2 Samuel","1 Reyes","2 Reyes","1 Crónicas","2 Crónicas","Esdras","Nehemías",
+    "Ester","Job","Salmos","Proverbios","Eclesiastés","Cantares","Isaías","Jeremías",
+    "Lamentaciones","Ezequiel","Daniel","Oseas","Joel","Amós","Abdías","Jonás",
+    "Miqueas","Nahúm","Habacuc","Sofonías","Hageo","Zacarías","Malaquías",
+    "Mateo","Marcos","Lucas","Juan","Hechos","Romanos","1 Corintios","2 Corintios",
+    "Gálatas","Efesios","Filipenses","Colosenses","1 Tesalonicenses","2 Tesalonicenses",
+    "1 Timoteo","2 Timoteo","Tito","Filemón","Hebreos","Santiago","1 Pedro","2 Pedro",
+    "1 Juan","2 Juan","3 Juan","Judas","Apocalipsis"
+  ],
+  fr: [
+    "Genèse","Exode","Lévitique","Nombres","Deutéronome","Josué","Juges","Ruth",
+    "1 Samuel","2 Samuel","1 Rois","2 Rois","1 Chroniques","2 Chroniques","Esdras","Néhémie",
+    "Esther","Job","Psaumes","Proverbes","Ecclésiaste","Cantique des Cantiques","Ésaïe","Jérémie",
+    "Lamentations","Ézéchiel","Daniel","Osée","Joël","Amos","Abdias","Jonas",
+    "Michée","Nahum","Habacuc","Sophonie","Aggée","Zacharie","Malachie",
+    "Matthieu","Marc","Luc","Jean","Actes","Romains","1 Corinthiens","2 Corinthiens",
+    "Galates","Éphésiens","Philippiens","Colossiens","1 Thessaloniciens","2 Thessaloniciens",
+    "1 Timothée","2 Timothée","Tite","Philémon","Hébreux","Jacques","1 Pierre","2 Pierre",
+    "1 Jean","2 Jean","3 Jean","Jude","Apocalypse"
+  ]
 };
 
 // DOM Elements
@@ -805,9 +679,6 @@ function updateTextContent() {
   document.getElementById("bible-input").placeholder = t(
     "placeholders.bibleInput"
   );
-  document.getElementById("book-input").placeholder = t(
-    "placeholders.reference"
-  );
   document.querySelector("#quick-analysis-title").textContent = t(
     "btns.quickAnalysis.div"
   );
@@ -901,10 +772,6 @@ function updateTextContent() {
   document.getElementById("switch-to-register").textContent =
     t("switchToRegister");
   document.getElementById("switch-to-login").textContent = t("switchToLogin");
-
-  updateUsageInfo();
-  updateUIWithUserData();
-  renderPlans();
 }
 
 // Theme toggle
@@ -925,6 +792,9 @@ function updateLanguage(lang) {
   currentLanguage = lang;
   localStorage.setItem("language", lang);
   updateTextContent();
+  updateBookOptions(lang);
+  updateUIWithUserData()
+  updateUsageInfo()
 }
 
 // Tab switching for input
@@ -1063,17 +933,29 @@ switchToLogin.addEventListener("click", (e) => {
 // Code digit input handling
 authCodeDigits.forEach((digit, index) => {
   digit.addEventListener("input", () => {
-    if (digit.value.length === 1 && index < authCodeDigits.length - 1) {
+    if (digit.value.length == 1 && index < authCodeDigits.length - 1) {
       authCodeDigits[index + 1].focus();
     }
   });
 
   digit.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace" && digit.value === "" && index > 0) {
+    if (e.key == "Backspace" && digit.value == "" && index > 0) {
       authCodeDigits[index - 1].focus();
     }
   });
 });
+
+// Popula o select de livros conforme o idioma
+function updateBookOptions(lang) {
+  const bookSelect = document.getElementById("bookSelect");
+  bookSelect.innerHTML = ""; // Limpa
+  bibleBooks[lang].forEach(book => {
+    const opt = document.createElement("option");
+    opt.value = book.toLowerCase().replace(/\s+/g, "-");
+    opt.textContent = book;
+    bookSelect.appendChild(opt);
+  });
+}
 
 function showMessage(type = "success", message) {
   const existingToasts = document.querySelectorAll(".toast");
@@ -1112,7 +994,7 @@ function success(msg) {
 /*------------------------------------backend------------------------------------*/
 
 const api = axios.create({
-  baseURL: `http://localhost:5000/api`,
+  baseURL: `https://biblesaasapi.vercel.app/api`,
   withCredentials: true,
 });
 
@@ -1158,6 +1040,8 @@ authLoginForm.addEventListener("submit", async (e) => {
       localStorage.setItem("email", data.client.email);
       showVerificationModal();
     }
+    init();
+    closeAllAuthModals();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -1235,6 +1119,7 @@ authVerifyBtn.addEventListener("click", async () => {
 
     closeAllAuthModals();
     localStorage.removeItem("email");
+    init();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -1382,7 +1267,7 @@ async function updateUsageInfo() {
 
 analyzeBtn.addEventListener("click", async () => {
   const analysisType = localStorage.getItem("analysisType") || "quick";
-  const languageCode = localStorage.getItem("language") || "pt";
+  const languageCode = localStorage.getItem("language") || "en";
 
   // Mapeamento do código para nome da língua em inglês
   const languageMap = {
@@ -1408,7 +1293,7 @@ analyzeBtn.addEventListener("click", async () => {
       text,
     };
   } else {
-    const book = document.getElementById("book-input").value.trim();
+    const book = document.getElementById("bookSelect").value.trim();
     const chapter = document.getElementById("chapter-input").value.trim();
 
     if (!book || !chapter) {
@@ -1451,8 +1336,8 @@ analyzeBtn.addEventListener("click", async () => {
 
   loading.style.display = "block";
   resultsSection.style.display = "none";
-
-  console.log("Dados enviados:", referenceData);
+  analyzeBtn.disabled = true;
+  analyzeBtn.textContent = "Working";
 
   try {
     const response = await api.post("/analyze/reference", referenceData);
@@ -1478,6 +1363,8 @@ analyzeBtn.addEventListener("click", async () => {
     errorMsg(error);
   } finally {
     loading.style.display = "none";
+     analyzeBtn.disabled = false;
+  analyzeBtn.textContent = t("analyzeText");
   }
 });
 
@@ -1618,64 +1505,49 @@ async function renderPlans() {
       // Definir descrição do limite
       let planLimit;
       if (plan.key == "pro") planLimit = t("proFeature1");
-      else if (plan.monthlyLimit == 20) planLimit = t("freeFeature1");
-      else if (plan.monthlyLimit == 400) planLimit = t("premiumFeature1");
+      else if (plan.key == "free") planLimit = t("freeFeature1");
+      else if (plan.key == "premium") planLimit = t("premiumFeature1");
 
       let planButtonHTML = "";
 
-      // 🔹 Usuário autenticado
       if (user) {
         const isCurrentPlan = user.plan == plan.key;
 
         if (isCurrentPlan) {
-          // ✅ Caso seja o plano atual
-          planButtonHTML = `<button class="plan-btn" disabled>${t(
-            "plans.currentPlan"
-          )}</button>`;
-
-          // Se for plano pago, mostrar opção de cancelar
+          planButtonHTML += `
+              <div class="subscription-status">
+                ${t("plans.currentPlan")} • Active
+            </div>`;
           if (["premium", "pro"].includes(plan.key)) {
             planButtonHTML += `
               <div class="subscription-status">
                 ${t("plans.currentPlan")} • ${
               user.subscription?.status == "ACTIVE" ? "Active" : "Cancelled"
             }
-                ${
-                  user.subscription?.nextBillingDate
-                    ? ` • Próxima cobrança: ${new Date(
-                        user.subscription.nextBillingDate
-                      ).toLocaleDateString()}`
-                    : ""
-                }
-              </div>
-              <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
-                plan.key
-              }')">
-                Cancelar Assinatura
-              </button>
+            ${
+              user.subscription?.nextBillingDate
+                ? ` • Próxima cobrança: ${new Date(
+                    user.subscription.nextBillingDate
+                  ).toLocaleDateString()}`
+                : ""
+            }
+            </div>
+            <button class="cancel-subscription-btn" onclick="handleCancelSubscription('${
+              plan._id
+            }')">
+              Cancelar Assinatura
+            </button>
             `;
           }
         } else {
-          // ✅ Caso não seja o plano atual — permitir mudança
-          if (plan.key == "free") {
-            planButtonHTML = `<button class="plan-btn" onclick="handlePlanSelection('${
-              plan.key
-            }')">
+          planButtonHTML = `<button class="plan-btn" onclick="handlePayPalSubscription('${
+            plan._id
+          }', '${plan.paypalPlanId}')">
               ${t("plans.choosePlanBtn").replace(
                 "{{plan}}",
                 t(`${plan.key}Plan`)
               )}
             </button>`;
-          } else {
-            planButtonHTML = `<button class="plan-btn" onclick="handlePayPalSubscription('${
-              plan.key
-            }', '${plan.paypalPlanId}')">
-              ${t("plans.choosePlanBtn").replace(
-                "{{plan}}",
-                t(`${plan.key}Plan`)
-              )}
-            </button>`;
-          }
         }
       }
 
@@ -1719,40 +1591,27 @@ async function renderPlans() {
   }
 }
 
-// Handle plan selection
-function handlePlanSelection(planKey) {
-  if (planKey == "free") {
-    currentUser.plan = "free";
-    updateUIWithUserData();
-    updateUsageInfo();
-    showPage("home");
-    alert("Plan updated to Free!");
-  } else {
-    selectedPlan = mockPlans.find((p) => p.key === planKey);
-    handlePayPalSubscription(planKey, selectedPlan.paypalPlanId);
-  }
-}
-
 // Handle PayPal subscription
-function handlePayPalSubscription(planKey, planId) {
-  selectedPlan = mockPlans.find((p) => p.key === planKey);
+async function handlePayPalSubscription(planId) {
+  const resPlan = await api.get(`/plan/${planId}`);
+  const plan = resPlan.data.plan;
 
   // Show PayPal modal
   document.getElementById("paypal-modal-title").textContent = `Subscribe to ${t(
-    `${planKey}Plan`
+    `${plan.key}Plan`
   )}`;
   document.getElementById(
     "paypal-modal-subtitle"
-  ).textContent = `Only $${selectedPlan.price} per month`;
+  ).textContent = `Only $${plan.price} per month`;
   document.getElementById("paypal-error").style.display = "none";
   paypalModal.classList.add("active");
 
   // Initialize PayPal buttons
-  initializePayPalButtons(planId);
+  initializePayPalButtons(plan.paypalPlanId);
 }
 
 // Initialize PayPal buttons
-function initializePayPalButtons(planId) {
+function initializePayPalButtons(paypalPlanId) {
   if (typeof paypal == "undefined") {
     console.error("PayPal SDK not loaded");
     return;
@@ -1770,30 +1629,56 @@ function initializePayPalButtons(planId) {
       },
       createSubscription: function (data, actions) {
         return actions.subscription.create({
-          plan_id: planId,
+          plan_id: paypalPlanId,
         });
       },
       onApprove: function (data, actions) {
-        alert("Subscription created successfully!");
-        currentUser.plan = selectedPlan.key;
-        currentUser.analysesThisMonth = 0;
+        createSubscription(data);
         updateUIWithUserData();
         updateUsageInfo();
         paypalModal.classList.remove("active");
-        showPage("home");
+        success("Subscription created successfully!");
       },
       onError: function (err) {
         console.error("PayPal error:", err);
-        document.getElementById("paypal-error").style.display = "block";
-        document.getElementById("paypal-error").textContent =
-          "An error occurred with PayPal. Please try again.";
+        error("An error occurred with PayPal. Please try again.");
       },
     })
     .render("#paypal-button-container");
 }
 
+// frontend
+async function createSubscription(paypalData) {
+  const subscriptionId =
+    paypalData.subscriptionID ||
+    paypalData.id ||
+    (paypalData && paypalData.subscriptionID) ||
+    null;
+  if (!subscriptionId) {
+    console.error("No subscription id from PayPal approval", paypalData);
+    error("No subscription id from PayPal approval");
+    return;
+  }
+
+  try {
+    const res = await api.post("/subscriptions/create", { subscriptionId });
+    if (res.data?.success_msg) {
+      success(res.data.success_msg);
+      await updateUIWithUserData();
+      await updateUsageInfo();
+      await renderPlans();
+    } else {
+      console.log(data.error);
+      error("Could not register subscription on server.");
+    }
+  } catch (err) {
+    console.error("createSubscription error:", err);
+    errorMsg(err);
+  }
+}
+
 // Handle cancel subscription
-function handleCancelSubscription(planKey) {
+function handleCancelSubscription(planId) {
   if (
     confirm(
       "Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your billing period."
@@ -2010,6 +1895,7 @@ async function init() {
   // Initialize UI
   updateTextContent();
   updateUIWithUserData();
+  updateBookOptions(savedLanguage);
   updateUsageInfo();
   renderPlans();
   populateHistory();
@@ -2017,4 +1903,5 @@ async function init() {
 }
 
 // Initialize the app
-document.addEventListener("DOMContentLoaded", init());
+document.addEventListener("DOMContentLoaded", init);
+
