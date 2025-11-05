@@ -442,7 +442,7 @@ function success(msg) {
 
 /*------------------------------------backend------------------------------------*/
 const api = axios.create({
-  baseURL: `http://localhost:5000/api`,
+  baseURL: `https://biblesaasapi.vercel.app/api`,
   withCredentials: true,
 });
 function errorMsg(error) {
