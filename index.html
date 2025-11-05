@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BibleEasy</title>
+    <title>Bible Easy</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -21,7 +21,7 @@
         <nav class="navbar">
           <a href="#" class="logo" onclick="showPage('home')">
             <i class="fas fa-bible"></i>
-            <span id="logo-text">BibleEasy</span>
+            <span id="logo-text">Bible Easy</span>
           </a>
           <div class="nav-links">
             <a
@@ -54,14 +54,6 @@
             >
           </div>
           <div class="nav-controls">
-            <div class="language-selector">
-              <select id="language-select">
-                <option value="en" selected>English</option>
-                <option value="pt">Português</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-              </select>
-            </div>
             <div class="theme-toggle" id="theme-toggle">
               <i class="fas fa-moon"></i>
             </div>
@@ -75,7 +67,6 @@
         </nav>
       </div>
     </header>
-
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
       <div class="mobile-menu-header">
@@ -118,24 +109,14 @@
         >
       </div>
       <div class="mobile-nav-controls">
-        <div class="language-selector">
-          <select id="mobile-language-select">
-            <option value="en" selected>English</option>
-            <option value="pt">Português</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-          </select>
-        </div>
         <div class="theme-toggle" id="mobile-theme-toggle">
           <i class="fas fa-moon"></i>
         </div>
-
         <div class="auth-buttons">
           <button class="auth-buttons" id="mobile-login-btn">Sign In</button>
         </div>
       </div>
     </div>
-
     <!-- Login Auth Modal -->
     <div class="auth-modal" id="auth-login-modal">
       <div class="auth-modal-content">
@@ -190,7 +171,6 @@
         </div>
       </div>
     </div>
-
     <!-- Register Auth Modal -->
     <div class="auth-register-modal" id="auth-register-modal">
       <div class="auth-register-modal-content">
@@ -265,7 +245,6 @@
         </div>
       </div>
     </div>
-
     <!-- Verify Auth Modal -->
     <div class="auth-verify-modal" id="auth-verify-modal">
       <div class="auth-verify-modal-content">
@@ -337,7 +316,6 @@
         </div>
       </div>
     </div>
-
     <!-- PayPal Modal -->
     <div class="paypal-modal" id="paypal-modal">
       <div class="paypal-modal-content">
@@ -363,7 +341,6 @@
         </div>
       </div>
     </div>
-
     <main class="main-content">
       <div class="container">
         <!-- Home Page -->
@@ -375,19 +352,23 @@
               insights, practical applications, and personal reflections.
             </p>
           </div>
-
           <div class="input-section">
             <div class="input-tabs">
-              <button class="input-tab active" data-tab="text" id="text-tab">
+              <button class="input-tab" data-tab="text" id="text-tab">
                 Paste Text
               </button>
-              <button class="input-tab" data-tab="reference" id="reference-tab">
+              <button
+                class="input-tab active"
+                data-tab="reference"
+                id="reference-tab">
                 Bible Reference
               </button>
             </div>
-
             <!-- Text Input -->
-            <div class="input-group" id="text-input-group">
+            <div
+              class="input-group"
+              id="text-input-group"
+              style="display: none">
               <label for="bible-input" id="input-label">
                 <i class="fas fa-paste"></i>
                 <span id="input-label-text">Biblical Text</span>
@@ -396,12 +377,8 @@
                 id="bible-input"
                 placeholder="Example: Paste the full biblical text here..."></textarea>
             </div>
-
             <!-- Reference Input -->
-            <div
-              class="input-group"
-              id="reference-input-group"
-              style="display: none">
+            <div class="input-group" id="reference-input-group">
               <label for="book-input">
                 <i class="fas fa-book"></i>
                 <span id="reference-label">Bible Reference</span>
@@ -409,7 +386,7 @@
               <div class="reference-inputs">
                 <div class="reference-input-group">
                   <label for="book-input" id="book-label">Book</label>
-                    <select id="bookSelect" class="reference-input"></select>
+                  <select id="bookSelect" class="reference-input"></select>
                 </div>
                 <div class="reference-input-group">
                   <label for="chapter-input" id="chapter-label">Chapter</label>
@@ -467,7 +444,6 @@
                 </div>
               </div>
             </div>
-
             <!-- Analysis Type Selection -->
             <div class="analysis-types">
               <div
@@ -507,22 +483,18 @@
                 </div>
               </div>
             </div>
-
-            <button href="#" class="analyze-btn" id="analyze-btn">
+            <button href="#" class="analyze-btn btn-loading" id="analyze-btn">
               <i class="fas fa-brain"></i>
               <span id="analyze-text">Analyze with AI</span>
             </button>
-
             <div class="usage-info" id="usage-info">
               <!-- Usage info will be populated by JavaScript -->
             </div>
           </div>
-
           <div class="loading" id="loading">
             <div class="spinner"></div>
             <p id="loading-text">Analyzing biblical text with AI...</p>
           </div>
-
           <div class="results-section" id="results-section">
             <div class="result-card">
               <h3>
@@ -561,7 +533,6 @@
             </div>
           </div>
         </div>
-
         <!-- Profile Page -->
         <div class="page" id="profile-page">
           <div class="profile-header">
@@ -576,12 +547,15 @@
               </button>
             </div>
           </div>
-
           <!-- Profile Form -->
           <div class="profile-form" id="profile-form">
             <div class="form-group">
               <label for="full-name">Full Name</label>
               <input type="text" id="full-name" value="John Doe" />
+            </div>
+            <div class="form-group">
+              <label for="response-language">Response Language</label>
+              <select id="response-language"></select>
             </div>
             <div class="form-actions">
               <button class="form-btn save-btn" id="save-profile-btn">
@@ -592,24 +566,23 @@
               </button>
             </div>
           </div>
-
           <div class="profile-stats">
             <div class="stat-card">
               <div class="stat-value" id="analyses-count"></div>
               <div class="stat-label" id="analyses-label">
+                Response Language
               </div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="plan-type"></div>
-              <div class="stat-label" id="plan-label"></div>
+              <div class="stat-label" id="plan-label">Current Plan</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="daily-limit"></div>
-              <div class="stat-label" id="limit-label"></div>
+              <div class="stat-label" id="limit-label">Monthly Limit</div>
             </div>
           </div>
         </div>
-
         <!-- Plans Page -->
         <div class="page" id="plans-page">
           <div class="hero">
@@ -618,12 +591,10 @@
               Unlock powerful biblical insights with our flexible pricing plans.
             </p>
           </div>
-
           <div class="plans-grid" id="plans-grid">
             <!-- Plans will be populated by JavaScript -->
           </div>
         </div>
-
         <!-- History Page -->
         <div class="page" id="history-page">
           <div class="hero">
@@ -632,14 +603,12 @@
               Review your previous biblical text analyses and insights.
             </p>
           </div>
-
           <div class="history-list" id="history-list">
             <!-- History items will be populated from data -->
           </div>
         </div>
       </div>
     </main>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script/script.js"></script>
   </body>
