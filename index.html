@@ -52,13 +52,20 @@
               onclick="showPage('history')"
               >History</a
             >
+            <a
+              href="#"
+              class="nav-link"
+              id="menu-settings"
+              onclick="showPage('settings')"
+              >Settings</a
+            >
           </div>
           <div class="nav-controls">
             <div class="theme-toggle" id="theme-toggle">
               <i class="fas fa-moon"></i>
             </div>
             <div class="auth-buttons">
-              <button id="login-btn">Sign In</button>
+              <button id="login-btn">Sign In / Register</button>
             </div>
             <div class="mobile-menu-btn" id="mobile-menu-btn">
               <i class="fas fa-bars"></i>
@@ -107,13 +114,22 @@
           onclick="showPage('history')"
           >History</a
         >
+        <a
+          href="#"
+          class="mobile-nav-link"
+          id="mobile-menu-settings"
+          onclick="showPage('settings')"
+          >Settings</a
+        >
       </div>
       <div class="mobile-nav-controls">
         <div class="theme-toggle" id="mobile-theme-toggle">
           <i class="fas fa-moon"></i>
         </div>
         <div class="auth-buttons">
-          <button class="auth-buttons" id="mobile-login-btn">Sign In</button>
+          <button class="auth-buttons" id="mobile-login-btn">
+            Sign In / Register
+          </button>
         </div>
       </div>
     </div>
@@ -520,7 +536,7 @@
             <div class="result-card">
               <h3>
                 <i class="fas fa-heart"></i>
-                <span id="reflection-title">Personal Reflection</span>
+                <span id="reflection-title">Reflection</span>
               </h3>
               <p id="reflection-content"></p>
             </div>
@@ -540,8 +556,8 @@
               <i class="fas fa-user"></i>
             </div>
             <div class="profile-info">
-              <h2 id="profile-name">John Doe</h2>
-              <p id="profile-email">john.doe@example.com</p>
+              <h2 id="profile-name">Demo</h2>
+              <p id="profile-email">Demo@example.com</p>
               <button class="profile-edit-btn" id="edit-profile-btn">
                 <i class="fas fa-edit"></i> Edit Profile
               </button>
@@ -551,11 +567,19 @@
           <div class="profile-form" id="profile-form">
             <div class="form-group">
               <label for="full-name">Full Name</label>
-              <input type="text" id="full-name" value="John Doe" />
+              <input type="text" id="full-name" value="Demo" />
             </div>
             <div class="form-group">
               <label for="response-language">Response Language</label>
               <select id="response-language"></select>
+            </div>
+            <div class="form-group">
+              <label for="response-language">About Me</label>
+              <textarea
+                name="about-me"
+                id="about-me"
+                cols="30"
+                rows="10"></textarea>
             </div>
             <div class="form-actions">
               <button class="form-btn save-btn" id="save-profile-btn">
@@ -568,17 +592,17 @@
           </div>
           <div class="profile-stats">
             <div class="stat-card">
-              <div class="stat-value" id="analyses-count"></div>
+              <div class="stat-value" id="analyses-count">Sign In</div>
               <div class="stat-label" id="analyses-label">
                 Response Language
               </div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="plan-type"></div>
+              <div class="stat-value" id="plan-type">Sign In</div>
               <div class="stat-label" id="plan-label">Current Plan</div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="daily-limit"></div>
+              <div class="stat-value" id="daily-limit">Sign In</div>
               <div class="stat-label" id="limit-label">Monthly Limit</div>
             </div>
           </div>

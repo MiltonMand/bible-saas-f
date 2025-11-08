@@ -249,14 +249,14 @@ const languages = [
   { name: "Wolof", value: "Wolof" },
   { name: "Xhosa", value: "Xhosa" },
   { name: "Yorùbá", value: "Yoruba" },
-  { name: "Zulu", value: "Zulu" }
+  { name: "Zulu", value: "Zulu" },
 ];
 
 function populateLanguageSelect() {
   const select = document.getElementById("response-language");
   if (!select) return;
 
-  languages.forEach(lang => {
+  languages.forEach((lang) => {
     const option = document.createElement("option");
     option.value = lang.value;
     option.textContent = lang.name;
@@ -441,10 +441,14 @@ function success(msg) {
 }
 
 /*------------------------------------backend------------------------------------*/
+const url = "https://biblesaasapi.vercel.app";
+// const url = "http://localhost:5000";
+
 const api = axios.create({
-  baseURL: `https://biblesaasapi.vercel.app/api`,
+  baseURL: `${url}/api`,
   withCredentials: true,
 });
+
 function errorMsg(error) {
   if (error.response) {
     const status = error.response.status;
@@ -603,12 +607,31 @@ authResendCode.addEventListener("click", async (e) => {
   }
 });
 
+// logoutBtn.addEventListener("click", async () => {
+//   try {
+//     logoutBtn.disabled = true;
+//     logoutBtn.textContent = "Sending...";
+
+//     const res = await api.post("/auth/logout");
+//     const data = res.data;
+
+//     if (data.success_msg) return success(data.success_msg);
+//     error(data.error_msg);
+//   } catch (error) {
+//     errorMsg(error);
+//   } finally {
+//     logoutBtn.disabled = false;
+//     logoutBtn.textContent = "Sign Out";
+//   }
+// });
+
 // Profile editing
 editProfileBtn.addEventListener("click", async () => {
   try {
     const resClient = await api.get("/users/me");
     const user = resClient.data.user;
     document.getElementById("full-name").value = user.name;
+    document.getElementById("about-me").value = user.me;
     profileForm.classList.add("active");
   } catch (error) {
     errorMsg(error);
@@ -620,8 +643,10 @@ cancelProfileBtn.addEventListener("click", () => {
 saveProfileBtn.addEventListener("click", async () => {
   const name = document.getElementById("full-name").value.trim();
   const language = document.getElementById("response-language").value;
+  const me = document.getElementById("about-me").value;
+
   try {
-    const res = await api.put("/users/me", { name, language });
+    const res = await api.put("/users/me", { name, language, me });
     const data = res.data;
     updateUIWithUserData();
     profileForm.classList.remove("active");
@@ -634,22 +659,29 @@ saveProfileBtn.addEventListener("click", async () => {
 });
 
 async function updateUIWithUserData() {
-  const res = await api.get("/plans");
-  const plans = res.data.plans;
-  const resClient = await api.get("/users/me");
-  const user = resClient.data.user;
-  const userPlan = plans.find((p) => p.key == user.plan);
-  document.getElementById("profile-name").textContent = user.name;
-  document.getElementById("profile-email").textContent = user.email;
-  document.getElementById("plan-type").textContent =
-    userPlan.name.toUpperCase();
-  document.getElementById("analyses-count").textContent =
-    user.responseLanguage;
-  const limit =
-    userPlan.key == "pro"
-      ? "Unlimited"
-      : `${user.analysesThisMonth}/${userPlan.monthlyLimit}`;
-  document.getElementById("daily-limit").textContent = limit;
+  try {
+    const [resPlans, resUser] = await Promise.all([
+      api.get("/plans"),
+      api.get("/users/me"),
+    ]);
+    const plans = resPlans.data.plans;
+    const user = resUser.data.user;
+    const userPlan = plans.find((p) => p.key == user.plan);
+
+    document.getElementById("profile-name").textContent = user.name;
+    document.getElementById("profile-email").textContent = user.email;
+    document.getElementById("plan-type").textContent =
+      userPlan.name.toUpperCase();
+    document.getElementById("analyses-count").textContent =
+      user.responseLanguage;
+    const limit =
+      userPlan.key == "pro"
+        ? "Unlimited"
+        : `${user.analysesThisMonth}/${userPlan.monthlyLimit}`;
+    document.getElementById("daily-limit").textContent = limit;
+  } catch (error) {
+    errorMsg(error);
+  }
 }
 
 async function updateUsageInfo() {
@@ -888,8 +920,7 @@ async function renderPlans() {
 
     const plans =
       resPlans.status == "fulfilled" ? resPlans.value.data.plans : [];
-    const user =
-      resUser.status == "fulfilled" ? resUser.value.data.user : null;
+    const user = resUser.status == "fulfilled" ? resUser.value.data.user : null;
 
     plansGrid.innerHTML = "";
 
@@ -1195,6 +1226,9 @@ async function populateHistory() {
       historyList.appendChild(historyItem);
     });
   } catch (err) {
+    historyList.innerHTML = "No History Loading";
+    historyList.style.display = "flex";
+    historyList.style.justifyContent = "center";
     console.error("Error loading history:", err);
   }
 }
@@ -1296,7 +1330,7 @@ async function init() {
   updateUsageInfo();
   renderPlans();
   populateHistory();
-  populateLanguageSelect()
+  populateLanguageSelect();
   checkLoginStatus();
 }
 
