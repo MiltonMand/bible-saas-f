@@ -10,6 +10,11 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
       rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script
       src="https://www.paypal.com/sdk/js?client-id=AcZpufr4Xnz6XLISUd1USE--L-Iy8Xa7IadQGf4e6HVJKcZAOy28mPh3eIoJkHPfJHA_3bhLvcvthbgw&vault=true&intent=subscription"
       data-sdk-integration-source="button-factory"></script>
@@ -500,16 +505,16 @@
               </div>
             </div>
             <button href="#" class="analyze-btn btn-loading" id="analyze-btn">
-              <i class="fas fa-brain"></i>
-              <span id="analyze-text">Analyze with AI</span>
+              <span id="analyze-text">Analyze</span>
             </button>
             <div class="usage-info" id="usage-info">
               <!-- Usage info will be populated by JavaScript -->
             </div>
+            <div id="res"></div>
           </div>
           <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p id="loading-text">Analyzing biblical text with AI...</p>
+            <p id="loading-text">Analyzing biblical text...</p>
           </div>
           <div class="results-section" id="results-section">
             <div class="result-card">
@@ -629,6 +634,79 @@
           </div>
           <div class="history-list" id="history-list">
             <!-- History items will be populated from data -->
+          </div>
+        </div>
+
+        <div class="page" id="settings-page">
+          <div class="hero">
+            <h1 id="settings-title">Account Settings</h1>
+            <p id="settings-subtitle">
+              Manage your account preferences and security
+            </p>
+          </div>
+
+          <div class="settings-section">
+            <h2 id="support-title"><i class="fas fa-headset"></i> Support</h2>
+            <p id="support-desc">
+              Need help? Contact our support team through any of these channels.
+            </p>
+
+            <div class="support-contact">
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-info">
+                  <h3 id="email-support-title">Email Support</h3>
+                  <p id="email-support-desc">support@bibleinsight.com</p>
+                </div>
+              </div>
+
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <div class="contact-info">
+                  <h3 id="chat-support-title">Live Chat Whatisapp</h3>
+                  <p id="chat-support-desc">+258 85 858 8583</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete Account Section -->
+          <div class="settings-section">
+            <h2 id="delete-title">
+              <i class="fas fa-trash-alt"></i> Delete Account
+            </h2>
+            <p id="delete-desc">
+              Permanently delete your account and all associated data. This
+              action cannot be undone.
+            </p>
+
+            <div class="delete-account-section">
+              <div class="delete-account-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3 id="delete-warning-title">Warning: Account Deletion</h3>
+              </div>
+              <p class="delete-warning" id="delete-warning">
+                Deleting your account will permanently remove all your analyses,
+                preferences, and account information. This action cannot be
+                reversed. Please consider downgrading your plan instead if you
+                wish to stop using the service temporarily.
+              </p>
+
+              <div class="delete-confirmation">
+                <input
+                  type="text"
+                  id="delete-confirmation"
+                  placeholder="Type DELETE to confirm" />
+                <button class="btn btn-danger" id="delete-account-btn">
+                  <i class="fas fa-trash-alt"></i>
+                  <span id="delete-btn-text">Delete Account</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1174,6 +1174,147 @@ header {
   text-overflow: ellipsis;
 }
 
+/* Settings Page  */
+
+.settings-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+.support-contact {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 24px 0px;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: var(--transition);
+}
+
+.contact-method:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  background: var(--card-bg);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.contact-info h3 {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.contact-info p {
+  color: var(--text-light);
+  margin: 0;
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 16px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger), #dc2626);
+  color: white;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.delete-account-section {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+}
+
+.delete-account-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.delete-account-header i {
+  color: var(--danger);
+  font-size: 24px;
+}
+
+.delete-account-header h3 {
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+#delete-desc {
+  padding-bottom: 15px;
+}
+
+.delete-warning {
+  color: var(--text-light);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.delete-confirmation {
+  margin: 24px 0;
+  display: flex;
+  gap: 16px;
+}
+
+.delete-confirmation input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+}
+
+.delete-confirmation input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
 /* Upgrade Banner */
 .upgrade-banner {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -1714,99 +1855,20 @@ header {
   box-shadow: var(--shadow);
 }
 
-.auth-verify-error-message {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--danger);
-  padding: 16px;
-  border-radius: 12px;
-  margin: 16px 0;
-  border: 1px solid var(--danger);
-  display: none;
+.swal2-popup {
+  font-family: "Poppins", sans-serif;
+  border-radius: 15px;
+  padding: 25px;
 }
 
-.auth-verify-success-message {
-  background: rgba(16, 185, 129, 0.1);
-  color: var(--success);
-  padding: 16px;
-  border-radius: 12px;
-  margin: 16px 0;
-  border: 1px solid var(--success);
-  display: none;
+.swal2-confirm {
+  background-color: #3085d6 !important;
+  border-radius: 8px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .auth-modal-content,
-  .auth-register-modal-content,
-  .auth-verify-modal-content {
-    max-width: 95vw;
-    margin: 20px;
-  }
-
-  .auth-modal-body,
-  .auth-register-modal-body,
-  .auth-verify-modal-body {
-    max-height: 80vh;
-  }
-
-  .auth-code-digit {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .mobile-menu-btn {
-    display: flex;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .hero p {
-    font-size: 1.1rem;
-  }
-
-  .auth-modal-content,
-  .auth-register-modal-content,
-  .auth-verify-modal-content {
-    max-width: 90vw;
-    margin: 10px;
-  }
-
-  .auth-modal-header,
-  .auth-register-modal-header,
-  .auth-verify-modal-header {
-    padding: 20px 20px 0 20px;
-  }
-
-  .auth-modal-body,
-  .auth-register-modal-body,
-  .auth-verify-modal-body {
-    padding: 0 20px 20px 20px;
-  }
-
-  .auth-form-actions,
-  .auth-register-form-actions,
-  .auth-verify-form-actions {
-    flex-direction: column;
-  }
-
-  .auth-form-btn,
-  .auth-register-form-btn,
-  .auth-verify-form-btn {
-    width: 100%;
-  }
+.swal2-cancel {
+  background-color: #aaa !important;
+  border-radius: 8px;
 }
 
 /* PayPal Modal */
@@ -1872,42 +1934,6 @@ header {
   display: flex;
   justify-content: center;
   margin: 20px 0;
-}
-
-/* Estilos do Toast */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 1rem 1.5rem;
-  background: var(--bg);
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  animation: slideIn 0.3s ease-out forwards;
-  z-index: 10000;
-}
-
-.toast.success {
-  border-left: 4px solid green;
-}
-
-.toast.success i {
-  color: green;
-}
-
-.toast.error {
-  border-left: 4px solid red;
-}
-
-.toast.error i {
-  color: red;
-}
-
-.toast i {
-  font-size: 1.2rem;
 }
 
 @keyframes slideIn {

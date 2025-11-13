@@ -417,27 +417,32 @@ function updateBookOptions() {
   });
 }
 
-function showMessage(type = "success", message) {
-  const existingToasts = document.querySelectorAll(".toast");
-  existingToasts.forEach((toast) => toast.remove());
-  const toast = document.createElement("div");
-  toast.className = `toast ${type}`;
-  const icon = type == "success" ? "check-circle" : "exclamation-circle";
-  toast.innerHTML = `
-            <i class="fas fa-${icon}"></i>
-            <span>${message}</span>
-        `;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.style.animation = "fadeOut 0.3s ease-out forwards";
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-function error(msg) {
-  showMessage("error", msg);
-}
 function success(msg) {
-  showMessage("success", msg);
+  Swal.fire({
+    icon: "success",
+    title: msg,
+    toast: true,
+    position: "bottom-end", // canto superior direito
+    showConfirmButton: false,
+    timer: 2500, // desaparece em 2.5 segundos
+    timerProgressBar: true,
+    background: "#e8f9ee", // leve verde
+    color: "#1e4620", // texto escuro
+  });
+}
+
+function error(msg) {
+  Swal.fire({
+    icon: "error",
+    title: msg,
+    toast: true,
+    position: "bottom-end",
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    background: "#fde8e8", // leve vermelho
+    color: "#611a15",
+  });
 }
 
 /*------------------------------------backend------------------------------------*/
@@ -453,16 +458,13 @@ function errorMsg(error) {
   if (error.response) {
     const status = error.response.status;
     if (status == 401) {
-      showMessage("error", "Session expired. Please log in again.");
+      error("Session expired. Please log in again.");
     } else {
-      showMessage(
-        "error",
-        error.response.data?.error_msg || "Unexpected error."
-      );
+      error(error.response.data?.error_msg || "Unexpected error.");
     }
   } else {
     console.error("Error fetching client ", error);
-    showMessage("error", "Connection error with server.");
+    error("Connection error with server.");
   }
 }
 
@@ -474,7 +476,7 @@ authLoginForm.addEventListener("submit", async (e) => {
   const password = document.getElementById("auth-login-password").value;
 
   if (!email || !password) {
-    showMessage("error", "Invalid credentials");
+    error("Invalid credentials");
     return;
   }
 
@@ -489,18 +491,13 @@ authLoginForm.addEventListener("submit", async (e) => {
       return error(data.error_msg);
     }
 
-    // Verifica se usuário está verificado
     const isVerified = data.client?.isVerified;
 
     if (!isVerified) {
-      // Salva o email para usar no modal de verificação
       localStorage.setItem("email", data.client.email);
-      showVerificationModal(); // mostra o modal
-      // **não chama init() nem fecha modais ainda**
-      return; // importante: interrompe a execução aqui
+      showVerificationModal();
+      return;
     }
-
-    // Só inicializa a aplicação se o usuário estiver verificado
     init();
     closeAllAuthModals();
   } catch (error) {
@@ -521,15 +518,15 @@ authRegisterForm.addEventListener("submit", async (e) => {
     "auth-register-confirm-password"
   ).value;
   if (!name || !email || !password || !confirmPassword) {
-    showMessage("error", "Failed to create account");
+    error("Failed to create account");
     return;
   }
   if (password !== confirmPassword) {
-    showMessage("error", "Passwords do not match");
+    error("Passwords do not match");
     return;
   }
   if (password.length < 6) {
-    showMessage("error", "Password must be at least 6 characters");
+    error("Password must be at least 6 characters");
     return;
   }
   authRegisterSubmitBtn.disabled = true;
@@ -548,7 +545,6 @@ authRegisterForm.addEventListener("submit", async (e) => {
   }
 });
 
-// Auth Verification Form Submission
 authVerifyBtn.addEventListener("click", async () => {
   const email = localStorage.getItem("email");
   const enteredCode = Array.from(authCodeDigits)
@@ -573,13 +569,12 @@ authVerifyBtn.addEventListener("click", async () => {
   }
 });
 
-// Resend verification code
 authResendCode.addEventListener("click", async (e) => {
   e.preventDefault();
 
   const email = localStorage.getItem("email");
   if (!email) {
-    showMessage("error", "Email not found. Please log in again.");
+    error("Email not found. Please log in again.");
     return;
   }
 
@@ -591,16 +586,13 @@ authResendCode.addEventListener("click", async (e) => {
     const data = res.data;
 
     if (data.success_msg) {
-      showMessage(
-        "success",
-        "Verification code resent successfully. Check your email."
-      );
+      success("Verification code resent successfully. Check your email.");
     } else if (data.error_msg) {
-      showMessage("error", data.error_msg);
+      error(data.error_msg);
     }
   } catch (error) {
     console.error("Error resending verification code:", error);
-    showMessage("error", "Failed to resend code. Please try again later.");
+    errorMsg(error);
   } finally {
     authResendCode.disabled = false;
     authResendCode.textContent = "Resend Code";
@@ -733,12 +725,13 @@ async function updateUsageInfo() {
 
 analyzeBtn.addEventListener("click", async () => {
   const analysisType = localStorage.getItem("analysisType") || "quick";
+  resultsSection.style.display = "none";
 
   let referenceData = {};
   if (textTab.classList.contains("active")) {
     const text = bibleInput.value.trim();
     if (!text) {
-      alert("Please enter biblical text for analysis.");
+      error("Please enter biblical text for analysis.");
       return;
     }
     referenceData = {
@@ -750,13 +743,13 @@ analyzeBtn.addEventListener("click", async () => {
     const book = document.getElementById("bookSelect").value.trim();
     const chapter = document.getElementById("chapter-input").value.trim();
     if (!book || !chapter) {
-      alert("Please fill in the book and chapter.");
+      error("Please fill in the book and chapter.");
       return;
     }
     if (singleBtn.classList.contains("active")) {
       const verse = document.getElementById("verse-single").value.trim();
       if (!verse) {
-        alert("Please enter the verse.");
+        error("Please enter the verse.");
         return;
       }
       referenceData = {
@@ -770,7 +763,7 @@ analyzeBtn.addEventListener("click", async () => {
       const verseStart = document.getElementById("verse-start").value.trim();
       const verseEnd = document.getElementById("verse-end").value.trim();
       if (!verseStart || !verseEnd) {
-        alert("Please enter the verse range.");
+        error("Please enter the verse range.");
         return;
       }
       referenceData = {
@@ -792,7 +785,7 @@ analyzeBtn.addEventListener("click", async () => {
     const response = await api.post("/analyze/reference", referenceData);
     const result = response.data;
     if (result.success_msg) {
-      console.log("✅", result.success_msg);
+      success(result.success_msg);
     } else if (result.error_msg) {
       console.warn("⚠️", result.error_msg);
     }
@@ -810,6 +803,13 @@ analyzeBtn.addEventListener("click", async () => {
     loading.style.display = "none";
     analyzeBtn.disabled = false;
     analyzeBtn.textContent = "Analyze with AI";
+
+    const sectionId = "#res";
+    const target = document.querySelector(sectionId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   }
 });
 
@@ -860,15 +860,6 @@ function displayResults(data) {
         userAnswers[questionIndex] = this.dataset.answer;
         const isCorrect = this.dataset.answer == question.correctAnswer;
         if (isCorrect) score++;
-        const feedback = document.createElement("div");
-        feedback.className =
-          "quiz-feedback " +
-          (isCorrect ? "feedback-correct" : "feedback-wrong");
-        feedback.textContent = isCorrect
-          ? "Correct! Well done!"
-          : `Not quite. The correct answer is ${question.correctAnswer.toUpperCase()}.`;
-        feedback.style.display = "block";
-        quizSection.appendChild(feedback);
         document.querySelectorAll(".quiz-option").forEach((opt) => {
           opt.style.pointerEvents = "none";
           if (opt.dataset.answer == question.correctAnswer) {
@@ -943,7 +934,6 @@ async function renderPlans() {
         const isCurrentPlan = user.plan == plan.key;
 
         if (isCurrentPlan) {
-          // Exibe informações do plano atual
           planButtonHTML += `
             <div class="subscription-status">
               Current Plan • ${
@@ -996,7 +986,7 @@ async function renderPlans() {
       // --- Se o usuário NÃO estiver logado ---
       else {
         planButtonHTML = `
-          <button class="plan-btn" onclick="alert('Please log in to subscribe to a plan.')">
+          <button class="plan-btn" onclick="error('Please log in to subscribe to a plan.')">
             Choose ${plan.key.charAt(0).toUpperCase() + plan.key.slice(1)}
           </button>
         `;
@@ -1098,7 +1088,7 @@ async function createSubscription(paypalData, planKey) {
     (paypalData && paypalData.subscriptionID) ||
     null;
   if (!subscriptionId) {
-    console.error("No subscription id from PayPal approval", paypalData);
+    console.error("No subscription id from PayPal approval");
   }
 
   try {
@@ -1135,21 +1125,28 @@ async function subscriptionFree() {
 }
 
 async function cancelSubscription(planId) {
-  if (
-    confirm(
-      "Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your billing period."
-    )
-  ) {
-    try {
-      const res = await api.post(`/subscription/cancel/${planId}`);
-      const data = res.data;
-      if (data.error_msg) return error(data.error_msg);
-      renderPlans();
-      success(data.success_msg);
-    } catch (err) {
-      errorMsg(err);
+  Swal.fire({
+    title: "Tem certeza?",
+    text: "Deseja realmente excluir este pedido?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sim, excluir",
+    cancelButtonText: "Cancelar",
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const res = await api.post(`/subscription/cancel/${planId}`);
+        const data = res.data;
+        if (data.error_msg) return error(data.error_msg);
+        renderPlans();
+        success(data.success_msg);
+      } catch (err) {
+        errorMsg(err);
+      }
     }
-  }
+  });
 }
 
 paypalModalClose.addEventListener("click", () => {
@@ -1210,12 +1207,12 @@ async function populateHistory() {
       historyItem.innerHTML = `
               <div class="history-header">
                 <div class="history-reference">${referenceText}</div>
-                <div class="history-date">${formattedDate}</div>
               </div>
               <div class="history-summary">${truncateText(
                 item.result?.summary || "",
                 150
               )}</div>
+              <div class="history-date">${formattedDate}</div>
             `;
       historyItem.addEventListener("click", () => {
         resultsSection.classList.remove("hidden");
@@ -1229,7 +1226,7 @@ async function populateHistory() {
     historyList.innerHTML = "No History Loading";
     historyList.style.display = "flex";
     historyList.style.justifyContent = "center";
-    console.error("Error loading history:", err);
+    errorMsg(err);
   }
 }
 
@@ -1271,6 +1268,12 @@ async function showHistoryAnalysis(itemId) {
     errorMsg(error);
   } finally {
     loading.style.display = "none";
+    const sectionId = "#res";
+    const target = document.querySelector(sectionId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   }
 }
 
@@ -1294,6 +1297,7 @@ async function checkLoginStatus() {
         btn.onclick = () => showVerificationModal();
       });
       hero.style.display = "block";
+      analyzeBtn.disabled = true;
       return;
     }
 
