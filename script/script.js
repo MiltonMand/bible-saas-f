@@ -539,7 +539,7 @@ authRegisterForm.addEventListener("submit", async (e) => {
     const res = await api.post("auth/register", { name, email, password });
     const data = res.data;
     if (data.error_msg) return error(data.error_msg);
-    localStorage.setItem("email", data.client.email);
+    localStorage.setItem("email", email);
     showVerificationModal();
   } catch (error) {
     errorMsg(error);
@@ -625,8 +625,7 @@ signOutBtn.addEventListener("click", async () => {
     const data = res.data;
 
     if (data.success_msg) success(data.success_msg);
-
-    init(); // mantém sua lógica
+    init();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -646,8 +645,8 @@ deleteAccountBtn.addEventListener("click", async () => {
     const res = await api.delete("/users/delete");
     const data = res.data;
 
-    if (data.success_msg) success(data.success_msg);
     init();
+    if (data.success_msg) success(data.success_msg);
   } catch (err) {
     errorMsg(err);
   }
@@ -762,6 +761,7 @@ async function updateUsageInfo() {
 analyzeBtn.addEventListener("click", async () => {
   const analysisType = localStorage.getItem("analysisType") || "quick";
   resultsSection.classList.remove("results-grid-active");
+  resultsSection.style.display = "none";
 
   let referenceData = {};
   if (textTab.classList.contains("active")) {
@@ -1316,7 +1316,9 @@ async function showHistoryAnalysis(itemId) {
 
 async function checkLoginStatus() {
   const hero = document.querySelector(".hero");
+
   const loginButtons = [loginBtn, mobileLoginBtn];
+  const allButtons = [analyzeBtn];
 
   try {
     const { data } = await api.get("/auth/me");
@@ -1333,8 +1335,13 @@ async function checkLoginStatus() {
         btn.textContent = "Verify your email";
         btn.onclick = () => showVerificationModal();
       });
+
+      allButtons.forEach((btn) => {
+        btn.textContent = "Verify your email";
+        btn.onclick = () => showVerificationModal();
+      });
+
       hero.style.display = "block";
-      analyzeBtn.disabled = true;
       return;
     }
 
@@ -1351,7 +1358,7 @@ async function checkLoginStatus() {
 }
 
 // Initialize
-async function init() {
+function init() {
   const savedPage = localStorage.getItem("page") || "home";
   showPage(savedPage);
   const savedTheme = localStorage.getItem("theme") || "light";

@@ -91,7 +91,7 @@ header {
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 298;
   border-bottom: 1px solid var(--border);
 }
 
@@ -237,7 +237,7 @@ header {
   height: 100vh;
   background: var(--card-bg);
   box-shadow: var(--shadow-lg);
-  z-index: 2000;
+  z-index: 299;
   transition: var(--transition);
   padding: 20px;
   border-right: 1px solid var(--border);
@@ -1376,7 +1376,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
+  z-index: 300;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -1536,7 +1536,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
+  z-index: 300;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -1716,7 +1716,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
+  z-index: 300;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -1875,19 +1875,19 @@ header {
   font-family: "Poppins", sans-serif;
   border-radius: 15px;
   padding: 25px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .swal2-confirm {
   background-color: #3085d6 !important;
   border-radius: 8px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .swal2-cancel {
   background-color: #aaa !important;
   border-radius: 8px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 /* PayPal Modal */
@@ -1901,7 +1901,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 4000;
+  z-index: 300;
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
