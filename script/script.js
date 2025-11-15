@@ -26,7 +26,10 @@ const quickBtn = document.getElementById("quick-btn");
 const deepBtn = document.getElementById("deep-btn");
 const childBtn = document.getElementById("child-btn");
 const loginBtn = document.getElementById("login-btn");
+const signOutBtn = document.getElementById("sign-out-btn");
 const mobileLoginBtn = document.getElementById("mobile-login-btn");
+const deleteAccountBtn = document.getElementById("delete-account-btn");
+const deleteConfirmation = document.getElementById("delete-confirmation");
 const plansGrid = document.getElementById("plans-grid");
 const paypalModal = document.getElementById("paypal-modal");
 const paypalModalClose = document.getElementById("paypal-modal-close");
@@ -498,6 +501,7 @@ authLoginForm.addEventListener("submit", async (e) => {
       showVerificationModal();
       return;
     }
+
     init();
     closeAllAuthModals();
   } catch (error) {
@@ -599,23 +603,55 @@ authResendCode.addEventListener("click", async (e) => {
   }
 });
 
-// logoutBtn.addEventListener("click", async () => {
-//   try {
-//     logoutBtn.disabled = true;
-//     logoutBtn.textContent = "Sending...";
+signOutBtn.addEventListener("click", async () => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you really want to sign out?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, sign out",
+    cancelButtonText: "Cancel",
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+  });
 
-//     const res = await api.post("/auth/logout");
-//     const data = res.data;
+  if (!result.isConfirmed) return;
 
-//     if (data.success_msg) return success(data.success_msg);
-//     error(data.error_msg);
-//   } catch (error) {
-//     errorMsg(error);
-//   } finally {
-//     logoutBtn.disabled = false;
-//     logoutBtn.textContent = "Sign Out";
-//   }
-// });
+  try {
+    signOutBtn.disabled = true;
+    signOutBtn.textContent = "Sending...";
+
+    const res = await api.post("/auth/logout");
+    const data = res.data;
+
+    if (data.success_msg) success(data.success_msg);
+
+    init(); // mantém sua lógica
+  } catch (error) {
+    errorMsg(error);
+  } finally {
+    signOutBtn.disabled = false;
+    signOutBtn.textContent = "Sign Out";
+  }
+});
+
+deleteAccountBtn.addEventListener("click", async () => {
+  const confirmation = deleteConfirmation.value.trim();
+
+  if (confirmation !== "DELETE") {
+    error("Please type DELETE in the confirmation field to proceed");
+    return;
+  }
+  try {
+    const res = await api.delete("/users/delete");
+    const data = res.data;
+
+    if (data.success_msg) success(data.success_msg);
+    init();
+  } catch (err) {
+    errorMsg(err);
+  }
+});
 
 // Profile editing
 editProfileBtn.addEventListener("click", async () => {
@@ -725,7 +761,7 @@ async function updateUsageInfo() {
 
 analyzeBtn.addEventListener("click", async () => {
   const analysisType = localStorage.getItem("analysisType") || "quick";
-  resultsSection.style.display = "none";
+  resultsSection.classList.remove("results-grid-active");
 
   let referenceData = {};
   if (textTab.classList.contains("active")) {
@@ -778,11 +814,10 @@ analyzeBtn.addEventListener("click", async () => {
   }
 
   loading.style.display = "block";
-  resultsSection.style.display = "none";
   analyzeBtn.disabled = true;
   analyzeBtn.textContent = "Analyzing...";
   try {
-    const response = await api.post("/analyze/reference", referenceData);
+    const response = await api.post("/analyze", referenceData);
     const result = response.data;
     if (result.success_msg) {
       success(result.success_msg);
@@ -802,7 +837,7 @@ analyzeBtn.addEventListener("click", async () => {
   } finally {
     loading.style.display = "none";
     analyzeBtn.disabled = false;
-    analyzeBtn.textContent = "Analyze with AI";
+    analyzeBtn.textContent = "Analyze";
 
     const sectionId = "#res";
     const target = document.querySelector(sectionId);
@@ -1122,31 +1157,33 @@ async function subscriptionFree() {
   } catch (error) {
     errorMsg(error);
   }
-}
-
-async function cancelSubscription(planId) {
-  Swal.fire({
-    title: "Tem certeza?",
-    text: "Deseja realmente excluir este pedido?",
+} 
+ 
+async function cancelSubscription(planId) { 
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Do you really want to cancel this subscription?",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "Sim, excluir",
-    cancelButtonText: "Cancelar",
+    confirmButtonText: "Yes, cancel",
+    cancelButtonText: "Keep subscription",
     confirmButtonColor: "#d33",
     cancelButtonColor: "#3085d6",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const res = await api.post(`/subscription/cancel/${planId}`);
-        const data = res.data;
-        if (data.error_msg) return error(data.error_msg);
-        renderPlans();
-        success(data.success_msg);
-      } catch (err) {
-        errorMsg(err);
-      }
-    }
   });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    const res = await api.post(`/subscription/cancel/${planId}`);
+    const data = res.data;
+    if (data.error_msg) {
+      return error(data.error_msg);
+    }
+    await renderPlans();
+    success(data.success_msg); 
+  } catch (err) {
+      errorMsg(err);
+  }
 }
 
 paypalModalClose.addEventListener("click", () => {

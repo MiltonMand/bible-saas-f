@@ -199,6 +199,7 @@ header {
   background: var(--gradient-primary);
   color: white;
   border: none;
+  display: none;
   padding: 10px 20px;
   border-radius: 12px;
   cursor: pointer;
@@ -1175,7 +1176,6 @@ header {
 }
 
 /* Settings Page  */
-
 .settings-section h2 {
   font-size: 1.5rem;
   margin-bottom: 24px;
@@ -1187,7 +1187,6 @@ header {
 }
 
 .support-contact {
-  background: var(--bg-secondary);
   border-radius: 16px;
   padding: 24px 0px;
 }
@@ -1207,6 +1206,7 @@ header {
   transform: translateY(-3px);
   box-shadow: var(--shadow);
   background: var(--card-bg);
+  cursor: pointer;
 }
 
 .contact-icon {
@@ -1251,6 +1251,22 @@ header {
 }
 
 .btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sign-out-section {
+  margin: 32px 0;
+  padding-bottom: 15px;
+}
+
+.sign-out-section button {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  color: var(--text);
+}
+
+.sign-out-section button:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
@@ -1859,16 +1875,19 @@ header {
   font-family: "Poppins", sans-serif;
   border-radius: 15px;
   padding: 25px;
+  z-index: 1000;
 }
 
 .swal2-confirm {
   background-color: #3085d6 !important;
   border-radius: 8px;
+  z-index: 1000;
 }
 
 .swal2-cancel {
   background-color: #aaa !important;
   border-radius: 8px;
+  z-index: 1000;
 }
 
 /* PayPal Modal */
@@ -2028,6 +2047,11 @@ header {
 
   .profile-stats {
     grid-template-columns: 1fr;
+  }
+
+  .delete-confirmation {
+    display: flex;
+    flex-direction: column;
   }
 
   .form-actions {
