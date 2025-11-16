@@ -1035,7 +1035,6 @@ async function renderPlans() {
             advancedInsights: "Advanced insights",
             conceptMaps: "Concept maps",
             fullHistory: "Full history access",
-            export: "Export capabilities",
             priorityProcessing: "Priority processing",
           };
           const featureName = featureNames[key] || key;
@@ -1340,8 +1339,6 @@ async function checkLoginStatus() {
         btn.textContent = "Verify your email";
         btn.onclick = () => showVerificationModal();
       });
-
-      hero.style.display = "block";
       return;
     }
 
@@ -1350,6 +1347,8 @@ async function checkLoginStatus() {
       hero.style.display = "block";
       await api.post("/auth/logout");
     }
+
+     loginButtons.forEach((btn) => (btn.style.display = "block"));
   } catch (error) {
     console.log("Erro ao verificar login:", error);
     loginButtons.forEach((btn) => (btn.style.display = "block"));
