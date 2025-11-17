@@ -449,8 +449,8 @@ function error(msg) {
 }
 
 /*------------------------------------backend------------------------------------*/
-const url = "https://biblesaasapi.vercel.app";
-// const url = "http://localhost:5000";
+// const url = "https://biblesaasapi.vercel.app";
+const url = "http://localhost:5000";
 
 const api = axios.create({
   baseURL: `${url}/api`,
@@ -659,6 +659,8 @@ editProfileBtn.addEventListener("click", async () => {
     const user = resClient.data.user;
     document.getElementById("full-name").value = user.name;
     document.getElementById("about-me").value = user.me;
+    document.getElementById("response-language").value = user.responseLanguage;
+
     profileForm.classList.add("active");
   } catch (error) {
     errorMsg(error);
@@ -1156,9 +1158,9 @@ async function subscriptionFree() {
   } catch (error) {
     errorMsg(error);
   }
-} 
- 
-async function cancelSubscription(planId) { 
+}
+
+async function cancelSubscription(planId) {
   const result = await Swal.fire({
     title: "Are you sure?",
     text: "Do you really want to cancel this subscription?",
@@ -1179,9 +1181,9 @@ async function cancelSubscription(planId) {
       return error(data.error_msg);
     }
     await renderPlans();
-    success(data.success_msg); 
+    success(data.success_msg);
   } catch (err) {
-      errorMsg(err);
+    errorMsg(err);
   }
 }
 
@@ -1348,7 +1350,7 @@ async function checkLoginStatus() {
       await api.post("/auth/logout");
     }
 
-     loginButtons.forEach((btn) => (btn.style.display = "block"));
+    loginButtons.forEach((btn) => (btn.style.display = "block"));
   } catch (error) {
     console.log("Erro ao verificar login:", error);
     loginButtons.forEach((btn) => (btn.style.display = "block"));
