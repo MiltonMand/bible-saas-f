@@ -449,8 +449,8 @@ function error(msg) {
 }
 
 /*------------------------------------backend------------------------------------*/
-// const url = "https://biblesaasapi.vercel.app";
-const url = "http://localhost:5000";
+const url = "https://biblesaasapi.vercel.app";
+// const url = "http://localhost:5000";
 
 const api = axios.create({
   baseURL: `${url}/api`,
