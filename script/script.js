@@ -495,15 +495,15 @@ authLoginForm.addEventListener("submit", async (e) => {
     }
 
     const isVerified = data.client?.isVerified;
-
     if (!isVerified) {
       localStorage.setItem("email", data.client.email);
       showVerificationModal();
       return;
     }
 
-    init();
+    if (data.success_msg) success(data.success_msg);
     closeAllAuthModals();
+    await init();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -564,7 +564,9 @@ authVerifyBtn.addEventListener("click", async () => {
     authCodeDigits[0].focus();
     closeAllAuthModals();
     localStorage.removeItem("email");
-    init();
+
+    if (data.success_msg) success(data.success_msg);
+    await init();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -625,7 +627,7 @@ signOutBtn.addEventListener("click", async () => {
     const data = res.data;
 
     if (data.success_msg) success(data.success_msg);
-    init();
+    await init();
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -645,8 +647,8 @@ deleteAccountBtn.addEventListener("click", async () => {
     const res = await api.delete("/users/delete");
     const data = res.data;
 
-    init();
     if (data.success_msg) success(data.success_msg);
+    await init();
   } catch (err) {
     errorMsg(err);
   }
@@ -677,10 +679,10 @@ saveProfileBtn.addEventListener("click", async () => {
   try {
     const res = await api.put("/users/me", { name, language, me });
     const data = res.data;
-    updateUIWithUserData();
+    await updateUIWithUserData();
     profileForm.classList.remove("active");
     if (data.error_msg) return error(data.error_msg);
-    if (data.success_msg) return success(data.success_msg);
+    return success(data.success_msg);
   } catch (error) {
     profileForm.classList.remove("active");
     errorMsg(error);
@@ -1358,29 +1360,43 @@ async function checkLoginStatus() {
   }
 }
 
-// Initialize
-function init() {
+// Flag para evitar adicionar event listeners repetidos
+let initHasRun = false;
+
+async function init() {
   const savedPage = localStorage.getItem("page") || "home";
   showPage(savedPage);
+
+  // Tema
   const savedTheme = localStorage.getItem("theme") || "light";
   if (savedTheme == "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
     mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
   }
-  themeToggle.addEventListener("click", toggleTheme);
-  mobileThemeToggle.addEventListener("click", toggleTheme);
+
+  // Adiciona listeners apenas UMA vez, mesmo se init() for chamado de novo
+  if (!initHasRun) {
+    themeToggle.addEventListener("click", toggleTheme);
+    mobileThemeToggle.addEventListener("click", toggleTheme);
+    initHasRun = true;
+  }
+
+  // Modais salvos
   const savedModal = localStorage.getItem("currentModal");
   if (savedModal == "login") showLoginModal();
   else if (savedModal == "register") showRegisterModal();
   else if (savedModal == "verify") showVerificationModal();
+
   updateBookOptions();
-  updateUIWithUserData();
-  updateUsageInfo();
-  renderPlans();
-  populateHistory();
-  populateLanguageSelect();
-  checkLoginStatus();
+
+  // ⬇ ESSAS SÃO ASSÍNCRONAS E PRECISAM DE await ⬇
+  await checkLoginStatus();
+  await updateUIWithUserData();
+  await updateUsageInfo();
+  await renderPlans();
+  await populateHistory();
+  await populateLanguageSelect();
 }
 
 document.addEventListener("DOMContentLoaded", init);
