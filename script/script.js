@@ -1396,7 +1396,7 @@ async function init() {
   await updateUsageInfo();
   await renderPlans();
   await populateHistory();
-  await populateLanguageSelect();
+  populateLanguageSelect();
 }
 
 document.addEventListener("DOMContentLoaded", init);
