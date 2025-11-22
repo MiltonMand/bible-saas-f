@@ -1076,13 +1076,13 @@ async function handlePayPalSubscription(planId) {
   const plan = resPlan.data.plan;
   document.getElementById("paypal-modal-title").textContent = `Subscribe to ${
     plan.key.charAt(0).toUpperCase() + plan.key.slice(1)
-  }`;
+  } Plan`;
   document.getElementById(
     "paypal-modal-subtitle"
-  ).textContent = `Only $${plan.price} per month`;
+  ).textContent = `Only $${plan.price.toFixed(2)} per month`;
   document.getElementById("paypal-error").style.display = "none";
   paypalModal.classList.add("active");
-  await initializePayPalButtons(plan.paypalPlanId, plan.key);
+  initializePayPalButtons(plan.paypalPlanId, plan.key);
 }
 
 function initializePayPalButtons(paypalPlanId, planKey) {
@@ -1245,15 +1245,15 @@ async function populateHistory() {
       }
       const formattedDate = formatDate(item.createdAt);
       historyItem.innerHTML = `
-              <div class="history-header">
-                <div class="history-reference">${referenceText}</div>
-              </div>
-              <div class="history-summary">${truncateText(
-                item.result?.summary || "",
-                150
-              )}</div>
-              <div class="history-date">${formattedDate}</div>
-            `;
+        <div class="history-header">
+          <div class="history-reference">${referenceText}</div>
+        </div>
+        <div class="history-summary">${truncateText(
+          item.result?.summary || "",
+          150
+        )}</div>
+        <div class="history-date">Mode: ${item.analysisType} • ${formattedDate}</div>
+      `;
       historyItem.addEventListener("click", () => {
         resultsSection.classList.remove("hidden");
         resultsSection.classList.add("results-grid-active");
