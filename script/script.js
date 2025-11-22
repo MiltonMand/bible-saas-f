@@ -427,7 +427,7 @@ function success(msg) {
     toast: true,
     position: "bottom-end", // canto superior direito
     showConfirmButton: false,
-    timer: 2500, // desaparece em 2.5 segundos
+    timer: 3000, // desaparece em 2.5 segundos
     timerProgressBar: true,
     background: "#e8f9ee", // leve verde
     color: "#1e4620", // texto escuro
@@ -829,8 +829,8 @@ analyzeBtn.addEventListener("click", async () => {
       console.warn("⚠️", result.error_msg);
     }
     if (result.result) {
-      updateUsageInfo();
-      updateUIWithUserData();
+      await updateUsageInfo();
+      await updateUIWithUserData();
       resultsSection.classList.remove("hidden");
       resultsSection.classList.add("results-grid-active");
       resultsSection.style.display = "grid";
@@ -921,21 +921,21 @@ function displayResults(data) {
     const resultsDiv = document.createElement("div");
     resultsDiv.className = "results-summary";
     resultsDiv.innerHTML = `
-            <h3>Quiz Results</h3>
-            <div class="results-score">${score}/${data.test.length}</div>
-              <p>You scored ${((score / data.test.length) * 100).toFixed(
-                0
-              )}%!</p>
-              <p style="margin-top: 16px; color: var(--text-light);">
-                ${
-                  score == data.test.length
-                    ? "Excellent work! You have a deep understanding of this passage."
-                    : score >= data.test.length / 2
-                    ? "Good job! You have a solid understanding of this passage."
-                    : "Keep studying! Review the passage and try again."
-                }
-              </p>
-            `;
+      <h3>Quiz Results</h3>
+      <div class="results-score">${score}/${data.test.length}</div>
+        <p>You scored ${((score / data.test.length) * 100).toFixed(
+          0
+        )}%!</p>
+        <p style="margin-top: 16px; color: var(--text-light);">
+          ${
+            score == data.test.length
+              ? "Excellent work! You have a deep understanding of this passage."
+              : score >= data.test.length / 2
+              ? "Good job! You have a solid understanding of this passage."
+              : "Keep studying! Review the passage and try again."
+          }
+      </p>
+    `;
     quizSection.appendChild(resultsDiv);
   }
   showQuestion(currentQuestion);
@@ -1056,7 +1056,7 @@ async function renderPlans() {
         <div class="plan-name">${
           plan.key.charAt(0).toUpperCase() + plan.key.slice(1)
         }</div>
-        <div class="plan-price">$${plan.price}<span>/month</span></div>
+        <div class="plan-price">$${plan.price.toFixed(2)}<span>/month</span></div>
         <div class="plan-feature"><i class="fas fa-check"></i><span>${planLimit}</span></div>
         <div class="plan-features">${featuresHTML}</div>
         ${planButtonHTML}
@@ -1082,7 +1082,7 @@ async function handlePayPalSubscription(planId) {
   ).textContent = `Only $${plan.price} per month`;
   document.getElementById("paypal-error").style.display = "none";
   paypalModal.classList.add("active");
-  initializePayPalButtons(plan.paypalPlanId, plan.key);
+  await initializePayPalButtons(plan.paypalPlanId, plan.key);
 }
 
 function initializePayPalButtons(paypalPlanId, planKey) {
@@ -1104,10 +1104,10 @@ function initializePayPalButtons(paypalPlanId, planKey) {
           plan_id: paypalPlanId,
         });
       },
-      onApprove: function (data, actions) {
-        createSubscription(data, planKey);
-        updateUIWithUserData();
-        updateUsageInfo();
+      onApprove: async function (data, actions) {
+        await createSubscription(data, planKey);
+        await updateUIWithUserData();
+        await updateUsageInfo();
         paypalModal.classList.remove("active");
         success("Subscription created successfully!");
       },
@@ -1155,7 +1155,7 @@ async function subscriptionFree() {
     const data = res.data;
 
     if (data.error_msg) return error(data.error_msg);
-    renderPlans();
+    await renderPlans();
     success(data.success_msg);
   } catch (error) {
     errorMsg(error);
@@ -1199,7 +1199,7 @@ paypalModal.addEventListener("click", (e) => {
 });
 
 // Page navigation
-function showPage(pageId) {
+async function showPage(pageId) {
   localStorage.setItem("page", pageId);
   document.querySelectorAll(".page").forEach((page) => {
     page.classList.remove("active");
@@ -1214,10 +1214,10 @@ function showPage(pageId) {
   activeLinks.forEach((link) => link.classList.add("active"));
   mobileMenu.classList.remove("active");
   if (pageId == "history") {
-    populateHistory();
+    await populateHistory();
   }
   if (pageId == "plans") {
-    renderPlans();
+    await renderPlans();
   }
 }
 
