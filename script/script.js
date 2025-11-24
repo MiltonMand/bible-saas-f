@@ -450,7 +450,6 @@ function error(msg) {
 
 /*------------------------------------backend------------------------------------*/
 const url = "https://biblesaasapi.vercel.app";
-// const url = "http://localhost:5000";
 
 const api = axios.create({
   baseURL: `${url}/api`,
@@ -626,8 +625,8 @@ signOutBtn.addEventListener("click", async () => {
     const res = await api.post("/auth/logout");
     const data = res.data;
 
-    if (data.success_msg) success(data.success_msg);
     await init();
+    if (data.success_msg) success(data.success_msg);
   } catch (error) {
     errorMsg(error);
   } finally {
@@ -647,8 +646,8 @@ deleteAccountBtn.addEventListener("click", async () => {
     const res = await api.delete("/users/delete");
     const data = res.data;
 
-    if (data.success_msg) success(data.success_msg);
     await init();
+    if (data.success_msg) success(data.success_msg);
   } catch (err) {
     errorMsg(err);
   }
@@ -826,7 +825,7 @@ analyzeBtn.addEventListener("click", async () => {
     if (result.success_msg) {
       success(result.success_msg);
     } else if (result.error_msg) {
-      console.warn("⚠️", result.error_msg);
+      return error(result.error_msg)
     }
     if (result.result) {
       await updateUsageInfo();
@@ -837,6 +836,7 @@ analyzeBtn.addEventListener("click", async () => {
       displayResults(result.result);
     }
   } catch (error) {
+     console.log('chamando 4.....')
     errorMsg(error);
   } finally {
     loading.style.display = "none";
@@ -963,7 +963,7 @@ async function renderPlans() {
       // Limite de análises por plano
       let planLimit = "";
       if (plan.key == "pro") planLimit = "Unlimited analyses";
-      else if (plan.key == "free") planLimit = "5 analyses per month";
+      else if (plan.key == "free") planLimit = "5 analyses only";
       else if (plan.key == "premium") planLimit = "300 analyses per month";
 
       let planButtonHTML = "";
@@ -1321,7 +1321,7 @@ async function checkLoginStatus() {
   const hero = document.querySelector(".hero");
 
   const loginButtons = [loginBtn, mobileLoginBtn];
-  const allButtons = [analyzeBtn];
+  const allButtons = [analyzeBtn, editProfileBtn, ];
 
   try {
     const { data } = await api.get("/auth/me");
@@ -1350,6 +1350,10 @@ async function checkLoginStatus() {
       loginButtons.forEach((btn) => (btn.style.display = "block"));
       hero.style.display = "block";
       await api.post("/auth/logout");
+       allButtons.forEach((btn) => {
+        btn.textContent = "Sign in to use the tool";
+        btn.onclick = () => showLoginModal();
+      });
     }
 
     loginButtons.forEach((btn) => (btn.style.display = "block"));
