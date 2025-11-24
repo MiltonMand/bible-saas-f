@@ -1324,6 +1324,7 @@ async function checkLoginStatus() {
 
   const loginButtons = [loginBtn, mobileLoginBtn];
   const allButtons = [analyzeBtn, editProfileBtn];
+  const originalTexts = allButtons.map((btn) => btn.textContent);
 
   try {
     const { data } = await api.get("/auth/me");
@@ -1331,6 +1332,10 @@ async function checkLoginStatus() {
     if (data.success) {
       loginButtons.forEach((btn) => (btn.style.display = "none"));
       hero.style.display = "none";
+      allButtons.forEach((btn, i) => {
+        btn.textContent = originalTexts[i];
+        btn.onclick = null; // remove onclick, ou podemos restaurar o original se precisar
+      });
       return;
     }
 
