@@ -825,7 +825,7 @@ analyzeBtn.addEventListener("click", async () => {
     if (result.success_msg) {
       success(result.success_msg);
     } else if (result.error_msg) {
-      return error(result.error_msg)
+      return error(result.error_msg);
     }
     if (result.result) {
       await updateUsageInfo();
@@ -836,7 +836,7 @@ analyzeBtn.addEventListener("click", async () => {
       displayResults(result.result);
     }
   } catch (error) {
-     console.log('chamando 4.....')
+    console.log("chamando 4.....");
     errorMsg(error);
   } finally {
     loading.style.display = "none";
@@ -923,9 +923,7 @@ function displayResults(data) {
     resultsDiv.innerHTML = `
       <h3>Quiz Results</h3>
       <div class="results-score">${score}/${data.test.length}</div>
-        <p>You scored ${((score / data.test.length) * 100).toFixed(
-          0
-        )}%!</p>
+        <p>You scored ${((score / data.test.length) * 100).toFixed(0)}%!</p>
         <p style="margin-top: 16px; color: var(--text-light);">
           ${
             score == data.test.length
@@ -1056,7 +1054,9 @@ async function renderPlans() {
         <div class="plan-name">${
           plan.key.charAt(0).toUpperCase() + plan.key.slice(1)
         }</div>
-        <div class="plan-price">$${plan.price.toFixed(2)}<span>/month</span></div>
+        <div class="plan-price">$${plan.price.toFixed(
+          2
+        )}<span>/month</span></div>
         <div class="plan-feature"><i class="fas fa-check"></i><span>${planLimit}</span></div>
         <div class="plan-features">${featuresHTML}</div>
         ${planButtonHTML}
@@ -1252,7 +1252,9 @@ async function populateHistory() {
           item.result?.summary || "",
           150
         )}</div>
-        <div class="history-date">Mode: ${item.analysisType} • ${formattedDate}</div>
+        <div class="history-date">Mode: ${
+          item.analysisType
+        } • ${formattedDate}</div>
       `;
       historyItem.addEventListener("click", () => {
         resultsSection.classList.remove("hidden");
@@ -1321,7 +1323,8 @@ async function checkLoginStatus() {
   const hero = document.querySelector(".hero");
 
   const loginButtons = [loginBtn, mobileLoginBtn];
-  const allButtons = [analyzeBtn, editProfileBtn, ];
+  const allButtons = [analyzeBtn, editProfileBtn];
+  const originalTexts = allButtons.map((btn) => btn.textContent);
 
   try {
     const { data } = await api.get("/auth/me");
@@ -1329,6 +1332,11 @@ async function checkLoginStatus() {
     if (data.success) {
       loginButtons.forEach((btn) => (btn.style.display = "none"));
       hero.style.display = "none";
+      allButtons.forEach((btn, i) => {
+        btn.textContent = originalTexts[i];
+        btn.onclick = null; // remove onclick, ou podemos restaurar o original se precisar
+      });
+      await init();
       return;
     }
 
@@ -1350,7 +1358,7 @@ async function checkLoginStatus() {
       loginButtons.forEach((btn) => (btn.style.display = "block"));
       hero.style.display = "block";
       await api.post("/auth/logout");
-       allButtons.forEach((btn) => {
+      allButtons.forEach((btn) => {
         btn.textContent = "Sign in to use the tool";
         btn.onclick = () => showLoginModal();
       });
